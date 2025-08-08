@@ -1,0 +1,14 @@
+{
+    "prompts": [
+        "Declare a simple wire in Verilog",
+        "A simple wire in Verilog",
+        "Show me a basic Verilog example declaring a wire.",
+        "Verilog example with just a wire.",
+        "Give me a tiny Verilog module that declares a wire.",
+        "Verilog declaration with one wire."
+    ],
+    "tags": {
+        "difficulty": "basic",
+        "topic": "wire declaration"
+    }
+}

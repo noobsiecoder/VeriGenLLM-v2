@@ -1,0 +1,17 @@
+{
+  "prompts": [
+    "1 to 12 counter in Verilog",
+    "A 1-to-12 counter in Verilog",
+    "A 1 to 12 counter in Verilog",
+    "Create a Verilog module for a counter that counts from 1 to 12",
+    "Write behavioral Verilog code for a modulo-12 counter starting at 1",
+    "Write behavioral Verilog code for a modulo 12 counter starting at 1",
+    "Verilog example of a 1 to 12 synchronous counter with reset",
+    "Design a 4-bit counter in Verilog that wraps from 12 back to 1",
+    "Design a 4 bit counter in Verilog that wraps from 12 back to 1"
+  ],
+  "tags": {
+    "difficulty": "intermediate",
+    "topic": "behavioral modeling"
+  }
+}

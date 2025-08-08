@@ -1,0 +1,14 @@
+{
+  "prompts": [
+    "Truth table in Verilog",
+    "Implement a logic gate using a case-based truth table in Verilog",
+    "Verilog example that defines output via a truth table",
+    "Use a case statement to represent a 2-input AND gate in Verilog",
+    "Use a case statement to represent a 2 input AND gate in Verilog",
+    "Write Verilog code that mimics a truth table behaviorally"
+  ],
+  "tags": {
+    "difficulty": "intermediate",
+    "topic": "behavioral modeling"
+  }
+}

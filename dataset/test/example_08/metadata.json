@@ -1,0 +1,15 @@
+{
+  "prompts": [
+    "LFSR with taps at 3 and 5 in Verilog",
+    "LFSR with taps at bit positions 3 and 5 in Verilog",
+    "Verilog code for a linear feedback shift register using tap positions 3 and 5",
+    "Design a 6-bit LFSR with XOR feedback from bits 3 and 5",
+    "Design a 6 bit LFSR with XOR feedback from bits 3 and 5",
+    "Implement a pseudo-random LFSR in Verilog with taps on bit 3 and bit 5",
+    "Create an LFSR module in Verilog with feedback from positions 3 and 5"
+  ],
+  "tags": {
+    "difficulty": "intermediate",
+    "topic": "behavioral modeling"
+  }
+}

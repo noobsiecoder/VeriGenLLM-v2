@@ -1,0 +1,20 @@
+[
+    "Verilog declaration with one wire.",
+    "Set a wire to logic high using assign in Verilog",
+    "A 2 input AND gate in Verilog",
+    "Three bit priority encoder in Verilog",
+    "Simple Verilog example of a two-input multiplexer",
+    "Write Verilog code for a half adder",
+    "1 to 12 counter in Verilog",
+    "Implement a pseudo-random LFSR in Verilog with taps on bit 3 and bit 5",
+    "FSM with two states in Verilog",
+    "Implement left shift and left rotate using Verilog",
+    "Verilog code for RAM with read and write control",
+    "Permutation in Verilog",
+    "Use a case statement to represent a 2 input AND gate in Verilog",
+    "Signed 8 bit adder with overflow detection in Verilog",
+    "Verilog module for an up-counter that uses an enable control",
+    "Implement a finite state machine that outputs high on detecting 101 in Verilog",
+    "Design an arithmetic shift register in Verilog with 64 bit width",
+    "Design a finite state machine for ABRO sequence"
+]

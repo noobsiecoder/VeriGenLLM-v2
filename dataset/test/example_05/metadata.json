@@ -1,0 +1,14 @@
+{
+    "prompts": [
+        "2 input multiplexer in Verilog",
+        "Verilog code for a 2:1 mux using assign",
+        "Implement a 2-input MUX in Verilog with select line",
+        "Implement a 2 input MUX in Verilog with select line",
+        "Write a 2:1 multiplexer using dataflow modeling in Verilog",
+        "Simple Verilog example of a two-input multiplexer"
+    ],
+    "tags": {
+        "difficulty": "basic",
+        "topic": "dataflow modeling"
+    }
+}

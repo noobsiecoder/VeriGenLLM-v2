@@ -1,0 +1,13 @@
+{
+  "prompts": [
+    "ABRO FSM in Verilog",
+    "Design a finite state machine for ABRO sequence",
+    "Verilog code for ABRO pattern detection with asynchronous inputs",
+    "Create a Moore FSM that outputs high when both A and B are seen, reset by R in Verilog",
+    "Implement ABRO state machine logic in Verilog with A, B, R inputs"
+  ],
+  "tags": {
+    "difficulty": "advanced",
+    "topic": "behavioral modeling"
+  }
+}

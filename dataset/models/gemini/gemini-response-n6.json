@@ -1,0 +1,128 @@
+[
+    {
+        "question": "Declare a simple wire in Verilog",
+        "outputs": [
+            "```verilog\nwire my_wire;\n```",
+            "```verilog\nwire my_wire;\n```",
+            "```verilog\nwire my_wire;\n```",
+            "```verilog\nwire my_wire;\n```",
+            "```verilog\nwire my_wire;\n```",
+            "```verilog\nwire my_wire;\n```"
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    },
+    {
+        "question": "Set a wire to logic high using assign in Verilog",
+        "outputs": [
+            "```verilog\nmodule set_wire_high (\n  output my_wire\n);\n\n  assign my_wire = 1'b1;\n\nendmodule\n```",
+            "```verilog\nmodule set_wire_high (\n  output logic_high_wire\n);\n\n  // Continuously assign the constant value 1'b1 (logic high)\n  // to the output wire.\n  assign logic_high_wire = 1'b1;\n\nendmodule\n```",
+            "```verilog\nmodule set_wire_high (\n  output wire my_wire\n);\n\n  // Continuously assign the wire to a logic high value (1'b1)\n  assign my_wire = 1'b1;\n\nendmodule\n```",
+            "```verilog\nmodule set_wire_high (\n  output wire my_wire\n);\n\n  // Continuously assign the logic high value (1) to the wire.\n  assign my_wire = 1'b1;\n\nendmodule\n```",
+            "```verilog\nmodule set_wire_high (\n  output wire my_wire\n);\n\n  // Continuously assign the logic high value (1'b1) to the wire.\n  assign my_wire = 1'b1;\n\nendmodule\n```",
+            "```verilog\nmodule set_wire_high (\n  output wire logic_high_out\n);\n\n  // Assign the output wire to a constant logic high value.\n  // 1'b1 represents a 1-bit binary value of 1.\n  assign logic_high"
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    },
+    {
+        "question": "Create a Verilog module with an AND gate taking two inputs",
+        "outputs": [
+            "```verilog\nmodule and_gate (\n  input  wire a,\n  input  wire b,\n  output wire y\n);\n\n  assign y = a & b;\n\nendmodule\n```",
+            "```verilog\nmodule and_gate (\n  input  wire a,\n  input  wire b,\n  output wire y\n);\n\n  assign y = a & b;\n\nendmodule\n```",
+            "```verilog\nmodule and_gate (\n  input  wire a,\n  input  wire b,\n  output wire y\n);\n\n  assign y = a & b;\n\nendmodule\n```",
+            "```verilog\nmodule and_gate (\n  input  wire a,\n  input  wire b,\n  output wire y\n);\n\n  assign y = a & b;\n\nendmodule\n```",
+            "```verilog\nmodule and_gate (\n  input  wire a,\n  input  wire b,\n  output wire y\n);\n\n  assign y = a & b;\n\nendmodule\n```",
+            "```verilog\n/*\n * Module: and_gate\n * Description: A simple 2-input AND gate.\n */\nmodule and_gate (\n  // Inputs\n  input  wire a,\n  input  wire b,\n\n  // Output\n  output wire y\n);\n\n  // Continuous assignment for the AND operation\n  assign y = a & b;\n\nendmodule\n```"
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    },
+    {
+        "question": "Write a 2:1 multiplexer using dataflow modeling in Verilog",
+        "outputs": [
+            "```verilog\n// 2:1 Multiplexer using dataflow modeling\n\nmodule mux_2_to_1 (\n  input  wire i0,   // Input 0\n  input  wire i1,   // Input 1\n  input  wire sel,  // Select line\n  output wire y     // Output\n);\n\n  // Dataflow assignment using a conditional operator\n  assign y = sel ? i1 : i0;\n\nendmodule\n```",
+            "```verilog\n// 2:1 Multiplexer using dataflow modeling\n\nmodule mux_2_to_1 (\n    input  wire in0,  // Input 0\n    input  wire in1,  // Input 1\n    input  wire sel,   // Select line\n    output wire out    // Output\n);\n\n    // Dataflow assignment using a conditional (ternary) operator\n    assign out = sel ? in1 : in0;\n\nendmodule\n```",
+            "```verilog\n// 2:1 Multiplexer using dataflow modeling\n\nmodule mux_2_to_1 (\n    input  wire in0, // Input 0\n    input  wire in1, // Input 1\n    input  wire sel, // Select line\n    output wire out  // Output\n);\n\n    // Dataflow modeling using a continuous assignment\n    assign out = sel ? in1 : in0;\n\nendmodule\n```",
+            "```verilog\n// 2:1 Multiplexer using dataflow modeling\n\nmodule mux_2_to_1 (\n  input  wire i0,   // Input 0\n  input  wire i1,   // Input 1\n  input  wire sel,  // Select line\n  output wire y    // Output\n);\n\n  // Dataflow assignment using a conditional operator\n  assign y = sel ? i1 : i0;\n\nendmodule\n```",
+            "```verilog\n// 2:1 Multiplexer using dataflow modeling\n\nmodule mux_2_to_1 (\n  input  wire i0,   // Input 0\n  input  wire i1,   // Input 1\n  input  wire sel,  // Select line\n  output wire y     // Output\n);\n\n  // Dataflow assignment using a conditional operator\n  assign y = sel ? i1 : i0;\n\nendmodule\n```",
+            "```verilog\n// 2:1 Multiplexer using dataflow modeling\n\nmodule mux_2_to_1_dataflow (\n  input  wire i0,   // Input 0\n  input  wire i1,   // Input 1\n  input  wire sel,  // Select line\n  output wire y     // Output\n);\n\n  // Dataflow assignment using a conditional operator\n  assign y = sel ? i1 : i0;\n\nendmodule\n```"
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    },
+    {
+        "question": "Half adder in Verilog",
+        "outputs": [
+            "```verilog\n/*\n * Module: half_adder\n * Description: A half adder circuit that adds two single bits.\n * Inputs:\n *   a - First input bit\n *   b - Second input bit\n * Outputs:\n *   sum   - The sum of a and b (a XOR b)\n *   carry - The carry out (a AND b)\n */\nmodule half_adder (\n    input  wire a,\n    input  wire b,\n    output wire sum,\n    output wire carry\n);\n\n    // Dataflow modeling using continuous assignments\n    assign sum = a ^ b;\n    assign carry = a & b;\n\nendmodule\n```",
+            "```verilog\n/*\n * Module: half_adder\n * Description: A half adder circuit that adds two single-bit inputs.\n * Inputs:\n *   a: 1-bit input\n *   b: 1-bit input\n * Outputs:\n *   sum: 1-bit sum output (a XOR b)\n *   carry: 1-bit carry output (a AND b)\n */\nmodule half_adder (\n  input  wire a,\n  input  wire b,\n  output wire sum,\n  output wire carry\n);\n\n  // Dataflow model for the half adder logic\n  assign sum = a ^ b;\n  assign carry = a & b;\n\nendmodule\n```",
+            "```verilog\n/*\n * Module: half_adder\n * Description: A half adder circuit that adds two single bits.\n * Inputs:\n *   a: 1-bit input\n *   b: 1-bit input\n * Outputs:\n *   sum: 1-bit sum output (a XOR b)\n *   carry: 1-bit carry output (a AND b)\n */\nmodule half_adder (\n  input  wire a,\n  input  wire b,\n  output wire sum,\n  output wire carry\n);\n\n  // Dataflow modeling for the half adder logic\n  assign sum = a ^ b;\n  assign carry = a & b;\n\nendmodule\n```",
+            "```verilog\n// Dataflow model of a half adder\nmodule half_adder (\n    input  a,\n    input  b,\n    output sum,\n    output carry\n);\n\n    assign sum = a ^ b;\n    assign carry = a & b;\n\nendmodule\n```",
+            "```verilog\n// Dataflow model of a half adder\nmodule half_adder (\n    input  a,\n    input  b,\n    output sum,\n    output carry\n);\n\n    assign sum = a ^ b;\n    assign carry = a & b;\n\nendmodule\n```",
+            "```verilog\n/*\n * Module: half_adder\n * Description: A simple half adder circuit.\n * It adds two single-bit inputs (a, b) and produces a sum and a carry output.\n */\nmodule half_adder (\n  // Inputs\n  input  wire a,\n  input  wire b,\n  \n  // Outputs\n  output wire sum,\n  output wire carry\n);\n\n  // Dataflow modeling using continuous assignment\n  assign sum   = a ^ b; // Sum is the XOR of the two inputs\n  assign carry = a & b; // Carry is the AND of the two inputs\n\nendmodule\n```"
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    },
+    {
+        "question": "Implement a logic gate using a case-based truth table in Verilog",
+        "outputs": [
+            "```verilog\n// Implements a 2-input AND gate using a case-based truth table.\n\nmodule and_gate_truth_table (\n    input  wire a,\n    input  wire b,\n    output reg  y\n);\n\n    // The sensitivity list @(a or b) or @(*) ensures this block is\n    // evaluated whenever any of the inputs change.\n    always @(*) begin\n        // Use a case statement on the concatenated inputs {a, b}\n        // to implement the truth table.\n        case ({a, b})\n            2'b00: y = 1'b0; // a=0, b=0 -> y=0\n            2'b01: y = 1'b0; // a=0, b=1 -> y=0\n            2'b10: y = 1'b0; // a=1, b=0 -> y=0\n            2'b11: y = 1'b1; // a=1, b=1 -> y=1\n            default: y = 1'b0; // Default case to avoid latches\n        endcase\n    end\n\nendmodule\n```",
+            "```verilog\n// Implements a 2-input XOR gate using a case-based truth table.\n\nmodule logic_gate_truth_table (\n  input  logic a,\n  input  logic b,\n  output logic y\n);\n\n  // Combinational logic implemented with a case statement\n  always_comb begin\n    // Concatenate inputs to evaluate all combinations\n    case ({a, b})\n      2'b00: y = 1'b0; // a=0, b=0 -> y=0\n      2'b01: y = 1'b1; // a=0, b=1 -> y=1\n      2'b10: y = 1'b1; // a=1, b=0 -> y=1\n      2'b11: y = 1'b0; // a=1, b=1 -> y=",
+            "```verilog\n// Implements a 2-input XOR gate using a case-based truth table.\n\nmodule xor_gate_truth_table (\n    // Inputs\n    input  wire a,\n    input  wire b,\n    // Output\n    output reg  y\n);\n\n    // The always block is sensitive to any change in the inputs 'a' or 'b'.\n",
+            "```verilog\n// Implements a 2-input XOR gate using a case-based truth table.\n\nmodule xor_gate_truth_table (\n  input  logic a,\n  input  logic b,\n  output logic y\n);\n\n  // Combinational logic block that updates whenever inputs 'a' or 'b' change.\n  always_comb begin\n    // Use a case statement based on the concatenated inputs {a, b}\n    // to implement the truth table.\n    case ({a, b})\n      2'b00: y = 1'b0; // If a=0 and b=0, output is 0\n      2'b01: y = 1'b1; // If a=0 and b=1, output is 1\n      2'b10: y = 1'b1; // If a=1 and b=0, output is 1\n      2'b11: y = 1'b0; // If a=1 and b=1, output is 0\n      default: y = 1'bx; // For any other case (e.g., inputs are 'x' or 'z'),\n                         // output is unknown. This makes the case statement \"full\".\n    endcase\n  end\n\nendmodule\n```",
+            "```verilog\n// Implements a 2-input XOR gate using a case-based truth table.\n\nmodule xor_gate_truth_table (\n  input  logic a,\n  input  logic b,\n  output logic y\n);\n\n  // Use a combinational always block to describe the truth table\n  always_comb begin\n    // Concatenate the inputs to use as the case expression\n    case ({a, b})\n      2'b00:   y = 1'b0; // 0 XOR 0 = 0\n      2'b01:   y = 1'b1; // 0 XOR 1 = 1\n      2'b10:   y = 1'b1; // 1 XOR 0 = 1\n      2'b11:   y = 1'b0; // 1 XOR 1 = 0\n      default: y = 1'bx; // For any other case (e.g., inputs are 'x' or 'z')\n    ",
+            "```verilog\n// Implements a 2-input XOR gate using a case-based truth table.\n\nmodule xor_gate_truth_table (\n  input  logic a,\n  input  logic b,\n  output logic y\n);\n\n  // Combinational logic block to implement the truth table\n  always_comb begin\n    // Use concatenation of inputs for the case expression\n    case ({a, b})\n      2'b00: y = 1'b0; // a=0, b=0 -> y=0\n      2'b01: y = 1'b1; // a=0, b=1 -> y=1\n      2'b10: y = 1'b1; // a=1, b=0 -> y=1\n      2'b11: y = 1'b0; // a="
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    },
+    {
+        "question": "Design a 4 bit counter in Verilog that increments only when enabled",
+        "outputs": [
+            "```verilog\n/*\n * Module: counter_4bit_en\n * Description: A 4-bit synchronous binary counter with an active-high enable\n *              and an active-low synchronous reset.\n */\nmodule counter_4bit_en (\n  input  wire       clk,   // Clock input\n  input  wire       rst_n, // Active-low synchronous reset\n  input  wire       en,    // Enable signal\n  output reg  [3:0] q      // 4-bit counter output\n);\n\n  // Synchronous logic for the counter\n  always @(posedge clk) begin\n    if (!rst_n) begin\n      // On reset, set the counter to 0\n      q <= 4'b0000;\n    end else if (en) begin\n      // If enabled and not in reset, increment the counter\n      q <= q + 1;\n",
+            "```verilog\n/*\n * Module: counter_4bit_en\n * Description: A 4-bit synchronous counter with an enable signal.\n * The counter increments on the positive edge of the clock only when\n * the enable signal is high. It has an active-low synchronous reset.\n */\nmodule counter_4bit_en (\n    input  wire       clk,   // Clock input\n    input  wire       rst_n, // Active-low synchronous reset\n    input  wire       en,    // Enable signal\n    output reg  [3:0] q      // 4-bit counter output\n);\n\n    // Synchronous logic for the counter\n    always @(posedge clk) begin\n        if (!rst_n) begin\n            // On reset, set the counter to 0\n            q <= 4'b0000;\n        end else if (en) begin\n            // If enabled, increment the counter\n            // The counter will automatically wrap around from 1111 to ",
+            "```verilog\n/*\n * Module: counter_4bit_en\n * Description: A 4-bit synchronous up-counter with an active-high enable\n *              and an active-low synchronous reset.\n */\nmodule counter_4bit_en (\n  input  wire       clk,    // Clock input\n  input  wire       rst_n,  // Active-low synchronous reset\n  input  wire       en,     // Enable input\n  output reg  [3:0] q       // 4-bit counter output\n);\n\n  // This always block describes the sequential logic for the counter.\n  // It triggers on the positive edge of the clock.\n  always @(posedge clk) begin\n    // On reset, the counter is cleared to 0.\n    if (!rst_n) begin\n      q <= 4'b0000;\n    end\n    // If not in reset and the enable signal is high, increment the counter.\n    // The counter will automatically wrap around from 1111 to 0000.\n    else if (en) begin\n      q <= q + 1;\n    end\n    // If not reset and not enabled, the counter holds its current",
+            "```verilog\nmodule counter_4bit_en (\n    input wire clk,\n    input wire rst_n,\n    input wire en,\n    output reg [3:0] count\n);\n\n    always @(posedge clk or negedge rst_n) begin\n        if (!rst_n) begin\n            count <= 4'b0000;\n        end\n        else begin\n            if (en) begin\n                count <= count + 1;\n            end\n        end\n    end\n\nendmodule\n```",
+            "```verilog\n/*\n * Module: counter_4bit_en\n * Description: A 4-bit synchronous up-counter with an active-high enable\n *              and an active-low asynchronous reset.\n */\nmodule counter_4bit_en (\n    // Inputs\n    input  wire clk,      // Clock\n    input  wire rst_",
+            "```verilog\nmodule counter_4bit_en (\n    input wire clk,\n    input wire rst_n,\n    input wire en,\n    output reg [3:0] q\n);\n\n    always @(posedge clk or negedge rst_n) begin\n        if (!rst_n) begin\n            q <= 4'b0000;\n        end else begin\n            if (en) begin\n                q <= q + 1;\n            end\n        end\n    end\n\nendmodule\n```"
+        ],
+        "config": {
+            "model": "gemini-2.5-pro",
+            "system_instruction": "You are a Verilog code generator. Output only synthesizable Verilog code.",
+            "temperature": 0.2,
+            "max_tokens": 1024,
+            "samples": 6
+        }
+    }
+]

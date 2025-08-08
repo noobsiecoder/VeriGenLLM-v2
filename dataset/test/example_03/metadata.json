@@ -1,0 +1,16 @@
+{
+    "prompts": [
+        "Assign two inputs and a gate in Verilog",
+        "A 2-input AND gate in Verilog",
+        "A 2 input AND gate in Verilog",
+        "Create a Verilog module with an AND gate taking two inputs",
+        "Simple two-input AND gate using gate-level modeling in Verilog",
+        "Simple two input AND gate using gate-level modeling in Verilog",
+        "Verilog example using 'and' primitive with two wires",
+        "Define a basic AND gate with two inputs in Verilog"
+    ],
+    "tags": {
+        "difficulty": "basic",
+        "topic": "gate-level modeling"
+    }
+}

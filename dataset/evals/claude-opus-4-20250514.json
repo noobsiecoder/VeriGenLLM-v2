@@ -1,0 +1,182 @@
+[
+    {
+        "question": "Verilog declaration with one wire.",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 0,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 0
+        },
+        "difficulty": "basic"
+    },
+    {
+        "question": "Set a wire to logic high using assign in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 0,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 0
+        },
+        "difficulty": "basic"
+    },
+    {
+        "question": "A 2 input AND gate in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "basic"
+    },
+    {
+        "question": "Three bit priority encoder in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "basic"
+    },
+    {
+        "question": "Simple Verilog example of a two-input multiplexer",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "basic"
+    },
+    {
+        "question": "Write Verilog code for a half adder",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "1 to 12 counter in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "Implement a pseudo-random LFSR in Verilog with taps on bit 3 and bit 5",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 10
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "FSM with two states in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "Implement left shift and left rotate using Verilog",
+        "evals": {
+            "k": 3,
+            "pass@k-compile": 0,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 0
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "Verilog code for RAM with read and write control",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 10
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "Permutation in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 0,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 0
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "Use a case statement to represent a 2 input AND gate in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 10,
+            "pass@k-sync": 10
+        },
+        "difficulty": "medium"
+    },
+    {
+        "question": "Signed 8 bit adder with overflow detection in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 9,
+            "pass@k-func-corr": 9,
+            "pass@k-sync": 9
+        },
+        "difficulty": "hard"
+    },
+    {
+        "question": "Verilog module for an up-counter that uses an enable control",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 10
+        },
+        "difficulty": "hard"
+    },
+    {
+        "question": "Implement a finite state machine that outputs high on detecting 101 in Verilog",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 10
+        },
+        "difficulty": "hard"
+    },
+    {
+        "question": "Design an arithmetic shift register in Verilog with 64 bit width",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 7,
+            "pass@k-func-corr": 0,
+            "pass@k-sync": 7
+        },
+        "difficulty": "hard"
+    },
+    {
+        "question": "Design a finite state machine for ABRO sequence",
+        "evals": {
+            "k": 10,
+            "pass@k-compile": 10,
+            "pass@k-func-corr": 4,
+            "pass@k-sync": 10
+        },
+        "difficulty": "hard"
+    }
+]

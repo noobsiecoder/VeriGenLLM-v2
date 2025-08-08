@@ -1,0 +1,18 @@
+{
+  "prompts": [
+    "Signed 8-bit adder in Verilog",
+    "Signed 8 bit adder in Verilog",
+    "Signed 8-bit adder with overflow detection in Verilog",
+    "Signed 8 bit adder with overflow detection in Verilog",
+    "Implement an 8-bit signed addition with overflow flag",
+    "Implement an 8 bit signed addition with overflow flag",
+    "Verilog module that adds two signed 8-bit numbers and detects overflow",
+    "Verilog module that adds two signed 8 bit numbers and detects overflow",
+    "Create a signed adder in Verilog with overflow output",
+    "Verilog example showing 2's complement addition and overflow handling"
+  ],
+  "tags": {
+    "difficulty": "advanced",
+    "topic": "dataflow modeling"
+  }
+}
