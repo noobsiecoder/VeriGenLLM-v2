@@ -20,7 +20,7 @@ def check_code(solution_code: str) -> bool:
     Parameters:
     -----------
     solution_code: str
-        string parsed from verilog file 
+        string parsed from verilog file
 
     Returns:
     --------
