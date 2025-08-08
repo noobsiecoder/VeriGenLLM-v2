@@ -1,0 +1,19 @@
+Question,Difficulty,n,compile,func-corr,synth
+Verilog declaration with one wire.,basic,7,0,7,0
+Set a wire to logic high using assign in Verilog,basic,1,0,1,0
+A 2 input AND gate in Verilog,basic,10,10,10,10
+Three bit priority encoder in Verilog,basic,10,10,0,10
+Simple Verilog example of a two-input multiplexer,basic,9,9,9,9
+Write Verilog code for a half adder,medium,10,10,9,10
+1 to 12 counter in Verilog,medium,10,10,0,10
+Implement a pseudo-random LFSR in Verilog with taps on bi...,medium,10,3,0,9
+FSM with two states in Verilog,medium,10,3,0,8
+Implement left shift and left rotate using Verilog,medium,10,2,0,2
+Verilog code for RAM with read and write control,medium,10,7,7,10
+Permutation in Verilog,medium,10,0,0,3
+Use a case statement to represent a 2 input AND gate in V...,medium,10,0,0,9
+Signed 8 bit adder with overflow detection in Verilog,hard,10,2,2,7
+Verilog module for an up-counter that uses an enable control,hard,10,9,0,9
+Implement a finite state machine that outputs high on det...,hard,10,6,0,9
+Design an arithmetic shift register in Verilog with 64 bi...,hard,10,8,0,8
+Design a finite state machine for ABRO sequence,hard,10,8,0,8
