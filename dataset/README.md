@@ -11,29 +11,18 @@ This project evaluates multiple state-of-the-art LLMs on their ability to genera
 ```
 dataset/
 ├── evals/                      # All evaluation results
-│   └── multi_comparison/       # Comparative analysis across models
-│       ├── Claude_Opus4_diff_summary.png
-│       ├── Claude_Opus4_table.csv
-│       ├── Claude_Opus4_table.png
-│       ├── CodeLlama_7B_Ins_diff_summary.png
-│       ├── CodeLlama_7B_Ins_table.csv
-│       ├── CodeLlama_7B_Ins_table.png
-│       ├── DeepSeek_Coder_7B_Ins_diff_summary.png
-│       ├── DeepSeek_Coder_7B_Ins_table.csv
-│       ├── DeepSeek_Coder_7B_Ins_table.png
-│       ├── OpenAI_GPT4.1_diff_summary.png
-│       ├── OpenAI_GPT4.1_table.csv
-│       ├── OpenAI_GPT4.1_table.png
-│       ├── Qwen_Coder2.5_7B_Instruct_diff_summary.png
-│       ├── Qwen_Coder2.5_7B_Instruct_table.csv
-│       ├── Qwen_Coder2.5_7B_Instruct_table.png
-│       ├── claude-opus-4-20250514.json
-│       ├── codellama-7b-instruct.json
-│       ├── deepseek-coder-7b-instruct.json
-│       ├── gpt-4.1.json
-│       ├── qwen2.5-coder-7b-instruct.json
-│       └── summary.png
-│
+│   ├── comparison_pass_5/      # Comparative analysis across models
+│   │   ├── ...
+│   │   └── summary.png
+│   ├── comparison_pass_8/      # Comparative analysis across models
+│   │   ├── ...
+│   │   └── summary.png
+│   ├── comparison_pass_10/     # Comparative analysis across models
+│   │   ├── ...
+│   │   └── summary.png
+|   ├── claude-opus-4-20250514  # Scores for each n samples per model
+|   └── ...                     # More models
+|
 ├── models/                     # Raw model responses
 │   ├── claude/
 │   │   ├── claude-response-n10.json
