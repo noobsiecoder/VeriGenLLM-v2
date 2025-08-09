@@ -18,7 +18,7 @@ This notebook performs multi-model comparison analysis of Verilog code generatio
 
    - Generates detailed tables for each model showing per-problem performance
    - Exports results as both PNG visualizations and CSV files
-   - Displays metrics: k-value, compilation pass rate, functional correctness, and synchronization
+   - Displays metrics: k-value, compilation pass rate, functional correctness, and synthesizability
 
 2. **Comparative Summary Statistics**
 
@@ -59,7 +59,7 @@ Generates a summary table comparing all models:
 - Average k-value (number of attempts)
 - Average compilation success rate
 - Average functional correctness rate
-- Average synchronization success rate
+- Average synthesizability success rate
 
 #### `create_difficulty_lvl_summary(model_labels)`
 
@@ -83,10 +83,10 @@ The notebook expects JSON files with the following structure:
     "question": "Problem description",
     "difficulty": "basic|medium|hard",
     "evals": {
-      "k": 10,
-      "pass@k-compile": 10,
-      "pass@k-func-corr": 6,
-      "pass@k-sync": 5
+      "n": 10,
+      "compile": 10,
+      "func-corr": 6,
+      "synth": 5
     }
   }
 ]
@@ -119,9 +119,9 @@ The notebook analyzes the following models:
 ## Metrics Explained
 
 - **k**: Number of generation attempts per problem
-- **pass@k-compile**: Proportion of attempts that compile successfully
-- **pass@k-func-corr**: Proportion of attempts that are functionally correct
-- **pass@k-sync**: Proportion of attempts with correct synchronization behavior
+- **compile**: Proportion of attempts that compile successfully
+- **func-corr**: Proportion of attempts that are functionally correct
+- **synth**: Proportion of attempts with correct synthesizability behavior
 
 ## Usage
 
