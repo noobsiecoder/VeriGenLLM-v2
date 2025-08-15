@@ -280,7 +280,7 @@ class RunLLMPrompts:
 
 
 if __name__ == "__main__":
-    args = sys.argv()
+    args = sys.argv
     log = Logger("main").get_logger()
     gcp_storage = GoogleStorageClient()
     gcp_storage.connect()
@@ -288,11 +288,11 @@ if __name__ == "__main__":
     if len(args) == 0:
         log.critical("No arguments passed")
 
-    elif len(args) == 1 and args[0] == "prompt":
+    elif len(args) == 2 and args[1] == "prompt":
         env = ENVLoader()
         runner = RunLLMPrompts()
         runner.collect_prompts()  # collect all prompts
-        _, filenames = runner.run_all_models()  # run for all models
+        _, filenames = runner.run_all_models(n_samples=10)  # run for all models
         for filename in filenames:
             try:
                 gcp_storage.upload_file(
