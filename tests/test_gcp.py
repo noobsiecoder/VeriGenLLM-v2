@@ -1,0 +1,56 @@
+"""
+Testbench to check all GCP client SDK
+
+Author: Abhishek Sriram <noobsiecoder@gmail.com>
+Date:   Aug 14th, 2025
+Place:  Boston, MA
+"""
+
+from dotenv import load_dotenv
+from src.logger import Logger
+from src.gcp import GoogleStorageClient
+from google.cloud import storage
+from google.oauth2 import service_account
+from google.api_core.exceptions import NotFound
+
+log = Logger("test_gcp").get_logger()
+
+
+gcp_storage = GoogleStorageClient()
+
+
+def test_connection():
+    """
+    Test connection (if alive)
+    """
+    res = gcp_storage.connect()
+    assert res
+
+
+def test_upload():
+    """
+    Check if file upload works
+    """
+
+    def blob_exists() -> bool:
+        service_filepath = "secrets/gcp-storage.json"
+        credentials = service_account.Credentials.from_service_account_file(
+            service_filepath
+        )
+        # Create a storage client using the loaded credentials
+        client = storage.Client(credentials=credentials)
+        bucket = client.bucket("verilog-llm-eval")
+        blob = bucket.blob("test/LICENSE")
+
+        try:
+            blob.reload()  # Raises NotFound if blob doesn't exist
+            return True
+        except NotFound:
+            return False
+
+    gcp_storage.upload_file(
+        local_file_path="LICENSE",
+        bucket_name="verilog-llm-eval",
+        blob_name="test/LICENSE",
+    )
+    assert blob_exists()
