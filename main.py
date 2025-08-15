@@ -68,10 +68,10 @@ class RunLLMPrompts:
                 "id": "deepseek-coder",
                 "name": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
             },
-            # {
-            #     "id": "Verigen-6B-Finetuned",
-            #     "name": "shailja/fine-tuned-codegen-6B-Verilog",
-            # },
+            {
+                "id": "Verigen-6B-Finetuned",
+                "name": "shailja/fine-tuned-codegen-6B-Verilog",
+            },
             {"id": "qwen-coder", "name": "Qwen/Qwen2.5-Coder-7B-Instruct"},
         ]
         self.claude_api = ClaudeAPIClient()
@@ -141,22 +141,28 @@ class RunLLMPrompts:
         max_tokens: int = 300,
         n_samples: int = 2,
         prompt_size: int = None,
+        run_gemini_api: bool = False,
+        run_baseline_api: bool = False,
     ) -> List[Dict]:
         """
         Runner method for all LLMs
 
         Parameters:
         -----------
-        temperature:    float, default=0.2
+        temperature:        float, default=0.2
             Controls randomness in generation (0=deterministic, 1=very random)
             Lower values produce more consistent, focused code
-        max_tokens:     int, default=300
+        max_tokens:         int, default=300
             Maximum number of tokens to generate per response
             Sufficient for most Verilog modules
-        n_samples:      int, default=2
+        n_samples:          int, default=2
             Number of different code samples to generate
-        prompt_size:    int, default=None
+        prompt_size:        int, default=None
             Size of array of the prompts from the Problem set
+        run_gemini_api:     bool, False
+            Run Gemini API flag
+        run_baseline_api:   bool, False
+            Run VeriGen 6B/16B Instruct
 
         Returns:
         --------
@@ -188,29 +194,30 @@ class RunLLMPrompts:
             exception = "Except Claude"
 
         # Second case: Gemini API
-        # res = self.gemini_api.connect()
-        # if res:
-        #     self.answers["gemini"] = []
-        #     for data in self.prompts[:prompt_size]:
-        #         response = self.gemini_api.generate(
-        #             prompt=data["prompt"],
-        #             temperature=temperature,
-        #             max_tokens=max_tokens,
-        #             n_samples=n_samples,
-        #         )
-        #         self.answers["gemini"].append(
-        #             {"response": response, "testbench": data["testbench"]}
-        #         )
-        #     with open("prompts-gemini.json", "w") as fs:
-        #         json.dump(self.answers["gemini"], fs, indent=4)
-        #     self.log.info(f"Written file for gemini")
-        #     filenames.append("prompts-gemini.json")
-        # else:
-        #     self.log.error(f"Gemini connection unavailable; Moving to next case...")
-        #     if len(exception) == 0:
-        #         exception = "Except Gemini"
-        #     else:
-        #         exception += ", Gemini"
+        if run_gemini_api:
+            res = self.gemini_api.connect()
+            if res:
+                self.answers["gemini"] = []
+                for data in self.prompts[:prompt_size]:
+                    response = self.gemini_api.generate(
+                        prompt=data["prompt"],
+                        temperature=temperature,
+                        max_tokens=max_tokens,
+                        n_samples=n_samples,
+                    )
+                    self.answers["gemini"].append(
+                        {"response": response, "testbench": data["testbench"]}
+                    )
+                with open("prompts-gemini.json", "w") as fs:
+                    json.dump(self.answers["gemini"], fs, indent=4)
+                self.log.info(f"Written file for gemini")
+                filenames.append("prompts-gemini.json")
+            else:
+                self.log.error(f"Gemini connection unavailable; Moving to next case...")
+                if len(exception) == 0:
+                    exception = "Except Gemini"
+                else:
+                    exception += ", Gemini"
 
         # Third case: OpenAI API
         res = self.openai_api.connect()
@@ -239,6 +246,12 @@ class RunLLMPrompts:
 
         # Last case: OSS LLM local API
         for model_info in self.models:
+            # Skip running for baseline API
+            # This is used because the baseline LLM wasn't able to load in L4 GPU
+            # TODO: Further investigation into why this issue prevails
+            if model_info["id"] == "Verigen-6B-Finetuned" and not run_baseline_api:
+                continue
+
             oss_llm_api = OpenSourceLLMClient(
                 model_id=model_info["id"], model_name=model_info["name"]
             )
@@ -288,7 +301,8 @@ if __name__ == "__main__":
     if len(args) == 0:
         log.critical("No arguments passed")
 
-    elif len(args) == 2 and args[1] == "prompt":
+    elif len(args) > 3 and args[1] == "prompt" and "--bucket" in args:
+        bucket_name = args[sys.argv.index("--bucket") + 1]
         env = ENVLoader()
         runner = RunLLMPrompts()
         runner.collect_prompts()  # collect all prompts
@@ -297,24 +311,27 @@ if __name__ == "__main__":
             try:
                 gcp_storage.upload_file(
                     local_file_path=filename,
-                    bucket_name="verilog-llm-eval",  # could change in your machine
+                    bucket_name=bucket_name,  # could change in your machine
                     blob_name=f"results/{filename}",
                 )
                 log.info(f"Copied file {filename} to GCP storage: results/")
             except Exception as err:
                 log.error(f"Error in uploading file: {err}")
+        # Finally copy all log files
+        log_dir = "logs/"
+        if os.path.exists(log_dir):
+            log_filenames = os.listdir("logs/")
+            for log_filename in log_filenames:
+                try:
+                    gcp_storage.upload_file(
+                        local_file_path=log_filename,
+                        bucket_name=bucket_name,  # could change in your machine
+                        blob_name=f"logs/{log_filename}",
+                    )
+                    print(f"Copied file {log_filename} to GCP storage: logs/")
+                except Exception as err:
+                    print(f"Error in uploading file: {err}")
+        else:
+            print("Skipping LOG file(s) upload as log/ isn't found")
     else:
         log.warning("Unknown argument used")
-
-    # Finally copy all log files
-    log_filenames = os.listdir("logs/")
-    for log_filename in log_filenames:
-        try:
-            gcp_storage.upload_file(
-                local_file_path=filename,
-                bucket_name="verilog-llm-eval",  # could change in your machine
-                blob_name=f"logs/{filename}",
-            )
-            print(f"Copied file {filename} to GCP storage: logs/")
-        except Exception as err:
-            print(f"Error in uploading file: {err}")
