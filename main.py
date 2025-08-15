@@ -68,10 +68,10 @@ class RunLLMPrompts:
                 "id": "deepseek-coder",
                 "name": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
             },
-            {
-                "id": "Verigen-6B-Finetuned",
-                "name": "shailja/fine-tuned-codegen-6B-Verilog",
-            },
+            # {
+            #     "id": "Verigen-6B-Finetuned",
+            #     "name": "shailja/fine-tuned-codegen-6B-Verilog",
+            # },
             {"id": "qwen-coder", "name": "Qwen/Qwen2.5-Coder-7B-Instruct"},
         ]
         self.claude_api = ClaudeAPIClient()
