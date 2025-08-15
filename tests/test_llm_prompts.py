@@ -44,7 +44,7 @@ def test_gen_for_all_models_lite():
         # Create a storage client using the loaded credentials
         client = storage.Client(credentials=credentials)
         bucket = client.bucket("verilog-llm-eval")
-        blob = bucket.blob()
+        blob = bucket.blob(blob)
 
         try:
             blob.reload()  # Raises NotFound if blob doesn't exist
