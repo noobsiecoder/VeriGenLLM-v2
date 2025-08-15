@@ -7,12 +7,13 @@ Place:  Boston, MA
 """
 
 from src.logger import Logger
-from main import RunLLMPrompts
+from main import ENVLoader, RunLLMPrompts
 from google.cloud import storage
 from google.oauth2 import service_account
 from google.api_core.exceptions import NotFound
 
 log = Logger("test_llm_prompts").get_logger()
+ENVLoader() # load ENV
 
 
 def test_prompt_extraction():
