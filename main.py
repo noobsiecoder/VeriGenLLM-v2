@@ -246,7 +246,7 @@ class RunLLMPrompts:
             if res:
                 self.answers[model_info["id"]] = []
                 for data in self.prompts[:prompt_size]:
-                    response = self.oss_llm_api.generate(
+                    response = oss_llm_api.generate(
                         prompt=data["prompt"],
                         temperature=temperature,
                         max_tokens=max_tokens,
