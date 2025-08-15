@@ -188,29 +188,29 @@ class RunLLMPrompts:
             exception = "Except Claude"
 
         # Second case: Gemini API
-        res = self.gemini_api.connect()
-        if res:
-            self.answers["gemini"] = []
-            for data in self.prompts[:prompt_size]:
-                response = self.gemini_api.generate(
-                    prompt=data["prompt"],
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    n_samples=n_samples,
-                )
-                self.answers["gemini"].append(
-                    {"response": response, "testbench": data["testbench"]}
-                )
-            with open("prompts-gemini.json", "w") as fs:
-                json.dump(self.answers["gemini"], fs, indent=4)
-            self.log.info(f"Written file for gemini")
-            filenames.append("prompts-gemini.json")
-        else:
-            self.log.error(f"Gemini connection unavailable; Moving to next case...")
-            if len(exception) == 0:
-                exception = "Except Gemini"
-            else:
-                exception += ", Gemini"
+        # res = self.gemini_api.connect()
+        # if res:
+        #     self.answers["gemini"] = []
+        #     for data in self.prompts[:prompt_size]:
+        #         response = self.gemini_api.generate(
+        #             prompt=data["prompt"],
+        #             temperature=temperature,
+        #             max_tokens=max_tokens,
+        #             n_samples=n_samples,
+        #         )
+        #         self.answers["gemini"].append(
+        #             {"response": response, "testbench": data["testbench"]}
+        #         )
+        #     with open("prompts-gemini.json", "w") as fs:
+        #         json.dump(self.answers["gemini"], fs, indent=4)
+        #     self.log.info(f"Written file for gemini")
+        #     filenames.append("prompts-gemini.json")
+        # else:
+        #     self.log.error(f"Gemini connection unavailable; Moving to next case...")
+        #     if len(exception) == 0:
+        #         exception = "Except Gemini"
+        #     else:
+        #         exception += ", Gemini"
 
         # Third case: OpenAI API
         res = self.openai_api.connect()

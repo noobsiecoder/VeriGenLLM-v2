@@ -6,8 +6,9 @@ Date:   Aug 14th, 2025
 Place:  Boston, MA
 """
 
-from src.logger import Logger
 from main import ENVLoader, RunLLMPrompts
+from src.logger import Logger
+from src.gcp import GoogleStorageClient
 from google.cloud import storage
 from google.oauth2 import service_account
 from google.api_core.exceptions import NotFound
@@ -54,6 +55,19 @@ def test_gen_for_all_models_lite():
     llm_prompts = RunLLMPrompts()
     llm_prompts.collect_prompts()
     _, filenames = llm_prompts.run_all_models(prompt_size=2, n_samples=1)
+    gcp_storage = GoogleStorageClient()
+    gcp_storage.connect()
+
+    for filename in filenames:
+        try:
+            gcp_storage.upload_file(
+                local_file_path=filename,
+                bucket_name="verilog-llm-eval",  # could change in your machine
+                blob_name=f"results/{filename}",
+            )
+            log.info(f"Copied file {filename} to GCP storage: results/")
+        except Exception as err:
+            log.error(f"Error in uploading file: {err}")
 
     for filename in filenames:
         assert blob_exists(blob=filename)
