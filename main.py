@@ -188,11 +188,11 @@ class RunLLMPrompts:
             exception = "Except Claude"
 
         # Second case: Gemini API
-        res = self.claude_api.connect()
+        res = self.gemini_api.connect()
         if res:
             self.answers["gemini"] = []
             for data in self.prompts[:prompt_size]:
-                response = self.claude_api.generate(
+                response = self.gemini_api.generate(
                     prompt=data["prompt"],
                     temperature=temperature,
                     max_tokens=max_tokens,
@@ -213,11 +213,11 @@ class RunLLMPrompts:
                 exception += ", Gemini"
 
         # Third case: OpenAI API
-        res = self.claude_api.connect()
+        res = self.openai_api.connect()
         if res:
             self.answers["openai"] = []
             for data in self.prompts[:prompt_size]:
-                response = self.claude_api.generate(
+                response = self.openai_api.generate(
                     prompt=data["prompt"],
                     temperature=temperature,
                     max_tokens=max_tokens,
@@ -246,7 +246,7 @@ class RunLLMPrompts:
             if res:
                 self.answers[model_info["id"]] = []
                 for data in self.prompts[:prompt_size]:
-                    response = self.claude_api.generate(
+                    response = self.oss_llm_api.generate(
                         prompt=data["prompt"],
                         temperature=temperature,
                         max_tokens=max_tokens,
