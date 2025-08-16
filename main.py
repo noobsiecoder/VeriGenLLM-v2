@@ -22,7 +22,6 @@ from src.models import (
 )
 
 
-# TODO: load env
 class ENVLoader:
     """
     Loads all the ENV required in the local machine
@@ -48,8 +47,6 @@ class ENVLoader:
             sys.exit(-1)
 
 
-# TODO: run prompts
-# TODO: end operation
 class RunLLMPrompts:
     """
     Handles operation to run prompts for each model
