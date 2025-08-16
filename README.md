@@ -30,7 +30,10 @@ Train `CodeLlama-7B-Instruct` on just **20–100 handpicked Verilog examples** u
 
 To clone the repository:
 ```bash
+# clone repository
 git clone https://github.com/noobsiecoder/VeriGenLLM-v2.git
+# checkout to corresponding branch
+git checkout enhance-v1 
 ```
 
 These tools are required to run evals for baseline LLMs (locally and in cloud):
@@ -93,19 +96,18 @@ pytest --version
 
 ### Run
 
-To run pass@k metric **EVALS** locally:
+To run scripts locally:
 ```bash
-# With uv (recommended)
-uv run src/verigenllm_v2/evals/pass-k.py
-
-# With pip and python3 after activating virtual enviroment
-python3 src/verigenllm_v2/evals/pass-k.py
+# Run Prompt generation for EVALS
+uv run main.py prompts --bucket <bucket_name>
 ```
 
 To run **TESTS** locally:
 ```bash
 # With uv (recommended)
 uv run pytest
+# Particular module
+uv run pytest -v tests/test_gcp.py::test_connection
 
 # With pip
 pytest
@@ -113,18 +115,18 @@ pytest
 
 ---
 
-### Baseline LLMs
+### Baseline LLMs (Proprietary)
 
-1. [OpenAI GPT 4.1](https://platform.openai.com/docs/models/gpt-4.1)
-1. [Claude Opus 4](https://docs.anthropic.com/en/docs/about-claude/models/overview#model-names)
-1. [Gemini 2.5 Pro (Unavailable)](https://ai.google.dev/gemini-api/docs/models#gemini-2.5-pro)
+1. [OpenAI GPT 4o](https://platform.openai.com/docs/models/gpt-4o)
+1. [Claude Sonnet 4](https://www.anthropic.com/claude/sonnet)
+1. [Gemini 2.5 Flash (Unavailable)](https://deepmind.google/models/gemini/flash/)
 
-### Token Cost Summary
+<!-- ### Token Cost Summary
 
 |   Model Name    | Input Token | Output Token | Input Token Cost | Output Token Cost | Total Credit |
 | :-------------: | :---------: | :----------: | :--------------: | :---------------: | :----------: |
-| Claude Opus 4\* |    8,728    |    60,536    |      $0.13       |       $4.54       |    $4.67     |
-| OpenAI GPT 4.1  |     862     |    29,760    |      $0.002      |      $0.231       |    $0.233    |
+| Claude Sonnet 4\* |    8,728    |    60,536    |      $0.13       |       $4.54       |    $4.67     |
+| OpenAI GPT 4o  |     862     |    29,760    |      $0.002      |      $0.231       |    $0.233    |
 
 ### Note*
 
@@ -132,7 +134,7 @@ Totally 18 problem sets were used. From the `<project>/dataset/test/example-<nn>
 
 Unlike OpenAI's `chat.completions.create` object, Claude API doesn't support the `n_sample` parameter in its API call (yet - noted on Jul 30th, 2025). Thus, the input-output token size of the Claude's model looks significantly higher than the OpenAI's input-output token size.
 
-In this research, it ran in loop for *n* (here `n = 10`) times to evaluate the [Pass@k metrics](https://www.datacamp.com/tutorial/humaneval-benchmark-for-evaluating-llm-code-generation-capabilities).
+In this research, it ran in loop for *n* (here `n = 10`) times to evaluate the [Pass@k metrics](https://www.datacamp.com/tutorial/humaneval-benchmark-for-evaluating-llm-code-generation-capabilities). -->
 
 ---
 
