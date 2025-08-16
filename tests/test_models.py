@@ -102,7 +102,7 @@ def test_prompting():
             assert len(output) != 0
             assert is_only_code_block(output)  # Chance of failing in 1:3
 
-    # TODO: test with all open-source LLM
+    # Test with all open-source LLM
     # Define models to evaluate
     # Each model has an ID (for file naming) and full HuggingFace path
     models = [

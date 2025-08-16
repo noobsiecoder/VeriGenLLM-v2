@@ -463,7 +463,6 @@ class OpenAIAPIClient:
         return response_data
 
 
-# TODO: OSS client (HF)
 class OpenSourceLLMClient:
     """
     SDK client for all OSS LLM
