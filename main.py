@@ -8,10 +8,13 @@ Place:  Boston, MA
 
 import glob
 import json
+import re
 import os
 import sys
+import pandas as pd
 from dotenv import load_dotenv
 from typing import Dict, List
+from src.evals import Evals, ResponseEvals
 from src.gcp import GoogleStorageClient
 from src.logger import Logger
 from src.models import (
@@ -289,6 +292,48 @@ class RunLLMPrompts:
         return (answers, filenames)
 
 
+def summarize_eval(df: pd.DataFrame, name: str) -> pd.DataFrame:
+    """
+    Summarize metrics from an eval DataFrame into a single row with both
+    overall and grouped-by-difficulty metrics.
+
+    Parameters:
+    -----------
+    df: pd.DataFrame
+        Dataframe of the metric per question
+    name: name of the model
+
+    Returns:
+    -------
+    Dataframe containing overall metric of a model
+    """
+    summary = {"name": name}
+
+    # --- Pass@k overall & grouped ---
+    summary["passk_overall"] = df["pass_k_metric_overall"].mean()
+    grouped_passk = df.groupby("difficulty")["pass_k_metric_overall"].mean()
+    for diff, val in grouped_passk.items():
+        summary[f"passk_{diff}"] = val
+
+    # --- Success rate overall & grouped ---
+    df["success"] = df["first_correct_idx"] != -1
+    summary["success_rate_overall"] = df["success"].mean()
+    grouped_success = df.groupby("difficulty")["success"].mean()
+    for diff, val in grouped_success.items():
+        summary[f"success_rate_{diff}"] = val
+
+    # --- Avg attempts overall & grouped ---
+    df["attempts_required"] = df["first_correct_idx"].apply(
+        lambda x: x + 1 if x != -1 else None
+    )
+    summary["avg_attempts_overall"] = int(df["attempts_required"].dropna().mean())
+    grouped_attempts = df.groupby("difficulty")["attempts_required"].mean()
+    for diff, val in grouped_attempts.items():
+        summary[f"avg_attempts_{diff}"] = int(val)
+
+    return pd.DataFrame([summary])
+
+
 if __name__ == "__main__":
     args = sys.argv
     log = Logger("main").get_logger()
@@ -296,9 +341,152 @@ if __name__ == "__main__":
     gcp_storage.connect()
 
     if len(args) == 0:
-        log.critical("No arguments passed")
+        log.warning("No arguments passed")
 
-    elif len(args) > 3 and args[1] == "prompt" and "--bucket" in args:
+    # Run Evals on response
+    elif len(args) == 5 and (
+        "evals" in args and "--response" in args and "--type" in args
+    ):
+        response_evals = ResponseEvals()
+        dir_name = args[sys.argv.index("--type") + 1]
+        results_path = "dataset/results"
+        response_path = os.path.join(
+            results_path, dir_name
+        )  # path where all the prompts-*.json resides
+
+        json_files = os.listdir(response_path)
+        json_files.remove(
+            "prompts-all.json"
+        ) if "prompts-all.json" in json_files else None  # Temporary hack
+        # Create directory to store response eval results
+        evals_result_path = os.path.join(response_path, "evals")
+        if not os.path.exists(evals_result_path):
+            os.mkdir(
+                evals_result_path
+            )  # NOTE: ensure necessary permission is enabled before running script
+        for json_file in json_files:
+            if os.path.isdir(os.path.join(response_path, json_file)):
+                continue
+
+            responses = None
+            with open(os.path.join(response_path, json_file), "r") as fs:
+                responses = json.load(fs)
+
+            # Empty list to capture evals for all question
+            overall_evals = []
+            # Iterated over questions for each model
+            for data in responses:
+                model = data["response"]["config"]["model"]
+                question = data["response"]["question"]
+                temperature = data["response"]["config"]["temperature"]
+                max_tokens = data["response"]["config"]["max_tokens"]
+                testbench = data["testbench"]
+
+                # Empty dict to capture eval per question
+                question_eval = {}
+                question_eval["question"] = question
+                question_eval["evals"] = []
+                # Iterated over each question in a model
+                for output in data["response"]["outputs"]:
+                    payload = {
+                        "model": model,
+                        "temperature": temperature,
+                        "max_tokens": max_tokens,
+                        "output": output,
+                        "testbench": testbench,
+                    }
+                    eval = response_evals.evaluate_response(response=payload)
+                    question_eval["evals"].append(eval)
+                overall_evals.append(question_eval)
+            filename_pattern = r"prompts-(.*).json"
+            match = re.match(
+                filename_pattern, json_file, re.DOTALL
+            )  # MATCH 100% possible (if conditions are correct)
+            filepath = os.path.join(evals_result_path, f"evals-{match.group(1)}.json")
+            with open(filepath, "w") as fs:
+                json.dump(overall_evals, fs, indent=4)
+                log.info(f"Written {match.group(1)} evals to: {filepath}")
+
+    # Create CSV files containing useful metrics (per question and per model)
+    elif len(args) == 5 and (
+        "evals" in args and "--metrics" in args and "--type" in args
+    ):
+        evals = Evals()
+        dir_name = args[sys.argv.index("--type") + 1]
+        results_path = "dataset/results"
+        response_path = os.path.join(
+            results_path, dir_name
+        )  # path where all the prompts-*.json resides
+
+        # Create directory to store metrics in CSV file(s)
+        metrics_result_path = os.path.join(response_path, "metrics")
+        if not os.path.exists(metrics_result_path):
+            os.mkdir(
+                metrics_result_path
+            )  # NOTE: ensure necessary permission is enabled before running script
+
+        evals_path = os.path.join(
+            response_path, "evals"
+        )  # path where all the evals-*.json resides
+        json_files = os.listdir(evals_path)
+
+        ks = [1, 5, 10]  # default sampling number
+        # Looping over k's
+        for k in ks:
+            summary_df = pd.DataFrame()
+            for json_file in json_files:
+                if os.path.isdir(os.path.join(evals_path, json_file)):
+                    continue
+                with open(os.path.join(evals_path, json_file), "r") as fs:
+                    responses = json.load(fs)
+                    # Build per model for each questions
+                    model_metrics = []
+                    for idx, response in enumerate(responses):
+                        eval = evals.per_question_eval(response, k)
+                        eval["question"] = response["question"]
+                        # Naive method of setting question difficulty
+                        eval["difficulty"] = None
+                        if idx in range(0, 5):
+                            eval["difficulty"] = "advanced"
+                        elif idx in range(5, 9):
+                            eval["difficulty"] = "basic"
+                        else:
+                            eval["difficulty"] = "intermediate"
+                        model_metrics.append(eval)
+
+                    # Flatten JSON -> pd.DataFrame
+                    model_df = pd.json_normalize(model_metrics, sep="_")
+                    # Reorder columns so "question" is always first
+                    cols = ["question"] + [
+                        c for c in model_df.columns if c != "question"
+                    ]
+                    model_df = model_df[cols]
+                    filename_pattern = r"evals-(.*).json"
+                    match = re.match(
+                        filename_pattern, json_file, re.DOTALL
+                    )  # MATCH 100% possible (if conditions are correct)
+                    model_df.to_csv(
+                        os.path.join(
+                            metrics_result_path, f"metrics-{match.group(1)}_k={k}.csv"
+                        ),
+                        index=None,
+                    )
+                    # Add one run
+                    summary_df = pd.concat(
+                        [summary_df, summarize_eval(model_df, match.group(1))],
+                        ignore_index=True,
+                    )
+            # Write to a CSV file
+            summary_df.to_csv(
+                os.path.join(
+                    metrics_result_path,
+                    f"overall-metrics_k={k}.csv",
+                ),
+                index=None,
+            )
+
+    # Run each LLM -> generate response
+    elif len(args) == 3 and ("prompt" in args and "bucket" in args):
         bucket_name = args[sys.argv.index("--bucket") + 1]
         env = ENVLoader()
         runner = RunLLMPrompts()
