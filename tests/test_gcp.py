@@ -27,10 +27,16 @@ def test_connection():
     assert res
 
 
-def test_upload():
+def test_upload(bucket: str):
     """
     Check if file upload works
+
+    Parameters:
+    -----------
+    bucket: str
+        Name of the GCP storage bucket
     """
+    bucket_name = bucket
 
     def blob_exists() -> bool:
         service_filepath = "secrets/gcp-storage.json"
@@ -39,8 +45,8 @@ def test_upload():
         )
         # Create a storage client using the loaded credentials
         client = storage.Client(credentials=credentials)
-        bucket = client.bucket("verilog-llm-eval")
-        blob = bucket.blob("test/LICENSE")
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob("test/LICENSE")  # Test file
 
         try:
             blob.reload()  # Raises NotFound if blob doesn't exist

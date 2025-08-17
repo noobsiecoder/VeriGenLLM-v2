@@ -31,10 +31,16 @@ module signed_adder(input [7:0] a, input [7:0] b, output [7:0] s, output overflo
     assert prompts[0]["prompt"].strip() == prompt.strip()
 
 
-def test_gen_for_all_models_lite():
+def test_gen_for_all_models_lite(bucket: str):
     """
     Check if all models generate values and upload to GCP Storage
+
+    Parameters:
+    -----------
+    bucket: str
+        Name of the GCP storage bucket
     """
+    bucket_name = bucket
 
     def blob_exists(blob: str) -> bool:
         service_filepath = "secrets/gcp-storage.json"
@@ -43,7 +49,7 @@ def test_gen_for_all_models_lite():
         )
         # Create a storage client using the loaded credentials
         client = storage.Client(credentials=credentials)
-        bucket = client.bucket("verilog-llm-eval")
+        bucket = client.bucket(bucket_name)
         blob = bucket.blob(blob)
 
         try:
@@ -62,7 +68,7 @@ def test_gen_for_all_models_lite():
         try:
             gcp_storage.upload_file(
                 local_file_path=filename,
-                bucket_name="verilog-llm-eval",  # could change in your machine
+                bucket_name=bucket_name,
                 blob_name=f"results/{filename}",
             )
             log.info(f"Copied file {filename} to GCP storage: results/")
