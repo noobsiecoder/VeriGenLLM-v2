@@ -490,7 +490,7 @@ if __name__ == "__main__":
             )
 
     # Run each LLM -> generate response
-    elif len(args) == 3 and ("prompt" in args and "bucket" in args):
+    elif len(args) == 3 and ("prompt" in args and "--bucket" in args):
         bucket_name = args[sys.argv.index("--bucket") + 1]
         env = ENVLoader()
         runner = RunLLMPrompts()
