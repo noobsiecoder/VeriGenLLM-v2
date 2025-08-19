@@ -349,42 +349,80 @@ class ResponseEvals:
 
         return code_analysis
 
+    def _run_subprocess(
+        self, commands: List[str], timeout_ms: int = 500
+    ) -> Tuple[bool, subprocess.CompletedProcess[str]]:
+        """
+        Run subprocess and kill thread if overruns
+
+        Parameters:
+        -----------
+        commands: List[str]
+            commands to run via terminal
+        timeout_ms: int
+            Time to wait until thread is killed
+
+        Returns:
+        --------
+        Bool to indicate status and result in subprocess.CompletedProcess object
+        On Failure -> returns (False, None)
+        """
+        try:
+            func_result = subprocess.run(
+                commands,
+                capture_output=True,
+                text=True,
+                timeout=timeout_ms / 1000.0,  # convert ms → seconds
+            )
+            # return 1 for success if returncode == 0
+            return (
+                (True, func_result)
+                if func_result.returncode == 0
+                else (False, func_result)
+            )
+        except subprocess.TimeoutExpired:
+            # killed after timeout
+            return (False, None)
+        except Exception as e:
+            # some other failure
+            return (False, None)
+
     def _group_errors_and_warnings(
         self, std_errors: List[str]
     ) -> Tuple[List[str], List[str]]:
         """
         Group Errors and Warnings from Compilation, Func-corr, and Synth..
-
-        Parameters:
-        -----------
-        std_errors: List[str]
-            Errors + Warnings -> captured from console output (in silent mode)
-
-        Returns:
-        --------
-        Tuple of both Errors and Warnings
         """
         warnings = []
         w_idx = -1
         errors = []
-        idx = 0
-        while idx < len(std_errors):
-            if "warning" in std_errors[idx]:
-                warnings.append(std_errors[idx])
+        self.log.info(f"ERROR MSG: {std_errors}")
+
+        # Process warnings until the first error is found
+        for idx, line in enumerate(std_errors):
+            if "warning" in line:
+                warnings.append(line)
                 w_idx += 1
-            elif "error" in std_errors[idx]:
-                idx += 1  # increment index before breaking from loop
+            elif "error" in line:
+                # move past the error line (like in your while loop)
+                start_idx = idx + 1
                 break
             else:
                 if w_idx >= 0:
-                    warnings[w_idx] += std_errors[idx]
-            idx += 1  # increment index -> important
-        for i in range(idx, len(std_errors)):
+                    warnings[w_idx] += line
+        else:
+            # if no 'error' line is found, start_idx should equal len(std_errors)
+            start_idx = len(std_errors)
+
+        self.log.info(f"Left for loop")
+
+        # Collect remaining lines as errors
+        for i in range(start_idx, len(std_errors)):
             errors.append(std_errors[i])
 
-        errors = errors if len(errors) != 0 else None
-        warnings = warnings if len(warnings) != 0 else None
-        return (errors, warnings)
+        errors = errors if errors else None
+        warnings = warnings if warnings else None
+        return errors, warnings
 
     def _analyse_compilation(self, code_str: str) -> Dict:
         """
@@ -435,20 +473,17 @@ class ResponseEvals:
             temp_file.write(code_str)
             temp_sol_filepath = temp_file.name
 
-        result = subprocess.run(
-            [
-                "iverilog",
-                "-Wall",
-                "-Winfloop",  # Warn about infinite loops
-                "-Wanachronisms",  # Warn about old constructs
-                "-Wsensitivity-entire-array",  # Array sensitivity warnings
-                "-o",
-                "test_output",  # Output binary name
-                temp_sol_filepath,
-            ],
-            capture_output=True,  # Capture stdout and stderr
-            text=True,  # Return output as string
-        )
+        commands = [
+            "iverilog",
+            "-Wall",
+            "-Winfloop",  # Warn about infinite loops
+            "-Wanachronisms",  # Warn about old constructs
+            "-Wsensitivity-entire-array",  # Array sensitivity warnings
+            "-o",
+            "test_output",  # Output binary name
+            temp_sol_filepath,
+        ]
+        _, result = self._run_subprocess(commands)
         os.remove(temp_sol_filepath)  # remove temp file from local machine
         if os.path.exists("test_output"):
             os.remove("test_output")  # remove output file from local machine
@@ -500,130 +535,102 @@ class ResponseEvals:
         Dictionary of functional correctness - analysed data
         """
         functional_correctness = {
-            "status": bool,
-            # "test_cases": {
-            #     "total": int,
-            #     "pass": int,
-            # },
-            "error": {
-                "count": int,
-                "types": [str],
-            },
-            "warning": {
-                "count": int,
-                "types": [str],
-            },
+            "status": None,
+            "error": {"count": None, "types": None},
+            "warning": {"count": None, "types": None},
         }
 
         self.log.info("Inside Functional Correctness")
+
         # If code wasn't generated, prepare response and return early
-        if code_str == None:
+        if code_str is None:
             self.log.warning("⚠ Code wasn't generated, skipping...")
             functional_correctness["status"] = False
-            # test cases
-            functional_correctness["error"]["types"] = None
-            functional_correctness["error"]["count"] = None
-            # errors
-            functional_correctness["warning"]["types"] = None
-            functional_correctness["warning"]["count"] = None
-
             return functional_correctness
 
-        temp_sol_filepath = None
+        # Write solution and testbench to temp files
         with tempfile.NamedTemporaryFile(
-            suffix=".v",
-            mode="w+",
-            delete=False,  # Keep file after closing
-        ) as temp_file:
-            temp_file.write(code_str)
-            temp_sol_filepath = temp_file.name
+            suffix=".v", mode="w+", delete=False
+        ) as sol_file:
+            sol_file.write(code_str)
+            temp_sol_filepath = sol_file.name
 
-        temp_tb_filepath = None
         with tempfile.NamedTemporaryFile(
-            suffix=".v",
-            mode="w+",
-            delete=False,  # Keep file after closing
-        ) as temp_file:
-            temp_file.write(testbench_code_str)
-            temp_tb_filepath = temp_file.name
+            suffix=".v", mode="w+", delete=False
+        ) as tb_file:
+            tb_file.write(testbench_code_str)
+            temp_tb_filepath = tb_file.name
 
-        result = subprocess.run(
-            [
-                "iverilog",
-                "-Wall",
-                "-Winfloop",  # Warn about infinite loops
-                "-Wanachronisms",  # Warn about old constructs
-                "-Wsensitivity-entire-array",  # Array sensitivity warnings
-                "-o",
-                "test_output",  # Output binary name
-                temp_sol_filepath,
-                temp_tb_filepath,
-            ],
-            capture_output=True,  # Capture stdout and stderr
-            text=True,  # Return output as string
-        )
+        # Compile with iverilog
+        commands = [
+            "iverilog",
+            "-Wall",
+            "-Winfloop",
+            "-Wanachronisms",
+            "-Wsensitivity-entire-array",
+            "-o",
+            "test_output",
+            temp_sol_filepath,
+            temp_tb_filepath,
+        ]
+        _, result = self._run_subprocess(commands)
 
-        os.remove(temp_sol_filepath)  # remove temp file from local machine
-        os.remove(temp_tb_filepath)  # remove temp file from local machine
-        # If not compiled successfully
+        # Clean up temporary files
+        os.remove(temp_sol_filepath)
+        os.remove(temp_tb_filepath)
+
         if result.returncode != 0:
             self.log.error("✗ Compilation -> Functional Correctness: FAIL")
             functional_correctness["status"] = False
 
-        # Check for errors and warnings:
+        # Parse errors and warnings from stderr
         if result.stderr:
-            self.log.error("Inside Errors and Warnings checker after compilation in FC")
             std_errors = result.stderr.splitlines()
             errors, warnings = self._group_errors_and_warnings(std_errors)
-            # Store errors and warnings
-            functional_correctness["error"]["types"] = errors
-            functional_correctness["error"]["count"] = (
-                None if errors == None else len(errors)
-            )
-            functional_correctness["warning"]["types"] = warnings
+
+            functional_correctness["error"]["types"] = errors if errors else None
+            functional_correctness["error"]["count"] = len(errors) if errors else None
+            functional_correctness["warning"]["types"] = warnings if warnings else None
             functional_correctness["warning"]["count"] = (
-                None if warnings == None else len(warnings)
+                len(warnings) if warnings else None
             )
+
             if result.returncode != 0:
                 return functional_correctness
 
-        # If compiled successfully
-        func_result = subprocess.run(
-            ["vvp", "test_output"],
-            capture_output=True,  # Capture stdout and stderr
-            text=True,  # Return output as string
-        )
-        os.remove("test_output")  # remove output file from local machine
-        # Check if tests passed
+        # Run vvp if compilation succeeded
+        _, func_result = self._run_subprocess(["vvp", "test_output"])
+        os.remove("test_output")
+
+        if func_result == None:
+            self.log.error("✗ Functional Correctness: FAIL")
+            self.log.error("Time exceeded")
+            functional_correctness["status"] = False
+            functional_correctness["error"]["types"] = ["Time Exceeded"]
+            functional_correctness["error"]["count"] = 1
+            functional_correctness["warning"]["types"] = None
+            functional_correctness["warning"]["count"] = None
+            return functional_correctness  # Early return block
+
         stdout = func_result.stdout
         if "all tests passed" in stdout:
-            self.log.error("✓ Functional Correctness: PASS")
+            self.log.info("✓ Functional Correctness: PASS")
             functional_correctness["status"] = True
-            # Store errors and warnings
             functional_correctness["error"]["types"] = None
             functional_correctness["error"]["count"] = None
             functional_correctness["warning"]["types"] = None
             functional_correctness["warning"]["count"] = None
         else:
-            self.log.error("✗ Compilation -> Functional Correctness: FAIL")
+            self.log.error("✗ Functional Correctness: FAIL")
             functional_correctness["status"] = False
-            fail_pattern = r"(test.*failed)"
-            expression = re.compile(fail_pattern)
-            errors = expression.findall(stdout)
 
-            # Store errors (checker to ensure previous warnings aren't erased)
-            if functional_correctness["error"]["types"] == [str]:
-                functional_correctness["error"]["types"].append(errors)
-            else:
-                functional_correctness["error"]["types"] = errors
-            functional_correctness["error"]["count"] = len(
-                errors
-            )  # no checker required
-            # Store warnings (checker to ensure previous warnings aren't erased)
-            if functional_correctness["warning"]["types"] == int:
-                functional_correctness["warning"]["types"] = None
-            if functional_correctness["error"]["types"] == int:
-                functional_correctness["warning"]["count"] = None
+            # Extract failing tests
+            fail_pattern = r"(test.*failed)"
+            errors = re.findall(fail_pattern, stdout)
+
+            functional_correctness["error"]["types"] = errors if errors else None
+            functional_correctness["error"]["count"] = len(errors) if errors else None
+            # Leave warnings as they were parsed above (don’t overwrite unless None)
 
         return functional_correctness
 
@@ -690,25 +697,32 @@ class ResponseEvals:
             temp_sol_filepath = temp_file.name
 
         # Check code synthesisability
-        result = subprocess.run(
-            [
-                "yosys",
-                "-q",
-                "-p",
-                f"read_verilog {temp_sol_filepath}; "
-                "hierarchy -check; "
-                "proc; opt; "
-                "synth; "
-                "check; "
-                "write_verilog /dev/null",
-            ],
-            capture_output=True,
-            text=True,
-        )
+        commands = [
+            "yosys",
+            "-q",
+            "-p",
+            f"read_verilog {temp_sol_filepath}; "
+            "hierarchy -check; "
+            "proc; opt; "
+            "synth; "
+            "check; "
+            "write_verilog /dev/null",
+        ]
+        _, result = self._run_subprocess(commands)
 
         os.remove(temp_sol_filepath)  # remove output file from local machine
 
         # Check if synthesisable
+        if result == None:
+            self.log.error("✗ Synthesisability: FAIL")
+            self.log.error("Time exceeded")
+            synthesisability["status"] = False
+            synthesisability["error"]["types"] = ["Time Exceeded"]
+            synthesisability["error"]["count"] = None
+            synthesisability["warning"]["types"] = None
+            synthesisability["warning"]["count"] = None
+            return synthesisability  # Early return
+
         synthesisability["status"] = result.returncode == 0
         if synthesisability["status"]:
             self.log.info("✓ Synthesisability: PASS")
