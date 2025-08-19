@@ -69,7 +69,7 @@ class RunLLMPrompts:
                 "name": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
             },
             {
-                "id": "prompts-verireason-qwen-coder",
+                "id": "verireason-qwen-coder",
                 "name": "Nellyw888/VeriReason-Qwen2.5-7b-RTLCoder-Verilog-GRPO-reasoning-tb",
             },
             {
