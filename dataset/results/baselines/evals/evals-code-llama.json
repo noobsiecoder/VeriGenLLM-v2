@@ -42,7 +42,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1hlggaad.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo295wu35.v:1"
                         ]
                     }
                 },
@@ -99,7 +99,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp865yophp.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpkpis7f0a.v:1"
                         ]
                     }
                 },
@@ -156,7 +156,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp7s45yyxm.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmu916gx1.v:1"
                         ]
                     }
                 },
@@ -213,7 +213,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprjjszzi4.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp37xxjs01.v:1"
                         ]
                     }
                 },
@@ -270,7 +270,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy8f4sbkb.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb6auugck.v:1"
                         ]
                     }
                 },
@@ -327,7 +327,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptj92iuz6.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpufzftxed.v:1"
                         ]
                     }
                 },
@@ -384,7 +384,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbzpgk6d4.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd26wlh6q.v:1"
                         ]
                     }
                 },
@@ -441,7 +441,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpchcj928c.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcga_53jj.v:1"
                         ]
                     }
                 },
@@ -551,7 +551,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp014hip_k.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module signed_adder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprfd8tm2m.v:1"
                         ]
                     }
                 },
@@ -613,7 +613,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwgajpvxd.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm01zsg__.v:1"
                         ]
                     }
                 },
@@ -670,7 +670,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr458vd0b.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpopbdcbpo.v:1"
                         ]
                     }
                 },
@@ -727,7 +727,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqf_mcqji.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps23rx9ag.v:1"
                         ]
                     }
                 },
@@ -784,7 +784,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2mkzwg6p.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm_y9gdv2.v:1"
                         ]
                     }
                 },
@@ -841,7 +841,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0prf2h05.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8bw_jkj1.v:1"
                         ]
                     }
                 },
@@ -898,7 +898,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqvxwdo1n.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppwqrj6_k.v:1"
                         ]
                     }
                 },
@@ -955,7 +955,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwa2n0kdr.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpa0xcnhaa.v:1"
                         ]
                     }
                 },
@@ -1012,7 +1012,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp40q2h88d.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprssw1hoj.v:1"
                         ]
                     }
                 },
@@ -1069,7 +1069,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwawqzkq9.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdnrfqg0b.v:1"
                         ]
                     }
                 },
@@ -1126,7 +1126,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpa0giisxn.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module count_slow declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpc40xrxa3.v:1"
                         ]
                     }
                 },
@@ -1188,7 +1188,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprar74m7j.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp82z4s9oa.v:1"
                         ]
                     }
                 },
@@ -1245,7 +1245,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfr3q9y3o.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpory30_jy.v:1"
                         ]
                     }
                 },
@@ -1285,7 +1285,7 @@
                     "error": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3zs5w6ax.v:50: error: Invalid module item."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1rknr2z6.v:50: error: Invalid module item."
                         ]
                     },
                     "warning": {
@@ -1298,7 +1298,7 @@
                     "error": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnhfgr5n6.v:50: error: Invalid module item."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpljppqrng.v:50: error: Invalid module item."
                         ]
                     },
                     "warning": {
@@ -1412,7 +1412,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprzy0pn8z.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp408_l8rr.v:1"
                         ]
                     }
                 },
@@ -1452,9 +1452,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcvlpz4b.v:5:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcvlpz4b.v:72: error: z is not a valid l-value in adv_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcvlpz4b.v:5:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyk2eg9bb.v:5:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyk2eg9bb.v:72: error: z is not a valid l-value in adv_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyk2eg9bb.v:5:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -1468,16 +1468,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4xawf6as.v:5:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4xawf6as.v:72: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4xawf6as.v:5:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpz_f9ypih.v:5:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpz_f9ypih.v:72: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpz_f9ypih.v:5:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4xawf6as.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpz_f9ypih.v:1"
                         ]
                     }
                 },
@@ -1534,7 +1534,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsvnt1nrh.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdlpn5h5b.v:1"
                         ]
                     }
                 },
@@ -1591,7 +1591,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcnllnn92.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp92mjv5iu.v:1"
                         ]
                     }
                 },
@@ -1648,7 +1648,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3ly22vjk.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp24c4b0vk.v:1"
                         ]
                     }
                 },
@@ -1705,7 +1705,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivsc07h7.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module adv_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplapd2z1b.v:1"
                         ]
                     }
                 },
@@ -1767,7 +1767,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppylce4mr.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp07q2__w_.v:1"
                         ]
                     }
                 },
@@ -1824,7 +1824,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8sd1tb5k.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg822n5zc.v:1"
                         ]
                     }
                 },
@@ -1934,7 +1934,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6cqt92a0.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps2jgtyzt.v:1"
                         ]
                     }
                 },
@@ -1991,7 +1991,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0z4dxfo.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph1qpz_d5.v:1"
                         ]
                     }
                 },
@@ -2048,7 +2048,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmbvoqu3a.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpc89jxq41.v:1"
                         ]
                     }
                 },
@@ -2105,7 +2105,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmn6soqln.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_o2hgcnx.v:1"
                         ]
                     }
                 },
@@ -2162,7 +2162,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg4mctgby.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4o6m8fje.v:1"
                         ]
                     }
                 },
@@ -2219,7 +2219,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg0fb3fej.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0gzkv0tk.v:1"
                         ]
                     }
                 },
@@ -2276,7 +2276,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg5jgexrd.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module advshift declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3kmrvrwl.v:1"
                         ]
                     }
                 },
@@ -2321,9 +2321,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk7ziy2mt.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk7ziy2mt.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk7ziy2mt.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi9v2v1fn.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi9v2v1fn.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi9v2v1fn.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2337,16 +2337,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg8bmmvsc.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg8bmmvsc.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg8bmmvsc.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq_5n02h0.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq_5n02h0.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq_5n02h0.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg8bmmvsc.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq_5n02h0.v:1"
                         ]
                     }
                 },
@@ -2386,9 +2386,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpf0vi_ktb.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpf0vi_ktb.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpf0vi_ktb.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpne14d9mx.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpne14d9mx.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpne14d9mx.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2402,16 +2402,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptv4h8yms.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptv4h8yms.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptv4h8yms.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyy5w2fjk.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyy5w2fjk.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyy5w2fjk.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptv4h8yms.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyy5w2fjk.v:1"
                         ]
                     }
                 },
@@ -2451,9 +2451,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp5np04l02.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp5np04l02.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp5np04l02.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3e5skci2.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3e5skci2.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3e5skci2.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2467,16 +2467,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpss18r8qv.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpss18r8qv.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpss18r8qv.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbxfqy7ys.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbxfqy7ys.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbxfqy7ys.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpss18r8qv.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbxfqy7ys.v:1"
                         ]
                     }
                 },
@@ -2516,9 +2516,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmokb8bi_.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmokb8bi_.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmokb8bi_.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk98a2nwp.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk98a2nwp.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk98a2nwp.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2532,16 +2532,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm9ssuglb.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm9ssuglb.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm9ssuglb.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp751cuf2v.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp751cuf2v.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp751cuf2v.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm9ssuglb.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp751cuf2v.v:1"
                         ]
                     }
                 },
@@ -2581,9 +2581,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcqmv90nx.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcqmv90nx.v:61: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcqmv90nx.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp70_vuhoq.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp70_vuhoq.v:61: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp70_vuhoq.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2597,16 +2597,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpe4kj8dn3.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpe4kj8dn3.v:61: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpe4kj8dn3.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpebatld0q.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpebatld0q.v:61: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpebatld0q.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpe4kj8dn3.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpebatld0q.v:1"
                         ]
                     }
                 },
@@ -2646,9 +2646,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplb5nmhq3.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplb5nmhq3.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplb5nmhq3.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0rbg_5b.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0rbg_5b.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0rbg_5b.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2662,16 +2662,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzm739cne.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzm739cne.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzm739cne.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0ki2qud5.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0ki2qud5.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0ki2qud5.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzm739cne.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0ki2qud5.v:1"
                         ]
                     }
                 },
@@ -2711,9 +2711,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp04b1nt7v.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp04b1nt7v.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp04b1nt7v.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_q52fjl6.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_q52fjl6.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_q52fjl6.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2727,16 +2727,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk1ewv0ne.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk1ewv0ne.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk1ewv0ne.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfgcyzy6h.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfgcyzy6h.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfgcyzy6h.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk1ewv0ne.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfgcyzy6h.v:1"
                         ]
                     }
                 },
@@ -2776,9 +2776,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwasxz0l9.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwasxz0l9.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwasxz0l9.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpijfye3rq.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpijfye3rq.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpijfye3rq.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2792,16 +2792,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph34ockgy.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph34ockgy.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph34ockgy.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_iukpqur.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_iukpqur.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_iukpqur.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph34ockgy.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_iukpqur.v:1"
                         ]
                     }
                 },
@@ -2841,9 +2841,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxlymvyd1.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxlymvyd1.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxlymvyd1.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzrs1dnmq.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzrs1dnmq.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzrs1dnmq.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2857,16 +2857,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplqpsqzxw.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplqpsqzxw.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplqpsqzxw.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuxp8pfr9.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuxp8pfr9.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuxp8pfr9.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplqpsqzxw.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuxp8pfr9.v:1"
                         ]
                     }
                 },
@@ -2906,9 +2906,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnczzv7rw.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnczzv7rw.v:59: error: z is not a valid l-value in abro.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnczzv7rw.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppvxp12j3.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppvxp12j3.v:59: error: z is not a valid l-value in abro.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppvxp12j3.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -2922,16 +2922,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8507es0h.v:6:      : z is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8507es0h.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8507es0h.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj3x0y5j7.v:6:      : z is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj3x0y5j7.v:59: error: z is not a valid l-value in tb_adv_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj3x0y5j7.v:6:      : z is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8507es0h.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module abro declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj3x0y5j7.v:1"
                         ]
                     }
                 },
@@ -3241,19 +3241,19 @@
                     "error": {
                         "count": 7,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:1: error: Port out (2) of module wire_assign has no direction declaration.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:1: error: no wire/reg in in module wire_assign.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:1: error: signal out in module wire_assign is not a port.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:1:      : Are you missing an input/output/inout declaration?",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:2: error: Unable to bind wire/reg/memory `in' in `wire_assign'",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:2: error: Unable to elaborate r-value: in",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:1: error: Port out (2) of module wire_assign has no direction declaration.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:1: error: no wire/reg in in module wire_assign.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:1: error: signal out in module wire_assign is not a port.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:1:      : Are you missing an input/output/inout declaration?",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:2: error: Unable to bind wire/reg/memory `in' in `wire_assign'",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:2: error: Unable to elaborate r-value: in",
                             "6 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbzqi1mv.v:2: warning: implicit definition of wire 'out'."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpt_vdtcip.v:2: warning: implicit definition of wire 'out'."
                         ]
                     }
                 },
@@ -3262,20 +3262,20 @@
                     "error": {
                         "count": 7,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:1: error: Port out (2) of module wire_assign has no direction declaration.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:2: error: Unable to bind wire/reg/memory `in' in `tb_wire_assign.UUT'",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:2: error: Unable to elaborate r-value: in",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:1: error: no wire/reg in in module tb_wire_assign.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:1: error: signal out in module tb_wire_assign.UUT is not a port.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:1:      : Are you missing an input/output/inout declaration?",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:1: error: Port out (2) of module wire_assign has no direction declaration.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:2: error: Unable to bind wire/reg/memory `in' in `tb_wire_assign.UUT'",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:2: error: Unable to elaborate r-value: in",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:1: error: no wire/reg in in module tb_wire_assign.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:1: error: signal out in module tb_wire_assign.UUT is not a port.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:1:      : Are you missing an input/output/inout declaration?",
                             "6 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:2: warning: implicit definition of wire 'out'.",
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module wire_assign declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_5c6iay.v:1"
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:2: warning: implicit definition of wire 'out'.",
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module wire_assign declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzgtcorew.v:1"
                         ]
                     }
                 },
@@ -4084,7 +4084,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpym633qhp.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr9z70puc.v:1"
                         ]
                     }
                 },
@@ -4141,7 +4141,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp52nthdg.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpgqh8m2o2.v:1"
                         ]
                     }
                 },
@@ -4198,7 +4198,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3p617xg8.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd5t_3ln1.v:1"
                         ]
                     }
                 },
@@ -4255,7 +4255,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsge3eumc.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4jp511hz.v:1"
                         ]
                     }
                 },
@@ -4312,7 +4312,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp07gs53zj.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxu3tjgqu.v:1"
                         ]
                     }
                 },
@@ -4369,7 +4369,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvs1ogo4u.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpw00b3m1c.v:1"
                         ]
                     }
                 },
@@ -4426,7 +4426,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp23u4e2t_.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpiodp2tq0.v:1"
                         ]
                     }
                 },
@@ -4483,7 +4483,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb4098xcw.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi1kuatu7.v:1"
                         ]
                     }
                 },
@@ -4540,7 +4540,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_1dzqrer.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjk43v4fc.v:1"
                         ]
                     }
                 },
@@ -4597,7 +4597,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpeuteqv0k.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module priority_encoder declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj09revw5.v:1"
                         ]
                     }
                 },
@@ -4695,11 +4695,11 @@
                     "error": {
                         "count": 6,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr9r6hymn.v:7: error: Invalid module instantiation",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr9r6hymn.v:10: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr9r6hymn.v:11: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr9r6hymn.v:11: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpr9r6hymn.v:12: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpkvowzefo.v:7: error: Invalid module instantiation",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpkvowzefo.v:10: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpkvowzefo.v:11: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpkvowzefo.v:11: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpkvowzefo.v:12: syntax error",
                             "I give up."
                         ]
                     },
@@ -4713,20 +4713,20 @@
                     "error": {
                         "count": 14,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:7: error: Invalid module instantiation",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:10: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:11: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:11: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:12: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbpveqrkg.v:7: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbpveqrkg.v:9: error: 'a' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:2:      : It was declared here as a net.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbpveqrkg.v:9: error: 'b' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:2:      : It was declared here as a net.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbpveqrkg.v:10: error: 'sel' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:3:      : It was declared here as a net.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbpveqrkg.v:11: error: 'out' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu4af3o0m.v:4:      : It was declared here as a net."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:7: error: Invalid module instantiation",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:10: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:11: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:11: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:12: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0bs58lv.v:7: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0bs58lv.v:9: error: 'a' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:2:      : It was declared here as a net.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0bs58lv.v:9: error: 'b' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:2:      : It was declared here as a net.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0bs58lv.v:10: error: 'sel' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:3:      : It was declared here as a net.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0bs58lv.v:11: error: 'out' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbhh_78bs.v:4:      : It was declared here as a net."
                         ]
                     },
                     "warning": {
@@ -4787,7 +4787,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8vsx_yfx.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplgok30f4.v:1"
                         ]
                     }
                 },
@@ -4844,7 +4844,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9fv70yr6.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphirzmqu5.v:1"
                         ]
                     }
                 },
@@ -4901,7 +4901,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3r3ikzi7.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp228f4x5n.v:1"
                         ]
                     }
                 },
@@ -4958,7 +4958,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1kyj150u.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpx81fuz23.v:1"
                         ]
                     }
                 },
@@ -5015,7 +5015,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3qw4qnbt.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpx3hbfwbv.v:1"
                         ]
                     }
                 },
@@ -5072,7 +5072,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqpu3bu9c.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpgflkqswl.v:1"
                         ]
                     }
                 },
@@ -5165,11 +5165,11 @@
                     "error": {
                         "count": 6,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq9v0ou06.v:4:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq9v0ou06.v:10: error: out is not a valid l-value in mux.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq9v0ou06.v:4:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq9v0ou06.v:11: error: out is not a valid l-value in mux.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq9v0ou06.v:4:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0rfmmod6.v:4:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0rfmmod6.v:10: error: out is not a valid l-value in mux.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0rfmmod6.v:4:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0rfmmod6.v:11: error: out is not a valid l-value in mux.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0rfmmod6.v:4:      : out is declared here as wire.",
                             "3 error(s) during elaboration."
                         ]
                     },
@@ -5183,18 +5183,18 @@
                     "error": {
                         "count": 6,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsmt_pqsx.v:4:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsmt_pqsx.v:10: error: out is not a valid l-value in tb_mux.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsmt_pqsx.v:4:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsmt_pqsx.v:11: error: out is not a valid l-value in tb_mux.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsmt_pqsx.v:4:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpasfl2tyb.v:4:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpasfl2tyb.v:10: error: out is not a valid l-value in tb_mux.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpasfl2tyb.v:4:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpasfl2tyb.v:11: error: out is not a valid l-value in tb_mux.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpasfl2tyb.v:4:      : out is declared here as wire.",
                             "3 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsmt_pqsx.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module mux declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpasfl2tyb.v:1"
                         ]
                     }
                 },
@@ -5791,7 +5791,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpiu0wx_cq.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2pr2_151.v:1"
                         ]
                     }
                 },
@@ -5848,7 +5848,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu337objm.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv5tcez7f.v:1"
                         ]
                     }
                 },
@@ -5905,7 +5905,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9vwn82j4.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpaf9sjnn_.v:1"
                         ]
                     }
                 },
@@ -6015,7 +6015,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm7vqchzz.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptjfl4i3v.v:1"
                         ]
                     }
                 },
@@ -6072,7 +6072,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcnx1bs3_.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_bwpneu5.v:1"
                         ]
                     }
                 },
@@ -6129,7 +6129,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp9ok930e.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpihgzij8m.v:1"
                         ]
                     }
                 },
@@ -6186,7 +6186,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprxg_43il.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprdhg1aaa.v:1"
                         ]
                     }
                 },
@@ -6243,7 +6243,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplus3h1fx.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp5vhky8i3.v:1"
                         ]
                     }
                 },
@@ -6300,7 +6300,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq0_ele2z.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module counter declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnr1ekkh4.v:1"
                         ]
                     }
                 },
@@ -6349,7 +6349,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprwmjwoij.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmprwmjwoij.v:20:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd3641fnz.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd3641fnz.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6364,8 +6364,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4x4j18g2.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4x4j18g2.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4x4j18g2.v:20:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9iwhpb1t.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9iwhpb1t.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9iwhpb1t.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6409,7 +6409,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptgdrpiih.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptgdrpiih.v:20:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp5vcqrp_u.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp5vcqrp_u.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6424,8 +6424,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwx008ahw.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwx008ahw.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwx008ahw.v:20:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppxo6qc04.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppxo6qc04.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppxo6qc04.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6469,7 +6469,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1_knfk9s.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1_knfk9s.v:19:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpemttuid6.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpemttuid6.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6484,8 +6484,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg5aqdw02.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg5aqdw02.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg5aqdw02.v:19:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv2orvf6_.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv2orvf6_.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv2orvf6_.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6529,7 +6529,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptmetm9li.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptmetm9li.v:20:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3m6r7e7b.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3m6r7e7b.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6544,8 +6544,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_d9p4ehi.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_d9p4ehi.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_d9p4ehi.v:20:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4cwgukoq.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4cwgukoq.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4cwgukoq.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6589,7 +6589,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcxgqu6v0.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcxgqu6v0.v:20:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk4yjrf9h.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk4yjrf9h.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6604,8 +6604,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplfn6zlnx.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplfn6zlnx.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplfn6zlnx.v:20:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcpc2m20y.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcpc2m20y.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcpc2m20y.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6649,7 +6649,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpveq3b2i4.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpveq3b2i4.v:19:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplfbbw3tv.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplfbbw3tv.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6664,8 +6664,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbnbodbhu.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbnbodbhu.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbnbodbhu.v:19:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnfv7wk0f.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnfv7wk0f.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnfv7wk0f.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6709,7 +6709,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6g_oo8lw.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6g_oo8lw.v:20:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj4bv1sw5.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj4bv1sw5.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6724,8 +6724,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuafqxo9o.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuafqxo9o.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuafqxo9o.v:20:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1xhqksq1.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1xhqksq1.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1xhqksq1.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6769,7 +6769,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppifjvc02.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmppifjvc02.v:19:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfunhqnue.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfunhqnue.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6784,8 +6784,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfz7flavq.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfz7flavq.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfz7flavq.v:19:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpirbt5364.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpirbt5364.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpirbt5364.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6829,7 +6829,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4cf6dkhk.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4cf6dkhk.v:19:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg_1er_ts.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg_1er_ts.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6844,8 +6844,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd4z6xp_o.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd4z6xp_o.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd4z6xp_o.v:19:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj4if5l8m.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj4if5l8m.v:19: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpj4if5l8m.v:19:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6889,7 +6889,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb0rze_36.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb0rze_36.v:20:        : Replacing select with a constant 1'bx."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakk4vh2k.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakk4vh2k.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6904,8 +6904,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqb52cq7x.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqb52cq7x.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqb52cq7x.v:20:        : Replacing select with a constant 1'bx."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module lfsr declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1_ecqkxz.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1_ecqkxz.v:20: warning: Constant bit select [5] is after vector r_reg[4:0]./var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1_ecqkxz.v:20:        : Replacing select with a constant 1'bx."
                         ]
                     }
                 },
@@ -6950,7 +6950,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6p53eh9h.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6e0gia3a.v:1:      : out is declared here as wire.",
                             "Elaboration failed"
                         ]
                     },
@@ -6964,14 +6964,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqrj3qyuk.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpil639u3s.v:1:      : out is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqrj3qyuk.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpil639u3s.v:1"
                         ]
                     }
                 },
@@ -7011,7 +7011,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwksrg74y.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi3a295j8.v:1:      : out is declared here as wire.",
                             "Elaboration failed"
                         ]
                     },
@@ -7025,14 +7025,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy5yzph_w.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv01mfb8t.v:1:      : out is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy5yzph_w.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv01mfb8t.v:1"
                         ]
                     }
                 },
@@ -7072,9 +7072,9 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0zd4ujl_.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0zd4ujl_.v:39: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0zd4ujl_.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpugnj5klv.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpugnj5klv.v:39: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpugnj5klv.v:1:      : out is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -7088,16 +7088,16 @@
                     "error": {
                         "count": 4,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplhaeprcy.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplhaeprcy.v:39: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplhaeprcy.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzo_15efk.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzo_15efk.v:39: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzo_15efk.v:1:      : out is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplhaeprcy.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzo_15efk.v:1"
                         ]
                     }
                 },
@@ -7137,7 +7137,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpw4jscda7.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpl02hkaq2.v:1:      : out is declared here as wire.",
                             "Elaboration failed"
                         ]
                     },
@@ -7151,14 +7151,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpc34cj4k9.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmqp4yp4d.v:1:      : out is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpc34cj4k9.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmqp4yp4d.v:1"
                         ]
                     }
                 },
@@ -7198,7 +7198,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjen79ovy.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpif2kjfdb.v:1:      : out is declared here as wire.",
                             "Elaboration failed"
                         ]
                     },
@@ -7212,14 +7212,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxm1krhw8.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp52zifghi.v:1:      : out is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxm1krhw8.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp52zifghi.v:1"
                         ]
                     }
                 },
@@ -7259,7 +7259,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqq5xgllo.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpq9mlu73v.v:1:      : out is declared here as wire.",
                             "Elaboration failed"
                         ]
                     },
@@ -7273,14 +7273,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpft5efgur.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmvmcbomj.v:1:      : out is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpft5efgur.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmvmcbomj.v:1"
                         ]
                     }
                 },
@@ -7320,15 +7320,15 @@
                     "error": {
                         "count": 10,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:50: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:51: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:52: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:53: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk53h4j_2.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:50: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:51: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:52: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:53: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo0nvcsmn.v:1:      : out is declared here as wire.",
                             "5 error(s) during elaboration."
                         ]
                     },
@@ -7342,22 +7342,22 @@
                     "error": {
                         "count": 10,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:50: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:51: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:52: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:53: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:50: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:51: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:52: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:53: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:1:      : out is declared here as wire.",
                             "5 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpivmo668e.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplxxuxf1_.v:1"
                         ]
                     }
                 },
@@ -7397,7 +7397,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphx86sxxs.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpifh9l9u9.v:1:      : out is declared here as wire.",
                             "Elaboration failed"
                         ]
                     },
@@ -7411,14 +7411,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzv5ziw7n.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4ipn77zo.v:1:      : out is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzv5ziw7n.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4ipn77zo.v:1"
                         ]
                     }
                 },
@@ -7458,13 +7458,13 @@
                     "error": {
                         "count": 8,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:56: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:59: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:62: error: out is not a valid l-value in simple_fsm.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpod6euv91.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:56: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:59: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:62: error: out is not a valid l-value in simple_fsm.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpsdrvhk16.v:1:      : out is declared here as wire.",
                             "4 error(s) during elaboration."
                         ]
                     },
@@ -7478,20 +7478,20 @@
                     "error": {
                         "count": 8,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:56: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:59: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:1:      : out is declared here as wire.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:62: error: out is not a valid l-value in tb_simple_fsm.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:56: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:59: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:1:      : out is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:62: error: out is not a valid l-value in tb_simple_fsm.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:1:      : out is declared here as wire.",
                             "4 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpi0y2wyh3.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module simple_fsm declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuoowgzy5.v:1"
                         ]
                     }
                 },
@@ -7531,9 +7531,9 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0jbqivr9.v:8: error: Syntax error defining function.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0jbqivr9.v:23: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0jbqivr9.v:23: error: Syntax error defining function."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0jmusman.v:8: error: Syntax error defining function.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0jmusman.v:23: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0jmusman.v:23: error: Syntax error defining function."
                         ]
                     },
                     "warning": {
@@ -7546,9 +7546,9 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuaa4sqg4.v:8: error: Syntax error defining function.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuaa4sqg4.v:23: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuaa4sqg4.v:23: error: Syntax error defining function."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphan1gca0.v:8: error: Syntax error defining function.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphan1gca0.v:23: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphan1gca0.v:23: error: Syntax error defining function."
                         ]
                     },
                     "warning": {
@@ -7597,17 +7597,17 @@
                     "error": {
                         "count": 12,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17:      : This lsb expression violates the rule: amount",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmy2fi0el.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpunpj1tws.v:17:      : This lsb expression violates the rule: amount",
                             "8 error(s) during elaboration."
                         ]
                     },
@@ -7621,25 +7621,25 @@
                     "error": {
                         "count": 13,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17:      : This lsb expression violates the rule: amount",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:17:      : This lsb expression violates the rule: amount",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvjcb1f83.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpyw4pzzvu.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating.",
                             "8 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9ruu_pwg.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6q8jt338.v:1"
                         ]
                     }
                 },
@@ -7696,8 +7696,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfslewiij.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9gah19we.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpleesv3jk.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3p6i9xhp.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -7754,8 +7754,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu0d29kh2.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1r_l6wq6.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3pki5ra0.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpg_ojbrl1.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -7812,8 +7812,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8l1nga1m.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0mkxsrvx.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpu8luvlxk.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp493yux2e.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -7870,8 +7870,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp8tmiag24.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy_ce1z7p.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnwp6_4qs.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwk6drmwz.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -7928,8 +7928,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp42tqm3pt.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpo5a9poo9.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2w90awzo.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpmxc98e12.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -7969,17 +7969,17 @@
                     "error": {
                         "count": 12,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17:      : This lsb expression violates the rule: amount",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpakfvocuw.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmps_1mceh4.v:17:      : This lsb expression violates the rule: amount",
                             "8 error(s) during elaboration."
                         ]
                     },
@@ -7993,25 +7993,25 @@
                     "error": {
                         "count": 13,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17:      : This lsb expression violates the rule: amount",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17: error: Part select expressions must be constant.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:17:      : This lsb expression violates the rule: amount",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp0bm0fu35.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17:      : This msb expression violates the rule: (amount)-('sd1)",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: A reference to a wire or reg (`amount') is not allowed in a constant expression.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17: error: Part select expressions must be constant.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:17:      : This lsb expression violates the rule: amount",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp47_2cd6d.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating.",
                             "8 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp1ddvuool.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp3xtzic_l.v:1"
                         ]
                     }
                 },
@@ -8068,8 +8068,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp0q95wwp.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpv14po0p5.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_73_wwea.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdkuoveh3.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -8126,8 +8126,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnbw8sbxv.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4iz5tja0.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphr_r3bdx.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmponvecog0.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -8184,8 +8184,8 @@
                     "warning": {
                         "count": 2,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp7m6ddv12.v:1",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnw9980o6.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module left_rotate declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxwhjlvu4.v:1",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpadsleckm.v:13: warning: Instantiating module left_rotate with dangling input port 2 (reset) floating."
                         ]
                     }
                 },
@@ -8283,8 +8283,8 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzf9a8aoi.v:15: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzf9a8aoi.v:11: error: Could not find variable ``ram[addr]'' in ``ram''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpa5ca166g.v:15: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpa5ca166g.v:11: error: Could not find variable ``ram[addr]'' in ``ram''",
                             "3 error(s) during elaboration."
                         ]
                     },
@@ -8298,15 +8298,15 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdv60ypoh.v:15: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdv60ypoh.v:11: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_l_6i9ld.v:15: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_l_6i9ld.v:11: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
                             "3 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdv60ypoh.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_l_6i9ld.v:1"
                         ]
                     }
                 },
@@ -8399,8 +8399,8 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvj96a5mi.v:7: error: q is not a valid l-value in ram.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvj96a5mi.v:1:      : q is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqdglx9x8.v:7: error: q is not a valid l-value in ram.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpqdglx9x8.v:1:      : q is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -8414,15 +8414,15 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp12wtkvgj.v:7: error: q is not a valid l-value in tb_ram.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp12wtkvgj.v:1:      : q is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpai2wclkx.v:7: error: q is not a valid l-value in tb_ram.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpai2wclkx.v:1:      : q is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp12wtkvgj.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpai2wclkx.v:1"
                         ]
                     }
                 },
@@ -8462,8 +8462,8 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp544l2l8s.v:9: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp544l2l8s.v:5: error: Could not find variable ``ram[addr]'' in ``ram''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2b1sqheo.v:9: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2b1sqheo.v:5: error: Could not find variable ``ram[addr]'' in ``ram''",
                             "3 error(s) during elaboration."
                         ]
                     },
@@ -8477,15 +8477,15 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk8bascc1.v:9: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk8bascc1.v:5: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjlsvibcv.v:9: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjlsvibcv.v:5: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
                             "3 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpk8bascc1.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjlsvibcv.v:1"
                         ]
                     }
                 },
@@ -8525,8 +8525,8 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuo0x289w.v:15: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuo0x289w.v:11: error: Could not find variable ``ram[addr]'' in ``ram''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph8512z6s.v:15: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmph8512z6s.v:11: error: Could not find variable ``ram[addr]'' in ``ram''",
                             "3 error(s) during elaboration."
                         ]
                     },
@@ -8540,15 +8540,15 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzpij1hm4.v:15: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzpij1hm4.v:11: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuirk5d17.v:15: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuirk5d17.v:11: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
                             "3 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzpij1hm4.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpuirk5d17.v:1"
                         ]
                     }
                 },
@@ -8588,8 +8588,8 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvacov29m.v:9: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvacov29m.v:5: error: Could not find variable ``ram[addr]'' in ``ram''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2vp0j84a.v:9: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp2vp0j84a.v:5: error: Could not find variable ``ram[addr]'' in ``ram''",
                             "3 error(s) during elaboration."
                         ]
                     },
@@ -8603,15 +8603,15 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplj17l2qx.v:9: error: Unable to elaborate r-value: ram[addr]",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplj17l2qx.v:5: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvzwu0_ho.v:9: error: Unable to elaborate r-value: ram[addr]",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvzwu0_ho.v:5: error: Could not find variable ``ram[addr]'' in ``tb_ram.UUT''",
                             "3 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmplj17l2qx.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpvzwu0_ho.v:1"
                         ]
                     }
                 },
@@ -8704,8 +8704,8 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwmhmr9pb.v:8: error: q is not a valid l-value in ram.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpwmhmr9pb.v:1:      : q is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpgi55wom9.v:8: error: q is not a valid l-value in ram.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpgi55wom9.v:1:      : q is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
@@ -8719,15 +8719,15 @@
                     "error": {
                         "count": 3,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb883a4hb.v:8: error: q is not a valid l-value in tb_ram.UUT.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb883a4hb.v:1:      : q is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9pgdcrsq.v:8: error: q is not a valid l-value in tb_ram.UUT.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9pgdcrsq.v:1:      : q is declared here as wire.",
                             "2 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpb883a4hb.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp9pgdcrsq.v:1"
                         ]
                     }
                 },
@@ -8767,7 +8767,7 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp75i02ot1.v:2:      : q is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpcsrgngmx.v:2:      : q is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
@@ -8781,14 +8781,14 @@
                     "error": {
                         "count": 2,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpw_0og8i1.v:2:      : q is declared here as wire.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbl8w4_ud.v:2:      : q is declared here as wire.",
                             "1 error(s) during elaboration."
                         ]
                     },
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpw_0og8i1.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module ram declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpbl8w4_ud.v:1"
                         ]
                     }
                 },
@@ -9385,7 +9385,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfqhs0n5n.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmphbf6o0p5.v:1"
                         ]
                     }
                 },
@@ -9425,23 +9425,23 @@
                     "error": {
                         "count": 18,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:3: error: Invalid module instantiation",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:6: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:7: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:7: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:8: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:8: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:9: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:9: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:10: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:10: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:11: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:11: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:12: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:12: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:13: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:13: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpp38z57mf.v:14: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:3: error: Invalid module instantiation",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:6: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:7: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:7: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:8: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:8: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:9: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:9: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:10: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:10: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:11: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:11: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:12: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:12: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:13: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:13: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpd0gajav6.v:14: syntax error",
                             "I give up."
                         ]
                     },
@@ -9455,32 +9455,32 @@
                     "error": {
                         "count": 26,
                         "types": [
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:3: error: Invalid module instantiation",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:6: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:7: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:7: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:8: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:8: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:9: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:9: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:10: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:10: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:11: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:11: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:12: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:12: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:13: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:13: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:14: syntax error",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcl0juaf.v:3: error: Invalid module item.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcl0juaf.v:5: error: 'x3' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:1:      : It was declared here as a net.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcl0juaf.v:5: error: 'x2' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:1:      : It was declared here as a net.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcl0juaf.v:5: error: 'x1' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:1:      : It was declared here as a net.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmptcl0juaf.v:6: error: 'f' has already been declared in this scope.",
-                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpjucltqjk.v:1:      : It was declared here as a net."
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:3: error: Invalid module instantiation",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:6: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:7: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:7: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:8: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:8: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:9: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:9: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:10: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:10: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:11: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:11: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:12: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:12: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:13: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:13: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:14: syntax error",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm2xgrev1.v:3: error: Invalid module item.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm2xgrev1.v:5: error: 'x3' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:1:      : It was declared here as a net.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm2xgrev1.v:5: error: 'x2' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:1:      : It was declared here as a net.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm2xgrev1.v:5: error: 'x1' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:1:      : It was declared here as a net.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm2xgrev1.v:6: error: 'f' has already been declared in this scope.",
+                            "/var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp6owhcq1e.v:1:      : It was declared here as a net."
                         ]
                     },
                     "warning": {
@@ -9541,7 +9541,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpy7ihu3_k.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp4v8qgbrt.v:1"
                         ]
                     }
                 },
@@ -9598,7 +9598,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpgxywe0p8.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpprg2vm7i.v:1"
                         ]
                     }
                 },
@@ -9655,7 +9655,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpfchdz_jb.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpxcs_flbg.v:1"
                         ]
                     }
                 },
@@ -9775,7 +9775,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpl_4rmg4y.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp_yljo1y9.v:1"
                         ]
                     }
                 },
@@ -9832,7 +9832,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpzt84ugvq.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpm75atmh0.v:1"
                         ]
                     }
                 },
@@ -9889,7 +9889,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmp13ujex5y.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpnnfwhh_v.v:1"
                         ]
                     }
                 },
@@ -9946,7 +9946,7 @@
                     "warning": {
                         "count": 1,
                         "types": [
-                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpdhtq9h9d.v:1"
+                            "warning: Some modules have no timescale. This may cause       : confusing timing results.\tAffected modules are:       :   -- module truthtable declared here: /var/folders/rd/p1qd4kln5sndfk_3g_db5tqh0000gn/T/tmpalv6c4mb.v:1"
                         ]
                     }
                 },
