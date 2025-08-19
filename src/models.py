@@ -173,11 +173,16 @@ class ClaudeAPIClient(ProprietaryLLM):
 
         # Container for all generated samples
         outputs = []
+        # Token tracking
+        total_input_tokens = 0
+        total_output_tokens = 0
+        tokens_per_sample = []
+        # Time tracking
         start_time = time.time()
 
         # Generate n_samples by making multiple API calls
-        # Claude API doesn't support n>1 in a single call like some other APIs
-        for _ in range(n_samples):
+        # Claude API doesn't support n>1 in a single call unlike other LLM APIs
+        for idx in range(n_samples):
             # Make API call to Claude
             response = self.client.messages.create(
                 model=self.model,
@@ -193,6 +198,18 @@ class ClaudeAPIClient(ProprietaryLLM):
             # Extract text from Claude's response
             # Claude returns content as a list, we take the first text block
             outputs.append(response.content[0].text)
+        
+            # Extract token usage from the response
+            # Claude provides usage information in the response object
+            if hasattr(response, 'usage'):
+                # For the first sample, count input tokens (same for all samples)
+                if idx == 0:
+                    total_input_tokens = response.usage.input_tokens
+                
+                # Add output tokens for this sample
+                output_tokens_this_sample = response.usage.output_tokens
+                total_output_tokens += output_tokens_this_sample
+                tokens_per_sample.append(output_tokens_this_sample)
 
         end_time = time.time()
         generation_time = end_time - start_time
@@ -202,8 +219,6 @@ class ClaudeAPIClient(ProprietaryLLM):
         )
         self.log.info("Successfully ran chat")
 
-        # Format response to match expected structure for evaluation
-        # This ensures consistency across different LLM providers
         response_data = {
             "question": prompt,  # Original prompt for reference
             "outputs": outputs,  # List of generated code samples
@@ -214,6 +229,13 @@ class ClaudeAPIClient(ProprietaryLLM):
                 "max_tokens": max_tokens,
                 "samples": n_samples,
             },
+            "time": generation_time,
+            # Token usage information
+            "input_tokens": total_input_tokens,
+            "output_tokens": total_output_tokens,
+            "total_tokens": total_input_tokens + total_output_tokens,
+            "tokens_per_sample": tokens_per_sample,
+            "avg_tokens_per_sample": total_output_tokens / n_samples if n_samples > 0 else 0,
         }
 
         return response_data
@@ -293,6 +315,10 @@ class GeminiAPIClient:
         -------
         openai.OpenAIError
             If API call fails (rate limits, invalid API key, etc.)
+
+        Note:
+        -----
+        Unlike other LLM APIs, token info and time taken weren't added as the API was unusable at the time of benchmarking
         """
         self.log.info("Running chat")
 
@@ -445,6 +471,16 @@ class OpenAIAPIClient:
 
         self.log.info("Successfully ran chat")
 
+        # Extract token usage information from the response
+        usage = response.usage
+        
+        # Calculate tokens per sample (OpenAI gives total, so divide by n_samples)
+        # Note: Input tokens are the same for all samples
+        tokens_per_sample = []
+        if n_samples > 0:
+            avg_completion_tokens = usage.completion_tokens / n_samples
+            tokens_per_sample = [avg_completion_tokens] * n_samples
+
         # Format response to match expected structure for evaluation
         # This ensures consistency across different LLM providers
         response_data = {
@@ -458,6 +494,13 @@ class OpenAIAPIClient:
                 "max_tokens": max_tokens,
                 "samples": n_samples,
             },
+            "time": generation_time,
+            # Token usage information
+            "input_tokens": usage.prompt_tokens,
+            "output_tokens": usage.completion_tokens,
+            "total_tokens": usage.total_tokens,
+            "tokens_per_sample": tokens_per_sample,
+            "avg_tokens_per_sample": usage.completion_tokens / n_samples if n_samples > 0 else 0,
         }
 
         return response_data
