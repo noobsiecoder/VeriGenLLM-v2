@@ -198,14 +198,14 @@ class ClaudeAPIClient(ProprietaryLLM):
             # Extract text from Claude's response
             # Claude returns content as a list, we take the first text block
             outputs.append(response.content[0].text)
-        
+
             # Extract token usage from the response
             # Claude provides usage information in the response object
-            if hasattr(response, 'usage'):
+            if hasattr(response, "usage"):
                 # For the first sample, count input tokens (same for all samples)
                 if idx == 0:
                     total_input_tokens = response.usage.input_tokens
-                
+
                 # Add output tokens for this sample
                 output_tokens_this_sample = response.usage.output_tokens
                 total_output_tokens += output_tokens_this_sample
@@ -213,6 +213,16 @@ class ClaudeAPIClient(ProprietaryLLM):
 
         end_time = time.time()
         generation_time = end_time - start_time
+        # Calculate tokens per second metrics
+        output_tokens_per_second = (
+            total_output_tokens / generation_time if generation_time > 0 else 0
+        )
+        total_tokens_per_second = (
+            (total_input_tokens + total_output_tokens) / generation_time
+            if generation_time > 0
+            else 0
+        )
+
         # Log generation completion and timing
         self.log.info(
             f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
@@ -235,7 +245,11 @@ class ClaudeAPIClient(ProprietaryLLM):
             "output_tokens": total_output_tokens,
             "total_tokens": total_input_tokens + total_output_tokens,
             "tokens_per_sample": tokens_per_sample,
-            "avg_tokens_per_sample": total_output_tokens / n_samples if n_samples > 0 else 0,
+            "avg_tokens_per_sample": total_output_tokens / n_samples
+            if n_samples > 0
+            else 0,
+            "output_tokens_per_second": output_tokens_per_second,
+            "total_tokens_per_second": total_tokens_per_second,
         }
 
         return response_data
@@ -473,13 +487,21 @@ class OpenAIAPIClient:
 
         # Extract token usage information from the response
         usage = response.usage
-        
+
         # Calculate tokens per sample (OpenAI gives total, so divide by n_samples)
         # Note: Input tokens are the same for all samples
         tokens_per_sample = []
         if n_samples > 0:
             avg_completion_tokens = usage.completion_tokens / n_samples
             tokens_per_sample = [avg_completion_tokens] * n_samples
+
+        # Calculate tokens per second metrics
+        tokens_per_second = (
+            usage.completion_tokens / generation_time if generation_time > 0 else 0
+        )
+        total_tokens_per_second = (
+            usage.total_tokens / generation_time if generation_time > 0 else 0
+        )
 
         # Format response to match expected structure for evaluation
         # This ensures consistency across different LLM providers
@@ -500,7 +522,11 @@ class OpenAIAPIClient:
             "output_tokens": usage.completion_tokens,
             "total_tokens": usage.total_tokens,
             "tokens_per_sample": tokens_per_sample,
-            "avg_tokens_per_sample": usage.completion_tokens / n_samples if n_samples > 0 else 0,
+            "avg_tokens_per_sample": usage.completion_tokens / n_samples
+            if n_samples > 0
+            else 0,
+            "output_tokens_per_second": tokens_per_second,
+            "total_tokens_per_second": total_tokens_per_second,
         }
 
         return response_data
@@ -677,6 +703,16 @@ class OpenSourceLLMClient:
             tokens_per_sample.append(output_tokens_in_sample)
             total_output_tokens += output_tokens_in_sample
 
+        # Calculate tokens per second metrics
+        output_tokens_per_second = (
+            total_output_tokens / generation_time if generation_time > 0 else 0
+        )
+        total_tokens_per_second = (
+            (input_token_count + total_output_tokens) / generation_time
+            if generation_time > 0
+            else 0
+        )
+
         # Log generation completion and timing
         self.log.info(
             f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
@@ -703,10 +739,13 @@ class OpenSourceLLMClient:
             "time": generation_time,
             "input_tokens": input_token_count,
             "output_tokens": total_output_tokens,
+            "total_tokens": input_token_count + total_output_tokens,
             "tokens_per_sample": tokens_per_sample,
             "avg_tokens_per_sample": total_output_tokens / n_samples
             if n_samples > 0
             else 0,
+            "output_tokens_per_second": output_tokens_per_second,
+            "total_tokens_per_second": total_tokens_per_second,
         }
 
         return responses
