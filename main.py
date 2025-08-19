@@ -326,6 +326,11 @@ def summarize_eval(df: pd.DataFrame, name: str) -> pd.DataFrame:
     for diff, val in grouped_attempts.items():
         summary[f"avg_attempts_{diff}"] = int(val)
 
+    # --- Token metrics overall ---
+    summary["avg_tokens_per_sample"] = df["metadata_avg_tokens_per_sample"].mean()
+    summary["output_tokens_per_second"] = df["metadata_output_tokens_per_second"].mean()
+    summary["total_tokens_per_second"] = df["metadata_total_tokens_per_second"].mean()
+
     return pd.DataFrame([summary])
 
 
@@ -380,10 +385,27 @@ if __name__ == "__main__":
                 temperature = data["response"]["config"]["temperature"]
                 max_tokens = data["response"]["config"]["max_tokens"]
                 testbench = data["testbench"]
+                # Metadata
+                time_taken = data["response"]["time"]
+                input_tokens = data["response"]["input_tokens"]
+                output_tokens = data["response"]["output_tokens"]
+                avg_tokens_per_sample = data["response"]["avg_tokens_per_sample"]
+                total_tokens = data["response"]["total_tokens"]
+                output_tokens_per_second = data["response"]["output_tokens_per_second"]
+                total_tokens_per_second = data["response"]["total_tokens_per_second"]
 
                 # Empty dict to capture eval per question
                 question_eval = {}
                 question_eval["question"] = question
+                question_eval["metadata"] = {
+                    "time": time_taken,
+                    "input_tokens": input_tokens,
+                    "output_tokens": output_tokens,
+                    "avg_tokens_per_sample": avg_tokens_per_sample,
+                    "total_tokens": total_tokens,
+                    "output_tokens_per_second": output_tokens_per_second,
+                    "total_tokens_per_second": total_tokens_per_second,
+                }
                 question_eval["evals"] = []
                 # Iterated over each question in a model
                 log.info(f"Running for question: {question}")
@@ -430,7 +452,7 @@ if __name__ == "__main__":
         )  # path where all the evals-*.json resides
         json_files = os.listdir(evals_path)
 
-        ks = [1, 5, 10]  # default sampling number
+        ks = [1, 5, 8, 10]  # default sampling number
         # Looping over k's
         for k in ks:
             summary_df = pd.DataFrame()
@@ -438,6 +460,13 @@ if __name__ == "__main__":
                 if (
                     os.path.isdir(os.path.join(evals_path, json_file))
                     or json_file == ".DS_Store"
+                    # TODO: handle the issue
+                    # Issue: The output seems to be erroneous:
+                    #   - No module at the beginning of the output
+                    #   - However multiple answers found in each sample
+                    # Possible Solution:
+                    #   - Use prompt-style2 instead of prompt-style1
+                    or json_file == "evals-verigen-finetuned.json" 
                 ):
                     continue
 
@@ -456,6 +485,7 @@ if __name__ == "__main__":
                             eval["difficulty"] = "basic"
                         else:
                             eval["difficulty"] = "intermediate"
+                        eval["metadata"] = response["metadata"]
                         model_metrics.append(eval)
 
                     # Flatten JSON -> pd.DataFrame
@@ -475,11 +505,13 @@ if __name__ == "__main__":
                         ),
                         index=None,
                     )
+                    log.info(f"Collecting summary for model: {match.group(1)} for k={k}...")
                     # Add one run
                     summary_df = pd.concat(
                         [summary_df, summarize_eval(model_df, match.group(1))],
                         ignore_index=True,
                     )
+                    log.info(f"✓ Done")
             # Write to a CSV file
             summary_df.to_csv(
                 os.path.join(
