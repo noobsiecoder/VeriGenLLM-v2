@@ -1,8 +1,8 @@
-question,first_correct_idx,total_outputs,correct_codes_len,unique_code_len,k,difficulty,pass_k_metric_compilation,pass_k_metric_functional_correctness,pass_k_metric_synthesisability,pass_k_metric_overall
+question,first_correct_idx,total_outputs,correct_codes_len,unique_code_len,k,difficulty,pass_k_metric_compilation,pass_k_metric_functional_correctness,pass_k_metric_synthesisability,pass_k_metric_overall,metadata_time,metadata_input_tokens,metadata_output_tokens,metadata_avg_tokens_per_sample,metadata_total_tokens,metadata_output_tokens_per_second,metadata_total_tokens_per_second
 "// This is a signed adder that adds two 8-bit 2's complement numbers. It also captures a signed overflow. 
-module signed_adder(input [7:0] a, input [7:0] b, output [7:0] s, output overflow ); ",3,10,3,3,1,advanced,0.30000000000000004,0.30000000000000004,0.5,0.3666666666666667
+module signed_adder(input [7:0] a, input [7:0] b, output [7:0] s, output overflow ); ",-1,10,0,0,1,advanced,0.0,0.0,0.0,0.0,24.596613883972168,60,3000,300.0,3060,121.97,124.41
 "// This is a decade counter that counts from 0 through 9, inclusive. It counts only when slowena is high.
-module count_slow(input clk, input slowena, input reset, output reg [3:0] q);",-1,10,0,0,1,advanced,1.0,0.0,1.0,0.6666666666666666
+module count_slow(input clk, input slowena, input reset, output reg [3:0] q);",-1,10,0,0,1,advanced,0.0,0.0,0.0,0.0,16.90444588661194,50,2220,222.0,2270,131.33,134.28
 "// This is a finite state machine that recognizes the sequence 101 on the input signal x. 
 module adv_fsm(
 input clk,
@@ -18,7 +18,7 @@ parameter IDLE=0, S1=1, S10=2, S101=3;
 // if present_state is S1, next_state is assigned S10 if x is 0, otherwise next_state stays at IDLE 
 // if present_state is S10, next_state is assigned S101 if x is 1, otherwise next_state stays at IDLE 
 // if present_state is S101, next_state is assigned IDLE
-",-1,10,0,0,1,advanced,0.0,0.0,0.0,0.0
+",-1,10,0,0,1,advanced,0.0,0.0,0.0,0.0,31.752549171447754,232,3000,300.0,3232,94.48,101.79
 "// Design a 64-bit arithmetic shift register, with synchronous load. 
 // When ena is high, the shifter can shift both left and right, and by 1 or 8 bit positions, selected by amount.
 module advshift(input clk,
@@ -31,7 +31,7 @@ output reg [63:0] q);
 // 2'b00: shift left by 1 bit.
 // 2'b01: shift left by 8 bits.
 // 2'b10: shift right by 1 bit.
-// 2'b11: shift right by 8 bits.",-1,10,0,0,1,advanced,0.19999999999999996,0.0,0.30000000000000004,0.16666666666666666
+// 2'b11: shift right by 8 bits.",-1,10,0,0,1,advanced,0.0,0.0,0.0,0.0,28.46402907371521,156,3000,300.0,3156,105.4,110.88
 "// This is an ABRO FSM. 
 // It outputs 1 when 1 is received for signals a and b irrespetive of their order, either simultaneously or non-simultaneously.
 module abro( 
@@ -44,33 +44,33 @@ parameter IDLE = 0,
 SA = 1,
 SB = 2,
 SAB = 3;
-reg [1:0] cur_state,next_state;",-1,10,0,0,1,advanced,0.30000000000000004,0.0,0.30000000000000004,0.20000000000000004
+reg [1:0] cur_state,next_state;",-1,10,0,0,1,advanced,0.0,0.0,0.0,0.0,26.440521240234375,109,3000,300.0,3109,113.46,117.58
 "// This is a module that assigns the output to the input
-module wire_assign( input in, output out );",-1,10,0,0,1,basic,0.0,0.0,0.0,0.0
+module wire_assign( input in, output out );",-1,10,0,0,1,basic,0.0,0.0,0.0,0.0,23.3242130279541,25,3000,300.0,3025,128.62,129.69
 "// This is a module that implements an AND gate
 module and_gate( 
 input a, 
 input b, 
-output out );",-1,10,0,0,1,basic,0.0,0.0,0.0,0.0
+output out );",-1,10,0,0,1,basic,0.0,0.0,0.0,0.0,23.536895036697388,31,3000,300.0,3031,127.46,128.78
 "// This is a 3-bit priority encoder. It outputs the position of the first high bit.
 module priority_encoder( 
 input [2:0] in,
-output reg [1:0] pos ); ",-1,10,0,0,1,basic,0.5,0.0,0.5,0.3333333333333333
+output reg [1:0] pos ); ",-1,10,0,0,1,basic,0.0,0.0,0.0,0.0,24.153376579284668,49,3000,300.0,3049,124.21,126.23
 "// This is a 2-to-1 multiplexer.
 module mux( 
 input [4:0] a, b,
 input sel,
-output [4:0] out );",0,10,6,4,1,basic,0.7,0.7,0.7,0.6999999999999998
+output [4:0] out );",-1,10,0,0,1,basic,0.0,0.0,0.0,0.0,23.99608540534973,44,3000,300.0,3044,125.02,126.85
 "// This is a half adder.
 module half_adder( 
 input a, b,
-output cout, sum );",3,10,1,1,1,intermediate,0.09999999999999998,0.09999999999999998,0.09999999999999998,0.09999999999999998
+output cout, sum );",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,23.40105938911438,27,3000,300.0,3027,128.2,129.35
 "// This is a counter that counts from 1 to 12
 module counter( 
 input clk,
 input reset,
 output reg [3:0] q
-); ",-1,10,0,0,1,intermediate,0.09999999999999998,0.0,0.09999999999999998,0.06666666666666665
+); ",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,23.736157417297363,37,3000,300.0,3037,126.39,127.95
 "// This is a 5-bit maximal-length Galois LFSR with taps at bit positions 5 and 3
 module lfsr( 
 input clk,
@@ -79,18 +79,18 @@ output [4:0] q
 ); 
 reg [4:0] r_reg;
 wire [4:0] r_next;
-wire feedback_value;",-1,10,0,0,1,intermediate,1.0,0.0,1.0,0.6666666666666666
+wire feedback_value;",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,25.22236704826355,78,3000,300.0,3078,118.94,122.03
 "// This is a Moore state machine with two states 0 and 1, one input in, and one output out. 
 // Reset state is 0. Output is high in state 0. If in is low, state changes.
 module simple_fsm(input clk, input reset, input in, output out);
 reg present_state, next_state;
-",-1,10,0,0,1,intermediate,0.5,0.0,1.0,0.5
+",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,25.178817987442017,77,3000,300.0,3077,119.15,122.21
 "// This is a shift left and rotate operation
-module left_rotate(input clk,input reset,input [2:0] amount,input [7:0] data,input load,output reg [7:0] out);",-1,10,0,0,1,intermediate,0.30000000000000004,0.0,0.5,0.26666666666666666
+module left_rotate(input clk,input reset,input [2:0] amount,input [7:0] data,input load,output reg [7:0] out);",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,24.23873519897461,51,3000,300.0,3051,123.77,125.87
 "// This is a RAM module
 module ram #( parameter ADDR_WIDTH=6, parameter DATA_WIDTH=8) 
 (input [DATA_WIDTH-1:0] data, input [ADDR_WIDTH-1:0] addr, input we, clk, output [DATA_WIDTH-1:0] q);
-reg [DATA_WIDTH-1:0] ram[2**ADDR_WIDTH-1:0];",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0
+reg [DATA_WIDTH-1:0] ram[2**ADDR_WIDTH-1:0];",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,26.51406455039978,110,3000,300.0,3110,113.15,117.3
 "// This is a permutation block module.
 module P_box ( input wire [31:0] In32, output reg [31:0] Out32 );
 localparam len_table = 32;
@@ -130,7 +130,7 @@ In32table[30] = 21;
 In32table[31] = 24;
 end
 integer i;
-",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0
+",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,38.24084830284119,394,3000,300.0,3394,78.45,88.75
 "// This is a circuit synthesized from a truth table
 //    Inputs   |  Outputs
 //  x3  x2  x1 |    f 
@@ -142,4 +142,4 @@ integer i;
 //  1   0   1  |    0
 //  1   1   0  |    1
 //  1   1   1  |    0
-module truthtable(input x3, input x2, input x1, output f );",-1,10,0,0,1,intermediate,0.4,0.0,0.4,0.26666666666666666
+module truthtable(input x3, input x2, input x1, output f );",-1,10,0,0,1,intermediate,0.0,0.0,0.0,0.0,28.250938653945923,152,3000,300.0,3152,106.19,111.57
