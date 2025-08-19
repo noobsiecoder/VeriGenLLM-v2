@@ -472,16 +472,19 @@ class OpenSourceLLMClient:
         self,
         model_id: str = "codellama",
         model_name: str = "meta-llama/CodeLlama-7b-Instruct-hf",
+        device: str = "cuda",
     ):
         """
         Initializes the tokenizer and model once for efficiency.
 
         Parameters:
         -----------
-        model_id : str
+        model_id:   str
             Short identifier for the model (used for logging)
-        model_name : str
+        model_name: str
             Full HuggingFace model path/name
+        device:     str
+            Device for GPU acceleration (if available)
 
         Notes:
         ------
@@ -491,6 +494,7 @@ class OpenSourceLLMClient:
         """
         self.model_id = model_id
         self.model_name = model_name
+        self.device = device
 
         # Initialize logger with model-specific name
         self.log = Logger(model_id).get_logger()
@@ -580,13 +584,22 @@ class OpenSourceLLMClient:
 
         # Convert messages to model input format
         # apply_chat_template formats the conversation according to model's expectations
-        inputs = self.tokenizer.apply_chat_template(
-            messages,
-            add_generation_prompt=True,  # Add the prompt that signals the model to generate
-            tokenize=True,  # Convert to tokens
-            return_dict=True,  # Return as dictionary
-            return_tensors="pt",  # Return PyTorch tensors
-        ).to(self.model.device)  # Move to same device as model
+        if self.model_id == "verigen-finetuned":
+            inputs = self.tokenizer(
+                prompt,
+                return_tensors="pt",
+            ).to(self.device)
+        else:
+            inputs = self.tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True,  # Add the prompt that signals the model to generate
+                tokenize=True,  # Convert to tokens
+                return_dict=True,  # Return as dictionary
+                return_tensors="pt",  # Return PyTorch tensors
+            ).to(self.device)  # Move to same device as model
+
+        # Count input tokens
+        input_token_count = inputs["input_ids"].shape[-1]
 
         # Log generation start
         self.log.info(f"Running chat: {self.model_id} ...")
@@ -611,14 +624,29 @@ class OpenSourceLLMClient:
         )
         self.log.info(f"Generating response: {self.model_id} ...")
 
+        # Calculate output tokens for each sample
+        tokens_per_sample = []
+        total_output_tokens = 0
+
+        for output in outputs:
+            # Count tokens in this sample (excluding input tokens)
+            output_tokens_in_sample = len(output) - input_token_count
+            tokens_per_sample.append(output_tokens_in_sample)
+            total_output_tokens += output_tokens_in_sample
+
+        # Log generation completion and timing
+        self.log.info(
+            f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
+        )
+        self.log.info(f"Generating response: {self.model_id} ...")
+
         # Decode generated tokens back to text
-        # Only decode the newly generated tokens (skip the input prompt)
         responses = {
             "question": prompt,
             "outputs": [
                 self.tokenizer.decode(
-                    output[inputs["input_ids"].shape[-1] :],  # Skip input tokens
-                    skip_special_tokens=True,  # Remove special tokens like <s>, </s>
+                    output[inputs["input_ids"].shape[-1] :],
+                    skip_special_tokens=True,
                 )
                 for output in outputs
             ],
@@ -629,6 +657,13 @@ class OpenSourceLLMClient:
                 "max_tokens": max_tokens,
                 "samples": n_samples,
             },
+            "time": generation_time,
+            "input_tokens": input_token_count,
+            "output_tokens": total_output_tokens,
+            "tokens_per_sample": tokens_per_sample,
+            "avg_tokens_per_sample": total_output_tokens / n_samples
+            if n_samples > 0
+            else 0,
         }
 
         return responses
