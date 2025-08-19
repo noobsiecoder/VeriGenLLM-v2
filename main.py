@@ -69,7 +69,11 @@ class RunLLMPrompts:
                 "name": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
             },
             {
-                "id": "Verigen-6B-Finetuned",
+                "id": "prompts-verireason-qwen-coder",
+                "name": "Nellyw888/VeriReason-Qwen2.5-7b-RTLCoder-Verilog-GRPO-reasoning-tb",
+            },
+            {
+                "id": "verigen-finetuned",
                 "name": "shailja/fine-tuned-codegen-6B-Verilog",
             },
             {"id": "qwen-coder", "name": "Qwen/Qwen2.5-Coder-7B-Instruct"},
@@ -142,7 +146,6 @@ class RunLLMPrompts:
         n_samples: int = 2,
         prompt_size: int = None,
         run_gemini_api: bool = False,
-        run_baseline_api: bool = False,
     ) -> List[Dict]:
         """
         Runner method for all LLMs
@@ -161,8 +164,6 @@ class RunLLMPrompts:
             Size of array of the prompts from the Problem set
         run_gemini_api:     bool, False
             Run Gemini API flag
-        run_baseline_api:   bool, False
-            Run VeriGen 6B/16B Instruct
 
         Returns:
         --------
@@ -246,12 +247,6 @@ class RunLLMPrompts:
 
         # Last case: OSS LLM local API
         for model_info in self.models:
-            # Skip running for baseline API
-            # This is used because the baseline LLM wasn't able to load in L4 GPU
-            # TODO: Further investigation into why this issue prevails
-            if model_info["id"] == "Verigen-6B-Finetuned" and not run_baseline_api:
-                continue
-
             oss_llm_api = OpenSourceLLMClient(
                 model_id=model_info["id"], model_name=model_info["name"]
             )
@@ -365,9 +360,13 @@ if __name__ == "__main__":
                 evals_result_path
             )  # NOTE: ensure necessary permission is enabled before running script
         for json_file in json_files:
-            if os.path.isdir(os.path.join(response_path, json_file)):
+            if (
+                os.path.isdir(os.path.join(response_path, json_file))
+                or json_file == ".DS_Store"
+            ):
                 continue
 
+            log.info(f"Running for model-file: {json_file}")
             responses = None
             with open(os.path.join(response_path, json_file), "r") as fs:
                 responses = json.load(fs)
@@ -387,6 +386,7 @@ if __name__ == "__main__":
                 question_eval["question"] = question
                 question_eval["evals"] = []
                 # Iterated over each question in a model
+                log.info(f"Running for question: {question}")
                 for output in data["response"]["outputs"]:
                     payload = {
                         "model": model,
@@ -435,8 +435,12 @@ if __name__ == "__main__":
         for k in ks:
             summary_df = pd.DataFrame()
             for json_file in json_files:
-                if os.path.isdir(os.path.join(evals_path, json_file)):
+                if (
+                    os.path.isdir(os.path.join(evals_path, json_file))
+                    or json_file == ".DS_Store"
+                ):
                     continue
+
                 with open(os.path.join(evals_path, json_file), "r") as fs:
                     responses = json.load(fs)
                     # Build per model for each questions
