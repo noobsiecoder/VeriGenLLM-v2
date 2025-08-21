@@ -9,6 +9,7 @@
 # Functionalities:
 # deploy.yaml     -> Deploys repo to cloud and perform RLFT
 # integrate.yaml  -> Performs testing before deployment
+
 name: main-workflow
 
 # Trigger on push to specific branch: "enhance-v1" for now
@@ -28,23 +29,22 @@ jobs:
       - name: Integrate and Deploy
         uses: actions/checkout@v4
 
-      - name: Pilot run of "Dockerfile.ci"
-        run: docker build -f Dockerfile.ci -t verilog-llm .
+      # Step 1: Build dockerfile image
+      - name: Build image of "Dockerfile.ci"
+        run: |
+          # This builds and tests the CI Docker image
+          # to ensure all dependencies are properly installed
+          docker build -f Dockerfile.ci -t verilog-llm .
 
-      - name: Run tests
-        run: docker run verilog-llm
-      
-      # Step 1: Install required packages
+      # Step 2: Run dockerfile image
+      - name: Build image of "Dockerfile.ci"
+        run: |
+          # This run the built CI Docker image
+          docker run verilog-llm
 
-      # Step 2: Check code lint
-
-      # Step 3: Run Tests in tests/
-
-      # Step 4: Run Tests
-
-      # Step 5: Ping cloud provider via API and check available credits
+      # Step 3: Ping cloud provider via API and check available credits
       # NOTE: skip job schedule only when:
       #   1) Usage above limit.
       #   2) Resource not available.
 
-      # Step 5: Schedule Job
+      # Step 4: Schedule Job

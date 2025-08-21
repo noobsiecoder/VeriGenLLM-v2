@@ -8,7 +8,7 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# Install buold dependency tools
+# Install build dependency tools
 RUN apt-get update && apt-get install -y \
     curl \
     python3 \
@@ -21,8 +21,19 @@ RUN apt-get update && apt-get install -y \
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:${PATH}"
 
-WORKDIR /src # Work directory of the application
+# Work directory of the application
+WORKDIR /src
+# Copy from source to src/
 COPY . .
 
-# Pilot run (test)
-RUN uv run python main.py || echo "Expected: no argument matches"
+# Install ruff for linting
+RUN uv pip install ruff
+
+# Step 1: Code lint checking with ruff
+RUN echo "=== Running Code Linting ===" && \
+    ruff check . && \
+    ruff format --check .
+
+# Step 2: Run tests
+RUN echo "=== Running Tests ===" && \
+    uv run pytest -v tests/test_models::test_api_connection_with_no_env_load
