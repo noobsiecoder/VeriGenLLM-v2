@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    runs-on: alpine:latest
+    container: alpine:latest
 
     steps:
       - name: Integrate and Deploy
