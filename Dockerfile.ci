@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install uv
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-RUN source $HOME/.local/bin/env
+ENV PATH="/root/.local/bin:${PATH}"
 
 WORKDIR /src # Work directory of the application
 COPY . .
