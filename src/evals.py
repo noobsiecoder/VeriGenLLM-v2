@@ -256,18 +256,18 @@ class ResponseEvals:
             #     "count": int,
             # },
             "code": {
-                "attempted": bool,
-                "comments": int,
-                "completed": bool,
-                "lines": int,
-                "output": str,
+                "attempted": None,
+                "comments": None,
+                "completed": None,
+                "lines": None,
+                "output": None,
             },
             "misc": {
-                "md_style": bool,
+                "md_style": None,
             },
         }
 
-        pattern = r"(module.*\nendmodule)"
+        pattern = r"(module.*endmodule)"
         match = re.search(pattern, output, re.DOTALL)
 
         if match:
@@ -338,13 +338,13 @@ class ResponseEvals:
 
         # Chances of some fields being empty is possible
         # Handle edge case
-        if isinstance(code_analysis["code"]["comments"], int):
+        if code_analysis["code"]["comments"] is None:
             code_analysis["code"]["comments"] = 0
-        if isinstance(code_analysis["code"]["lines"], int):
+        if code_analysis["code"]["lines"] is None:
             code_analysis["code"]["lines"] = 0
-        if isinstance(code_analysis["code"]["output"], str):
+        if code_analysis["code"]["output"] is None:
             code_analysis["code"]["output"] = None
-        if isinstance(code_analysis["misc"]["md_style"], bool):
+        if code_analysis["misc"]["md_style"] is None:
             code_analysis["misc"]["md_style"] = False
 
         return code_analysis
@@ -442,14 +442,14 @@ class ResponseEvals:
         Dictionary of compilation - analysed data
         """
         compilation = {
-            "status": bool,
+            "status": None,
             "error": {
-                "count": int,
-                "types": [str],
+                "count": None,
+                "types": None,
             },
             "warning": {
-                "count": int,
-                "types": [str],
+                "count": None,
+                "types": None,
             },
         }
 
@@ -652,16 +652,16 @@ class ResponseEvals:
         Dictionary of functional correctness - analysed data
         """
         synthesisability = {
-            "status": bool,
+            "status": None,
             # "output": str,
-            "tool": str,
+            "tool": None,
             "error": {
-                "count": int,
-                "types": [str],
+                "count": None,
+                "types": None,
             },
             "warning": {
-                "count": int,
-                "types": [str],
+                "count": None,
+                "types": None,
             },
         }
 

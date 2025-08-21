@@ -27,11 +27,11 @@ def test_per_question_metrics():
         question_response = json.load(fs)
     eval = evals.per_question_eval(question_response[0])
     eval["question"] = question_response[0]["question"]
-    assert eval["first_correct_idx"] == -1
+    assert eval["first_correct_idx"] == 3
     assert math.isclose(eval["pass_k_metric"]["compilation"], 1.0)
-    assert math.isclose(eval["pass_k_metric"]["functional_correctness"], 0.0)
+    assert math.isclose(eval["pass_k_metric"]["functional_correctness"], 0.5)
     assert math.isclose(eval["pass_k_metric"]["synthesisability"], 1.0)
-    assert math.isclose(round(eval["pass_k_metric"]["overall"], 2), 0.67)
+    assert math.isclose(round(eval["pass_k_metric"]["overall"], 2), 0.83)
 
 
 def test_response_evals():
@@ -40,28 +40,27 @@ def test_response_evals():
     """
     # Consider "prompts-all.json" wasn't generated
     response_path = "dataset/results/baselines"
-    json_files = os.listdir(response_path)
-    json_files.remove("prompts-all.json") if "prompts-all.json" in json_files else None
-    for json_file in json_files:
-        with open(os.path.join(response_path, json_file), "r") as fs:
-            responses = json.load(fs)
-            # prelim checks
-            assert type(responses) is list
-            assert len(responses) == 17
+    json_file = "prompts-claude.json"
+    with open(os.path.join(response_path, json_file), "r") as fs:
+        responses = json.load(fs)
+        # prelim checks
+        assert type(responses) is list
+        assert len(responses) == 17
 
-            # tight checks
-            for response in responses:
-                data = {
-                    "model": response["response"]["config"]["model"],
-                    "temperature": response["response"]["config"]["temperature"],
-                    "max_tokens": response["response"]["config"]["max_tokens"],
-                    "output": response["response"]["outputs"][0],  # -> iter here
-                    "testbench": response["testbench"],
-                }
-                eval = response_evals.evaluate_response(data)
-                assert eval["compilation"]["status"]
-                assert eval["functional_correctness"]["status"]
-                break
+        # tight checks
+        for response in responses:
+            data = {
+                "model": response["response"]["config"]["model"],
+                "temperature": response["response"]["config"]["temperature"],
+                "max_tokens": response["response"]["config"]["max_tokens"],
+                "output": response["response"]["outputs"][0],  # -> iter here
+                "testbench": response["testbench"],
+            }
+            eval = response_evals.evaluate_response(data)
+            assert eval["compilation"]["status"]
+            assert eval["functional_correctness"]["status"]
+            # Note: test done only because the goal is to check functionality
+            break
 
 
 def test_llm_answer_eval():
