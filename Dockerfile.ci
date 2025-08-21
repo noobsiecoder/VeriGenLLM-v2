@@ -31,8 +31,8 @@ RUN uv sync
 
 # Step 1: Code lint checking with ruff
 RUN echo "=== Running Code Linting ===" && \
-    ruff check . && \
-    ruff format --check .
+    uv run ruff check . && \
+    uv run ruff format --check .
 
 # Step 2: Run tests
 RUN echo "=== Running Tests ===" && \
