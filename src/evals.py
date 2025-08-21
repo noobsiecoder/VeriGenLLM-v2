@@ -384,7 +384,9 @@ class ResponseEvals:
             # killed after timeout
             return (False, None)
         except Exception as err:
-            self.log.warning(f"error while runing {''.join(commands)}")
+            self.log.warning(
+                f"While running {' '.join(commands)}\nError ocurred: {err}"
+            )
             # some other failure
             return (False, None)
 

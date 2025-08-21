@@ -124,7 +124,7 @@ class RunLLMPrompts:
                     --------
                     String value representing directory path
                     """
-                    
+
                     return os.path.join(self.dataset_path, dir, file_pattern)
 
                 # answer_filepath = (glob.glob(pattern("answer_*"), recursive=True))[0]
