@@ -40,7 +40,7 @@ RUN echo "=== Running Code Linting ===" && \
 
 # Step 2: Run tests
 RUN echo "=== Running Python Script(s) Tests ===" && \
-    uv run pytest -v tests/test_evals.py \
+    uv run pytest -v tests/test_evals.py && \
     uv run pytest -v tests/test_models.py::test_api_connection_with_no_env_load
 
 # Step 3: Run tests for ground truth with corrresponding testbench
