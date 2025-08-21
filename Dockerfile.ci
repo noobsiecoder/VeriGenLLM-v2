@@ -26,8 +26,8 @@ WORKDIR /src
 # Copy from source to src/
 COPY . .
 
-# Install ruff for linting
-RUN uv pip install ruff
+# Install python dependencies
+RUN uv sync
 
 # Step 1: Code lint checking with ruff
 RUN echo "=== Running Code Linting ===" && \

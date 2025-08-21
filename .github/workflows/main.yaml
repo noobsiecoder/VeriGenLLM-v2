@@ -30,14 +30,14 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 1: Build dockerfile image
-      - name: Build image of "Dockerfile.ci"
+      - name: Build an image of "Dockerfile.ci"
         run: |
           # This builds and tests the CI Docker image
           # to ensure all dependencies are properly installed
           docker build -f Dockerfile.ci -t verilog-llm .
 
       # Step 2: Run dockerfile image
-      - name: Build image of "Dockerfile.ci"
+      - name: Run "Dockerfile.ci" image
         run: |
           # This run the built CI Docker image
           docker run verilog-llm
