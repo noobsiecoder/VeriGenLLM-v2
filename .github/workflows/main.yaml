@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    container: alpine:latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Integrate and Deploy
