@@ -18,8 +18,8 @@ on:
   push:
     branches:
       - enhance-v1 # specific branch
-    # paths:
-    #   - "dataset/testbench/hdlbits/**" # specific path
+    paths:
+      - "dataset/testbench/hdlbits/**" # specific path
 
 jobs:
   build:

@@ -1,7 +1,12 @@
 # This Dockerfile onnly for GH action runs and performs:
 #   1) Code lint checking
 #   2) Runs tests from tests/
+#
+# Author: Abhishek Sriram <noobsiecoder@gmail.com>
+# Date:   Aug 20th, 2025
+# Place:  Boston, MA
 
+# Image (OS) type
 FROM ubuntu:22.04
 
 # Prevent interactive prompts
@@ -14,7 +19,6 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     iverilog \
-    yosys \
     && apt-get clean
 
 # Install uv
@@ -35,5 +39,33 @@ RUN echo "=== Running Code Linting ===" && \
     uv run ruff format --check .
 
 # Step 2: Run tests
-RUN echo "=== Running Tests ===" && \
+RUN echo "=== Running Python Script(s) Tests ===" && \
+    uv run pytest -v tests/test_evals.py \
     uv run pytest -v tests/test_models.py::test_api_connection_with_no_env_load
+
+# Step 3: Run tests for ground truth with corrresponding testbench
+RUN echo "=== Running Verilog Tests ===" && \
+    # Collect all filenames in a directory:
+    # 1) tb_*.v and 2) answer_*.v
+    cd dataset/testbench/hdlbits && \
+    find . -name "tb_*.v" | while read tb_path; do \
+        # Get directory and filename
+        dir=$(dirname "$tb_path"); \
+        tb_file=$(basename "$tb_path"); \
+        base=${tb_file#tb_}; \
+        base=${base%.v}; \
+        answer_file="answer_${base}.v"; \
+        answer_path="${dir}/${answer_file}"; \
+        \
+        if [ -f "$answer_path" ]; then \
+            echo "Testing: ${dir}/${base}"; \
+            cd "$dir" && \
+            # Run verilog testbench using icarus verilog
+            iverilog -o test_${base} ${tb_file} ${answer_file} && \
+            vvp test_${base} || (echo "✗ Test failed: ${dir}/${base}" && exit 1); \
+            cd - > /dev/null; \
+        else \
+            echo "⚠ Missing answer file: $answer_path"; \
+        fi; \
+    done && \
+    echo "✓ All Verilog tests passed!"
