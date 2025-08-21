@@ -12,10 +12,13 @@
 name: main-workflow
 
 # Trigger on push to specific branch: "enhance-v1" for now
+# NOTE: Only triggers when dataset/testbench/hdlbits/... is modified
 on:
   push:
     branches:
       - enhance-v1 # specific branch
+    # paths:
+    #   - "dataset/testbench/hdlbits/**" # specific path
 
 jobs:
   build:
@@ -24,11 +27,24 @@ jobs:
     steps:
       - name: Integrate and Deploy
         uses: actions/checkout@v4
-        
-      - name: Run a simple command
-        run: echo "Hello, World! This action was triggered by a push to the enhance-v1 branch"
 
-      # - name: Run build
-      #   run: |
-      #     echo "Running build process..."
-      #     # Add your actual build commands here
+      - name: Pilot run of "Dockerfile.ci"
+        run: docker build -f Dockerfile.ci -t verilog-llm .
+
+      - name: Run tests
+        run: docker run verilog-llm
+      
+      # Step 1: Install required packages
+
+      # Step 2: Check code lint
+
+      # Step 3: Run Tests in tests/
+
+      # Step 4: Run Tests
+
+      # Step 5: Ping cloud provider via API and check available credits
+      # NOTE: skip job schedule only when:
+      #   1) Usage above limit.
+      #   2) Resource not available.
+
+      # Step 5: Schedule Job
