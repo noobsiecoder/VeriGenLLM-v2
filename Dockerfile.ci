@@ -4,10 +4,17 @@
 
 FROM alpine:latest
 
-# Prerequisites for Yosys tool
+# INstall buold dependency tools
 RUN apk add --no-cache \
-    build-base \
+    # Basic tools
+    curl \
     git \
+    python3 \
+    py3-pip \
+    # Build tools
+    build-base \
+    cmake \
+    # For Yosys
     bison \
     flex \
     gawk \
@@ -15,18 +22,12 @@ RUN apk add --no-cache \
     libffi-dev \
     readline-dev \
     graphviz \
-    xdot \
-    libboost-system-dev \
-    libboost-python-dev \
-    libboost-filesystem-dev \
-    zlib-dev
-
-# Install build dependencies and tools
-RUN apk add --no-cache \
-    curl \
-    python3 \
-    git \
-    build-base \
+    # Boost libraries (Alpine names)
+    boost-dev \
+    boost-python3 \
+    # Other deps
+    zlib-dev \
+    # Verilog tools
     iverilog \
     yosys
 
