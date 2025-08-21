@@ -2,38 +2,19 @@
 #   1) Code lint checking
 #   2) Runs tests from tests/
 
-FROM alpine:latest
+FROM ubuntu:22.04
 
-# INstall buold dependency tools
-RUN apk add --no-cache \
-    # Basic tools
+# Install buold dependency tools
+RUN apt-get update && apt-get install -y \
     curl \
-    git \
     python3 \
-    py3-pip \
-    # Build tools
-    build-base \
-    cmake \
-    # For Yosys
-    bison \
-    flex \
-    gawk \
-    tcl-dev \
-    libffi-dev \
-    readline-dev \
-    graphviz \
-    # Boost libraries (Alpine names)
-    boost-dev \
-    boost-python3 \
-    # Other deps
-    zlib-dev \
-    # Verilog tools
+    python3-pip \
     iverilog \
-    yosys
+    yosys \
+    && apt-get clean
 
-# Install uv via curl
+# Install uv
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-# Add uv to PATH
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 WORKDIR /src # Work directory of the application
