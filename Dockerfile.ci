@@ -1,0 +1,25 @@
+# This Dockerfile onnly for GH action runs and performs:
+#   1) Code lint checking
+#   2) Runs tests from tests/
+
+FROM alpine:latest
+
+# Install build dependencies and tools
+RUN apk add --no-cache \
+    curl \
+    python3 \
+    git \
+    build-base \
+    iverilog \
+    yosys
+
+# Install uv via curl
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+# Add uv to PATH
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+WORKDIR /src # Work directory of the application
+COPY . .
+
+# Pilot run (test)
+RUN uv run python main.py || echo "Expected: no argument matches"
