@@ -46,7 +46,7 @@ def test_response_evals():
         with open(os.path.join(response_path, json_file), "r") as fs:
             responses = json.load(fs)
             # prelim checks
-            assert type(responses) == list
+            assert type(responses) is list
             assert len(responses) == 17
 
             # tight checks
@@ -83,7 +83,7 @@ def test_llm_answer_eval():
     assert response_eval["code_analysis"]["code"]["completed"]
     assert response_eval["code_analysis"]["misc"]["md_style"]
     assert response_eval["compilation"]["status"]
-    assert response_eval["compilation"]["error"]["count"] == None
+    assert response_eval["compilation"]["error"]["count"] is None
     assert response_eval["functional_correctness"]["status"]
     assert response_eval["synthesisability"]["status"]
 
@@ -103,7 +103,7 @@ def test_llm_answer_eval():
     assert not response_eval["code_analysis"]["code"]["completed"]
     assert not response_eval["code_analysis"]["misc"]["md_style"]
     assert not response_eval["compilation"]["status"]
-    assert response_eval["compilation"]["error"]["count"] == None
+    assert response_eval["compilation"]["error"]["count"] is None
 
     # Check dummy response
     response = {
@@ -121,7 +121,7 @@ def test_llm_answer_eval():
     assert not response_eval["code_analysis"]["code"]["completed"]
     assert not response_eval["code_analysis"]["misc"]["md_style"]
     assert not response_eval["compilation"]["status"]
-    assert response_eval["compilation"]["error"]["count"] == None
+    assert response_eval["compilation"]["error"]["count"] is None
 
     # Check dummy response -> error code
     # Re-initialized input [7:0] a
@@ -131,7 +131,6 @@ def test_llm_answer_eval():
         "max_tokens": 512,
         "output": "```verilog\nmodule signed_adder(input [7:0] a, input [7:0] b, output [7:0] s, output overflow);\n\ninput [7:0] a\nassign s = a + b;\nassign overflow = (a[7] == b[7]) && (s[7] != a[7]);\n\nendmodule\n```",
         "testbench": '\n`timescale 1 ns/10 ps  // time-unit = 1 ns, precision = 10 ps\n\nmodule tb_signed_adder;\n\n    reg [7:0] a,b;\n    wire [7:0] s;\n    wire overflow;\n\n    integer increment_a = 0;\n    \n    // duration for each bit = 2 * timescale = 2 * 1 ns  = 2ns\n    localparam period = 2;  \n\n    signed_adder UUT (.a(a), .b(b), .s(s), .overflow(overflow) );\n    \n    initial // initial block executes only once\n        begin\n\n            // values for inputs\n            a = 0; b= 0;\n            while (b<8\'b1111_1111) begin\n\n                #period; // wait for period \n                if (s!==a+b || overflow!==(a[7]&&b[7]&&(~s[7]) || (~a[7])&&(~b[7])&&(s[7])) ) begin\n                    $display("test failed");\n                    $display("  a = %b , b = %b, sum=%b, overflow = %b", a,b,s,overflow);\n                    $finish;\n                end\n                $display("  a = %b , b = %b, sum=%b, overflow = %b", a,b,s,overflow);\n\n                if (increment_a) a = a+1;\n                else b = b+1;\n\n                if (increment_a) increment_a = 0;\n                else increment_a=1; \n            end\n        \n            $display("all tests passed");\n            $finish;\n\n        end\n\nendmodule',
-        "testbench": "",
     }
     response_eval = response_evals.evaluate_response(response)
     assert response_eval["meta"]["model"] == response["model"]

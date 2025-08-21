@@ -6,7 +6,6 @@ Date:   Aug 14th, 2025
 Place:  Boston, MA
 """
 
-from dotenv import load_dotenv
 from src.logger import Logger
 from src.gcp import GoogleStorageClient
 from google.cloud import storage

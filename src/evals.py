@@ -338,13 +338,13 @@ class ResponseEvals:
 
         # Chances of some fields being empty is possible
         # Handle edge case
-        if code_analysis["code"]["comments"] == int:
+        if isinstance(code_analysis["code"]["comments"], int):
             code_analysis["code"]["comments"] = 0
-        if code_analysis["code"]["lines"] == int:
+        if isinstance(code_analysis["code"]["lines"], int):
             code_analysis["code"]["lines"] = 0
-        if code_analysis["code"]["output"] == str:
+        if isinstance(code_analysis["code"]["output"], str):
             code_analysis["code"]["output"] = None
-        if code_analysis["misc"]["md_style"] == bool:
+        if isinstance(code_analysis["misc"]["md_style"], bool):
             code_analysis["misc"]["md_style"] = False
 
         return code_analysis
@@ -383,7 +383,8 @@ class ResponseEvals:
         except subprocess.TimeoutExpired:
             # killed after timeout
             return (False, None)
-        except Exception as e:
+        except Exception as err:
+            self.log.warning(f"error while runing {''.join(commands)}")
             # some other failure
             return (False, None)
 
@@ -414,7 +415,7 @@ class ResponseEvals:
             # if no 'error' line is found, start_idx should equal len(std_errors)
             start_idx = len(std_errors)
 
-        self.log.info(f"Left for loop")
+        self.log.info("Left for loop")
 
         # Collect remaining lines as errors
         for i in range(start_idx, len(std_errors)):
@@ -452,7 +453,7 @@ class ResponseEvals:
 
         self.log.info("Inside Compilation")
         # If code wasn't generated, prepare response and return early
-        if code_str == None:
+        if code_str is None:
             self.log.warning("⚠ Code wasn't generated, skipping...")
             compilation["status"] = False
             # warnings
@@ -501,10 +502,10 @@ class ResponseEvals:
             errors, warnings = self._group_errors_and_warnings(std_errors)
             # Store errors and warnings
             compilation["error"]["types"] = errors
-            compilation["error"]["count"] = None if errors == None else len(errors)
+            compilation["error"]["count"] = None if errors is None else len(errors)
             compilation["warning"]["types"] = warnings
             compilation["warning"]["count"] = (
-                None if warnings == None else len(warnings)
+                None if warnings is None else len(warnings)
             )
         else:
             self.log.warning("No Warning/Error found")
@@ -602,7 +603,7 @@ class ResponseEvals:
         _, func_result = self._run_subprocess(["vvp", "test_output"])
         os.remove("test_output")
 
-        if func_result == None:
+        if func_result is None:
             self.log.error("✗ Functional Correctness: FAIL")
             self.log.error("Time exceeded")
             functional_correctness["status"] = False
@@ -677,7 +678,7 @@ class ResponseEvals:
             sys.exit(-1)
 
         # If code wasn't generated
-        if code_str == None:
+        if code_str is None:
             self.log.warning("⚠ Code wasn't generated, skipping...")
             synthesisability["status"] = False
             synthesisability["error"]["types"] = None
@@ -713,7 +714,7 @@ class ResponseEvals:
         os.remove(temp_sol_filepath)  # remove output file from local machine
 
         # Check if synthesisable
-        if result == None:
+        if result is None:
             self.log.error("✗ Synthesisability: FAIL")
             self.log.error("Time exceeded")
             synthesisability["status"] = False
@@ -734,10 +735,10 @@ class ResponseEvals:
             # Check for errors and warnings:
             errors, warnings = self._group_errors_and_warnings(std_errors)
             synthesisability["error"]["types"] = errors
-            synthesisability["error"]["count"] = None if errors == None else len(errors)
+            synthesisability["error"]["count"] = None if errors is None else len(errors)
             synthesisability["warning"]["types"] = warnings
             synthesisability["warning"]["count"] = (
-                None if warnings == None else len(warnings)
+                None if warnings is None else len(warnings)
             )
         else:
             synthesisability["error"]["types"] = None

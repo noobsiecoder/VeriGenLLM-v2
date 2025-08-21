@@ -110,10 +110,28 @@ class RunLLMPrompts:
                 self.log.info(f"Omiting misc DIR: {dir}")
                 continue
             else:
-                pattern = lambda file: os.path.join(self.dataset_path, dir, file)
+
+                def create_pattern(file_pattern: str) -> str:
+                    """
+                    Inner function for small stuff
+
+                    Parameters:
+                    -----------
+                    file_pattern: str
+                        String-like pattern of the directory
+
+                    Returns:
+                    --------
+                    String value representing directory path
+                    """
+                    
+                    return os.path.join(self.dataset_path, dir, file_pattern)
+
                 # answer_filepath = (glob.glob(pattern("answer_*"), recursive=True))[0]
-                prompt_filepath = glob.glob(pattern("prompt1_*"), recursive=True)[0]
-                tb_filepath = glob.glob(pattern("tb_*"), recursive=True)[0]
+                prompt_filepath = glob.glob(
+                    create_pattern("prompt1_*"), recursive=True
+                )[0]
+                tb_filepath = glob.glob(create_pattern("tb_*"), recursive=True)[0]
 
                 # answer = None
                 prompt = None
@@ -135,7 +153,7 @@ class RunLLMPrompts:
                     }
                 )
 
-        self.log.info(f"Created all prompts!")
+        self.log.info("Created all prompts!")
         prompts = self.prompts
         return prompts
 
@@ -188,10 +206,10 @@ class RunLLMPrompts:
                 )
             with open("prompts-claude.json", "w") as fs:
                 json.dump(self.answers["claude"], fs, indent=4)
-            self.log.info(f"Written file for claude")
+            self.log.info("Written file for claude")
             filenames.append("prompts-claude.json")
         else:
-            self.log.error(f"Claude connection unavailable; Moving to next case...")
+            self.log.error("Claude connection unavailable; Moving to next case...")
             exception = "Except Claude"
 
         # Second case: Gemini API
@@ -211,10 +229,10 @@ class RunLLMPrompts:
                     )
                 with open("prompts-gemini.json", "w") as fs:
                     json.dump(self.answers["gemini"], fs, indent=4)
-                self.log.info(f"Written file for gemini")
+                self.log.info("Written file for gemini")
                 filenames.append("prompts-gemini.json")
             else:
-                self.log.error(f"Gemini connection unavailable; Moving to next case...")
+                self.log.error("Gemini connection unavailable; Moving to next case...")
                 if len(exception) == 0:
                     exception = "Except Gemini"
                 else:
@@ -236,10 +254,10 @@ class RunLLMPrompts:
                 )
             with open("prompts-openai.json", "w") as fs:
                 json.dump(self.answers["openai"], fs, indent=4)
-            self.log.info(f"Written file for openai")
+            self.log.info("Written file for openai")
             filenames.append("prompts-openai.json")
         else:
-            self.log.error(f"OpenAI connection unavailable; Moving to next case...")
+            self.log.error("OpenAI connection unavailable; Moving to next case...")
             if len(exception) == 0:
                 exception = "Except OpenAI"
             else:
@@ -277,12 +295,12 @@ class RunLLMPrompts:
                     exception += f", {model_info['id']}"
 
         if len(exception) == 0:
-            with open(f"prompts-all.json", "w") as fs:
+            with open("prompts-all.json", "w") as fs:
                 json.dump(self.answers, fs, indent=4)
             # filenames = []
-            filenames.append(f"prompts-all.json")
+            filenames.append("prompts-all.json")
 
-        self.log.info(f"Collected all prompts!")
+        self.log.info("Collected all prompts!")
         answers = self.answers
         return (answers, filenames)
 
@@ -466,7 +484,7 @@ if __name__ == "__main__":
                     #   - However multiple answers found in each sample
                     # Possible Solution:
                     #   - Use prompt-style2 instead of prompt-style1
-                    or json_file == "evals-verigen-finetuned.json" 
+                    or json_file == "evals-verigen-finetuned.json"
                 ):
                     continue
 
@@ -505,13 +523,15 @@ if __name__ == "__main__":
                         ),
                         index=None,
                     )
-                    log.info(f"Collecting summary for model: {match.group(1)} for k={k}...")
+                    log.info(
+                        f"Collecting summary for model: {match.group(1)} for k={k}..."
+                    )
                     # Add one run
                     summary_df = pd.concat(
                         [summary_df, summarize_eval(model_df, match.group(1))],
                         ignore_index=True,
                     )
-                    log.info(f"✓ Done")
+                    log.info("✓ Done")
             # Write to a CSV file
             summary_df.to_csv(
                 os.path.join(
