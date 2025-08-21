@@ -4,6 +4,23 @@
 
 FROM alpine:latest
 
+# Prerequisites for Yosys tool
+RUN apk add --no-cache \
+    build-base \
+    git \
+    bison \
+    flex \
+    gawk \
+    tcl-dev \
+    libffi-dev \
+    readline-dev \
+    graphviz \
+    xdot \
+    libboost-system-dev \
+    libboost-python-dev \
+    libboost-filesystem-dev \
+    zlib-dev
+
 # Install build dependencies and tools
 RUN apk add --no-cache \
     curl \
