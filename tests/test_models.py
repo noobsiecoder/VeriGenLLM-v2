@@ -106,9 +106,7 @@ def test_prompting():
     # Define models to evaluate
     # Each model has an ID (for file naming) and full HuggingFace path
     models = [
-        {"id": "code-llama", "name": "meta-llama/CodeLlama-7b-Instruct-hf"},
         {"id": "deepseek-coder", "name": "deepseek-ai/deepseek-coder-7b-instruct-v1.5"},
-        # {"id": "Verigen-6B-Finetuned", "name": "shailja/fine-tuned-codegen-6B-Verilog"},
         {"id": "qwen-coder", "name": "Qwen/Qwen2.5-Coder-7B-Instruct"},
     ]
 
