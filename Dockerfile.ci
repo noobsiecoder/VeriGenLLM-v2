@@ -9,7 +9,7 @@
 # Image (OS) type
 FROM ubuntu:22.04
 
-# Prevent interactive prompts
+# Prevent interactive prompts + added Time Zone
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
