@@ -21,6 +21,11 @@ class Evals:
     """
     Benchmark Code generated using Pass@k Metric and other metrics
     This is useful to access each LLM for Verilog code generation
+
+    TODO: This class is the most buggiest code I have written - thanks to Python.
+        - Yet somehow, it works. (like an ugly glue)
+        - Before it becomes a *Tech Debt*, clean it up!
+    NOTE: Use this class with caution
     """
 
     def __init__(self):
