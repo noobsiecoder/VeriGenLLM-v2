@@ -79,7 +79,7 @@ jobs:
         # Handles necessary environment secrets
         env:
           AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          AZURE_PASSWORD: ${{ secrets.AZURE_APP_ID }}
+          AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
           AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
@@ -150,7 +150,7 @@ jobs:
       - name: Deploy to Azure VM by starting it
         env:
           AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          AZURE_PASSWORD: ${{ secrets.AZURE_APP_ID }}
+          AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
           AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
@@ -208,7 +208,7 @@ jobs:
       - name: Deploy to Azure VM
         env:
           AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          AZURE_PASSWORD: ${{ secrets.AZURE_APP_ID }}
+          AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
           AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
