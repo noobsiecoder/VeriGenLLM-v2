@@ -9,8 +9,6 @@
 # Place:  Boston, MA
 set -e
 
-# Place:  Boston, MA
-
 # Step 1: Code lint checking with ruff
 echo "=== Running Code Linting ==="
 uv run ruff check .
