@@ -8,7 +8,7 @@ Place:  Boston, MA
 
 from main import ENVLoader, RunLLMPrompts
 from src.logger import Logger
-from src.gcp import GoogleStorageClient
+from src.bucket import GoogleStorageClient
 from google.cloud import storage
 from google.oauth2 import service_account
 from google.api_core.exceptions import NotFound

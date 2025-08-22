@@ -15,7 +15,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from typing import Dict, List
 from src.evals import Evals, ResponseEvals
-from src.gcp import GoogleStorageClient
+from src.bucket import GoogleStorageClient
 from src.logger import Logger
 from src.models import (
     ClaudeAPIClient,
