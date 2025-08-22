@@ -83,6 +83,7 @@ jobs:
           AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
+          AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
         # This will run a script to check VM instance availability.
         run: |
           echo "Azure Cloud login..."
@@ -91,12 +92,12 @@ jobs:
           echo "Checking Azure health status..."
           script_content=$(cat scripts/check_docker_instance.sh)
           deploy_wrapper="
-            mkdir -p ~/scripts
-            cat > ~/scripts/check_docker_instance.sh << 'SCRIPT_END'
+            mkdir -p /home/$AZURE_VMUSER/scripts
+            cat > /home/$AZURE_VMUSER/scripts/check_docker_instance.sh << 'SCRIPT_END'
             $script_content
             SCRIPT_END
-            chmod +x ~/scripts/check_docker_instance.sh
-            ~/scripts/check_docker_instance.sh
+            chmod +x /home/$AZURE_VMUSER/scripts/check_docker_instance.sh
+            /home/$AZURE_VMUSER/scripts/check_docker_instance.sh
           "
 
           OUTPUT=$(az vm run-command invoke \
@@ -154,8 +155,9 @@ jobs:
           AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
-          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
+          AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
           APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
+          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
           GITHUB_BRANCH: "enhance-v1"
         if: env.azure_status == 'unavailable'
@@ -180,12 +182,12 @@ jobs:
           # Create and run deployment script
           script_content=$(cat scripts/starter.sh)
           deploy_wrapper="
-            mkdir -p ~/scripts
-            cat > ~/scripts/starter.sh << 'SCRIPT_END'
+            mkdir -p /home/$AZURE_VMUSER/scripts
+            cat > /home/$AZURE_VMUSER/scripts/starter.sh << 'SCRIPT_END'
             $script_content
             SCRIPT_END
-            chmod +x ~/scripts/starter.sh
-            ~/scripts/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'
+            chmod +x /home/$AZURE_VMUSER/scripts/starter.sh
+            /home/$AZURE_VMUSER/scripts/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'
           "
 
           OUTPUT=$(az vm run-command invoke \
@@ -212,6 +214,7 @@ jobs:
           AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
+          AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
           APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
           GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
@@ -225,12 +228,12 @@ jobs:
           # Create and run deployment script
           script_content=$(cat scripts/starter.sh)
           deploy_wrapper="
-            mkdir -p ~/scripts
-            cat > ~/scripts/starter.sh << 'SCRIPT_END'
+            mkdir -p /home/$AZURE_VMUSER/scripts
+            cat > /home/$AZURE_VMUSER/scripts/starter.sh << 'SCRIPT_END'
             $script_content
             SCRIPT_END
-            chmod +x ~/scripts/starter.sh
-            ~/scripts/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'
+            chmod +x /home/$AZURE_VMUSER/scripts/starter.sh
+            /home/$AZURE_VMUSER/scripts/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'
           "
 
           OUTPUT=$(az vm run-command invoke \
@@ -263,6 +266,7 @@ jobs:
           GCP_CERT: ${{ secrets.GCP_CERT }}
           GCP_CERT_URI: ${{ secrets.GCP_CERT_URI }}
           GCP_DOMAIN: ${{ secrets.GCP_DOMAIN }}
+          GCP_VMUSER: ${{ secrets.GCP_VMUSER }}
           GCP_INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
           GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
         if: env.azure_status != 'available' && env.azure_status != 'success'
@@ -326,13 +330,13 @@ jobs:
             fi
           else 
             echo "Copying check script to GCP VM"
-            gcloud compute scp scripts/checker_docker_instance.sh $GCP_INSTANCE_NAME:~/checker_docker_instance.sh --zone=$GCP_INSTANCE_ZONE
+            gcloud compute scp scripts/checker_docker_instance.sh $GCP_INSTANCE_NAME:/home/$GCP_VMUSER/checker_docker_instance.sh --zone=$GCP_INSTANCE_ZONE
             
             echo "Checking GCP VM for running containers..."
             # Run the check script on GCP instance
             output=$(gcloud compute ssh $GCP_INSTANCE_NAME \
               --zone=$GCP_INSTANCE_ZONE \
-              --command="chmod +x ~/check_docker_instance.sh && ~/check_docker_instance.sh" \
+              --command="chmod +x /home/$GCP_VMUSER/check_docker_instance.sh && /home/$GCP_VMUSER/check_docker_instance.sh" \
               --ssh-flag="-o ConnectTimeout=10" \
               2>&1)
             
@@ -383,10 +387,11 @@ jobs:
           GCP_CERT: ${{ secrets.GCP_CERT }}
           GCP_CERT_URI: ${{ secrets.GCP_CERT_URI }}
           GCP_DOMAIN: ${{ secrets.GCP_DOMAIN }}
+          GCP_VMUSER: ${{ secrets.GCP_VMUSER }}
           GCP_INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
           GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
-          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
+          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
           GITHUB_BRANCH: "enhance-v1"
         if: env.azure_status != 'available' && env.azure_status != 'success' && env.gcp_status == 'available'
@@ -420,12 +425,12 @@ jobs:
 
           # Execute deployment on GCP VM
           echo "Copying starter script to GCP VM"
-          gcloud compute scp scripts/starter.sh $GCP_INSTANCE_NAME:~/starter.sh --zone=$GCP_INSTANCE_ZONE
+          gcloud compute scp scripts/starter.sh $GCP_INSTANCE_NAME:/home/$GCP_VMUSER/starter.sh --zone=$GCP_INSTANCE_ZONE
 
           echo "Running in GCP VM..."
           gcloud compute ssh $GCP_INSTANCE_NAME \
             --zone=$GCP_INSTANCE_ZONE \
-            --command="chmod +x ~/starter.sh && ~/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'" \
+            --command="chmod +x /home/$GCP_VMUSER/starter.sh && /home/$GCP_VMUSER/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'" \
             --ssh-flag="-o ConnectTimeout=30"
           
           if [ $? -eq 0 ]; then
