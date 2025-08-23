@@ -189,13 +189,12 @@ jobs:
 
       - name: Run script as VM user
         uses: appleboy/ssh-action@v0.1.9
-        env:
-          GITHUB_REPO_URI: ${{ secrets.AZURE_VMIP }}
-          GITHUB_REPO_BRANCH: ${{ secrets.AZURE_VMIP }}
-          APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
-          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
-          GITHUB_REPO_URL: "https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git"
-          GITHUB_BRANCH: "enhance-v1"
+        # env:
+        #   GITHUB_REPO_URI: ${{ secrets.AZURE_VMIP }}
+        #   GITHUB_REPO_BRANCH: ${{ secrets.AZURE_VMIP }}
+        #   APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
+        #   GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
+        #   GITHUB_BRANCH: "enhance-v1"
         # if: env.azure_status == 'success'
         with:
           host: ${{ secrets.AZURE_VMIP }}
@@ -204,7 +203,8 @@ jobs:
           script: |
             mkdir -p ~/src
             cd ~/src
-
+            
+            GITHUB_REPO_URL="https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git"
             git clone "$GITHUB_REPO_URL" > ~/logs/rlft_setup.log
 
 
