@@ -196,7 +196,7 @@ jobs:
           GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           GITHUB_REPO_URL: "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           GITHUB_BRANCH: "enhance-v1"
-        if: env.azure_status == 'success'
+        # if: env.azure_status == 'success'
         with:
           host: ${{ secrets.AZURE_VMIP }}
           username: ${{ secrets.AZURE_VMUSER }}
