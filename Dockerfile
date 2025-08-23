@@ -33,16 +33,21 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
 # Install build dependency tools
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
     python3 \
     python3-pip \
     iverilog \
     yosys \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install uv
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --yes
-ENV PATH="/root/.cargo/bin:/root/.local/bin:${PATH}"
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+# Add UV to PATH
+ENV PATH="/root/.local/bin/:$PATH"
 
 # Work directory of the application
 WORKDIR /src
