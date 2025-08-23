@@ -205,7 +205,7 @@ jobs:
             mkdir -p ~/src
             cd ~/src
 
-            git clone "$GITHUB_REPO_URL" > logs/rlft_setup.log
+            git clone "$GITHUB_REPO_URL" > ~/logs/rlft_setup.log
 
 
       # # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
