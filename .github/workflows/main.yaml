@@ -160,8 +160,7 @@ jobs:
           elif [[ "$vm_state" == "PowerState/deallocated" ]]; then
             echo "Azure VM instance deallocated"
             echo "Starting Azure VM..."
-            OUTPUT=$(az vm start --resource-group $AZURE_RESOURCE_GROUP \ 
-              --name $AZURE_VM_INSTANCE)
+            az vm start --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_VM_INSTANCE
             if [ $? -ne 0 ]; then
               echo "✗ Failed to start Azure VM"
               echo "azure_status=failure" >> $GITHUB_ENV
