@@ -51,24 +51,24 @@ cd src/
 
 # Step 4: Build Docker image
 echo "Building Docker image: $DOCKER_IMAGE_NAME"
-docker build -f Dockerfile \
+sudo docker build -f Dockerfile \
     --build-arg REPO_URL=$GITHUB_REPO_URI \
-    --build-arg BRANCH_NAME=$GCP_STORAGE_JSON_FILE \
+    --build-arg BRANCH_NAME=$GITHUB_REPO_BRANCH \
     --build-arg GCP_STORAGE_JSON_FILE=$GCP_SECRETS_FILE \
     --build-arg MODELS_API_ENV_FILE=$APIKEYS_FILE \
     --no-cache \
     -t $DOCKER_IMAGE_NAME . \
-    2>&1 | sudo tee -a "$BUILD_LOGFILE"
+    | tee -a "$BUILD_LOGFILE"
 
 # Step 5: Run container with GPU (if available)
 if command -v nvidia-smi &> /dev/null; then
     echo "Running container with GPU support..."
-    docker run --gpus all $DOCKER_IMAGE_NAME \
-        2>&1 | sudo tee -a "$RUN_LOGFILE"
+    sudo docker run --gpus all $DOCKER_IMAGE_NAME \
+        | tee -a "$RUN_LOGFILE"
 else
     echo "No GPU detected. Running container without GPU..."
-    docker run $DOCKER_IMAGE_NAME \
-        2>&1 | sudo tee -a "$RUN_LOGFILE"
+    sudo docker run $DOCKER_IMAGE_NAME \
+        | tee -a "$RUN_LOGFILE"
 fi
 
 echo "===== Finished RLFT setup at $(date) ====="
