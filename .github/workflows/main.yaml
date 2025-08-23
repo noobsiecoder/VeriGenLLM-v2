@@ -247,7 +247,6 @@ jobs:
               log "Exiting..."
               exit 0
             else
-              GPU_FLAG="--gpus all"
               log "✓ GPU detected"
             fi
 
@@ -274,7 +273,7 @@ jobs:
               . 2>&1 | while IFS= read -r line; do log "$line"; done
 
             log "Running Docker image in detached mode..."
-            docker run -d $GPU_FLAG "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
+            docker run -d --gpus all "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
 
             log "✓ Cloud deployment done successfully"
 
