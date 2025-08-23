@@ -194,7 +194,7 @@ jobs:
           GITHUB_REPO_BRANCH: ${{ secrets.AZURE_VMIP }}
           APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
           GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
-          GITHUB_REPO_URL: "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          GITHUB_REPO_URL: "https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git"
           GITHUB_BRANCH: "enhance-v1"
         # if: env.azure_status == 'success'
         with:
