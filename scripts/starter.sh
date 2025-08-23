@@ -13,6 +13,7 @@ GITHUB_REPO_URI=$1
 GITHUB_REPO_BRANCH=$2
 GCP_SECRETS_FILE=$3
 APIKEYS_FILE=$4
+REPO_NAME="VeriGenLLM-v2"
 DOCKER_IMAGE_NAME="verilog-rlft"
 LOGFILE="/var/log/rlft_setup.log"
 BUILD_LOGFILE="/var/log/docker_build.log"
@@ -35,19 +36,37 @@ else
 fi
 
 # Step 2: Ensure NVIDIA drivers for GPU support
-if command -v nvidia-smi &> /dev/null; then
-    echo "NVIDIA drivers already installed."
+# NOTE: To install NVIDIA Drivers in Standard NVadsA10_v5 VM (Ubuntu 22.04), 
+# Use the following link:
+# https://forums.developer.nvidia.com/t/installing-nvidia-drivers-cuda-on-azure-nvadsa10-v5-vm-ubuntu-22-04/321128/3
+if ! command -v nvidia-smi &> /dev/null; then
+    echo "NVIDIA drivers not found. Exiting..."
+    exit 0
 else
-    echo "NVIDIA drivers not found. Installing..."
-    # GCP official GPU driver installer
-    sudo apt-get install -y linux-headers-$(uname -r)
-    sudo apt-get install -y nvidia-driver-535
-    echo "NVIDIA drivers installed. A VM reboot may be required."
+    echo "NVIDIA drivers already installed."
+fi
+
+# Step 3: Ensure git is installed
+if ! command -v git &> /dev/null; then
+    echo "git not found."
+    sudo apt-get update -y
+    sudo apt-get install -y git-all
+else
+    echo "git already installed."
 fi
 
 # Step 3: Make project directory
 mkdir -p src/
 cd src/
+
+# Clone repo if not already present
+if [ ! -d "$REPO_NAME" ]; then
+  git clone -b enhance-v1 $GITHUB_REPO_URI.git $REPO_NAME
+  echo "Cloned Repository"
+
+  cd $REPO_NAME
+  echo "In repo directory"
+fi
 
 # Step 4: Build Docker image
 echo "Building Docker image: $DOCKER_IMAGE_NAME"
