@@ -50,7 +50,7 @@ jobs:
   
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: cloud-api-keys
     steps:
       - name: Checkout code
@@ -68,16 +68,146 @@ jobs:
       #     echo "Installing jq for JSON parsing..."
       #     sudo apt-get install jq -y
 
+      # # ==================================== STEP 3 ====================================== #
+      # # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
+      # - name: Check Azure VM container availability
+      #   # Handles necessary environment secrets
+      #   env:
+      #     AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+      #     AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
+      #     AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
+      #     AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      #     AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
+      #     AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
+      #   # This will run a script to check VM instance availability.
+      #   run: |
+      #     # --------------- AZURE CLOUD LOGIN ---------------
+      #     echo "Azure Cloud login..."
+      #     az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
+
+      #     # --------- FUNCTION TO AZURE VM HEALTH -----------
+      #     check_health() {
+      #       vm_state=$(az vm get-instance-view \
+      #         -g "$AZURE_RESOURCE_GROUP" \
+      #         -n "$AZURE_VM_INSTANCE" \
+      #         --query "instanceView.statuses[?starts_with(code,'PowerState/')].displayStatus" \
+      #         -o tsv 2>/dev/null)
+      #       echo "VM state: $vm_state"
+      #     }
+
+      #     # --------- FUNCTION TO START INSTANCE ------------
+      #     start_instance() {
+      #       local sleep_time=$1
+      #       echo "Waiting $sleep_time seconds before starting VM..."
+      #       sleep "$sleep_time"
+
+      #       echo "Starting VM..."
+      #       az vm start -g "$AZURE_RESOURCE_GROUP" -n "$AZURE_VM_INSTANCE"
+
+      #       echo "Waiting 60 seconds for VM to initialize..."
+      #       sleep 60
+      #       check_health
+      #     }
+
+      #     # --------- FUNCTION TO CAPTURE ERROR -------------
+      #     capture_err() {
+      #       echo "✗ Azure state is unknown"
+      #       echo "Returned state: $vm_state"
+      #       echo "azure_status=unknown" >> "$GITHUB_ENV"
+      #       exit 0
+      #     }
+
+      #     # ----------- FUNCTION TO VM RESOURCE -------------
+      #     check_resource() {
+      #       local script_to_run="$1"
+      #       resource=$(az vm run-command invoke \
+      #         -g "$AZURE_RESOURCE_GROUP" \
+      #         -n "$AZURE_VM_INSTANCE" \
+      #         --command-id RunShellScript \
+      #         --scripts "$script_to_run")
+      #     }
+
+      #     # ----------------- MAIN FUNCTION -----------------
+      #     # VM States
+      #     VM_DEALLOCATING="VM deallocating"
+      #     VM_DEALLOCATED="VM deallocated"
+      #     VM_RUNNING="VM running"
+      #     VM_STARTING="VM starting"
+
+      #     # ------------ CHECK AZURE VM HEALTH --------------
+      #     check_health
+
+      #     # ------------- CONDITIONAL CHECKS ----------------
+      #     case "$vm_state" in
+      #       "$VM_DEALLOCATING")
+      #           start_instance 120
+      #           ;;
+      #       "$VM_DEALLOCATED")
+      #         start_instance 60
+      #         if [ "$vm_state" = "$VM_RUNNING" ]; then
+      #           echo "✓ VM started successfully"
+      #          echo "azure_status=available" >> "$GITHUB_ENV"
+      #         elif [ "$vm_state" = "$VM_STARTING" ]; then
+      #           echo "⚠ VM still starting..."
+      #           echo "azure_status=starting" >> "$GITHUB_ENV"
+      #         else
+      #           capture_err
+      #         fi
+      #         ;;
+      #       "$VM_STARTING")
+      #         echo "⚠ VM is starting, waiting..."
+      #         sleep 60
+      #         check_health
+      #         if [ "$vm_state" = "$VM_RUNNING" ]; then
+      #           echo "✓ VM started successfully"
+      #           echo "azure_status=available" >> "$GITHUB_ENV"
+      #         elif [ "$vm_state" = "$VM_STARTING" ]; then
+      #           echo "⚠ VM still starting..."
+      #           echo "azure_status=starting" >> "$GITHUB_ENV"
+      #         else
+      #           capture_err
+      #         fi
+      #         ;;
+      #       "$VM_RUNNING")
+      #         echo "✓ VM already running"
+      #         echo "Checking VM resources..."
+      #         check_docker_instance_script=$(tail -n +2 scripts/check_docker_instance.sh)
+      #         check_resource "$check_docker_instance_script"
+      #         if [[ "$resource" = "OTHER_APPS_RUNNING" || "$resource" = "VERIGEN_RUNNING" ]]; then
+      #           echo "✗ VM resource busy"
+      #           echo "azure_status=busy" >> "$GITHUB_ENV"
+      #           exit 0
+      #         else
+      #           echo "✓ VM is available"
+      #           echo "azure_status=available" >> "$GITHUB_ENV"
+      #         fi
+      #         ;;
+      #       *)
+      #         capture_err
+      #         ;;
+      #     esac
+
       - name: Run script as VM user
         uses: appleboy/ssh-action@v0.1.9
+        env:
+          GITHUB_REPO_URI: ${{ secrets.AZURE_VMIP }}
+          GITHUB_REPO_BRANCH: ${{ secrets.AZURE_VMIP }}
+          APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
+          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
+          GITHUB_REPO_URL: "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          GITHUB_BRANCH: "enhance-v1"
+        if: env.azure_status == 'success'
         with:
           host: ${{ secrets.AZURE_VMIP }}
           username: ${{ secrets.AZURE_VMUSER }}
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
-            whoami > logs/rlft_setup.log
+            mkdir -p ~/src
+            cd ~/src
 
-      # # ==================================== STEP 3 ====================================== #
+            git clone "$GITHUB_REPO_URL" > logs/rlft_setup.log
+
+
       # # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
       # - name: Check Azure VM container availability
       #   # Handles necessary environment secrets
