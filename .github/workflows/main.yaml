@@ -201,12 +201,32 @@ jobs:
           username: ${{ secrets.AZURE_VMUSER }}
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
+            LOGFILE="rlft_setup_$(date '+%F_%X').log"
+            GITHUB_REPO_URL="https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git"
+            PROJECT_NAME="$(basename ${{ github.repository }})"
+
+            log() {
+              msg=$1
+              echo "$(date '+%F_%X'): $msg" >> "~/logs/$LOGFILE"
+            }
+
+            log "Creating src/"
             mkdir -p ~/src
             cd ~/src
             
-            GITHUB_REPO_URL="https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git"
-            git clone "$GITHUB_REPO_URL" > ~/logs/rlft_setup.log
+            log "Checking if project cloned"
+            if [ -d "$PROJECT_NAME" ]; then
+              log "✓ Project found"
+              cd "$PROJECT_NAME"
 
+              log "Pulling from repository"
+              git reset --hard
+              git pull "https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git" enhance-v1
+            else
+              log "Cloning $PROJECT_NAME"
+              git clone "$GITHUB_REPO_URL"
+              cd "$PROJECT_NAME"
+            fi
 
       # # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
       # - name: Check Azure VM container availability
