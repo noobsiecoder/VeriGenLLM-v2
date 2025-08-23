@@ -90,123 +90,96 @@ jobs:
           az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
 
           echo "Checking Azure health status..."
-          script_content=$(cat scripts/check_docker_instance.sh)
-          deploy_wrapper="
-            mkdir -p /home/$AZURE_VMUSER/scripts
-            cat > /home/$AZURE_VMUSER/scripts/check_docker_instance.sh << 'SCRIPT_END'
-            $script_content
-            SCRIPT_END
-            chmod +x /home/$AZURE_VMUSER/scripts/check_docker_instance.sh
-            /home/$AZURE_VMUSER/scripts/check_docker_instance.sh
-          "
-
-          OUTPUT=$(az vm run-command invoke \
+          vm_state=$(az vm get-instance-view \
             -g $AZURE_RESOURCE_GROUP \
             -n $AZURE_VM_INSTANCE \
-            --command-id RunShellScript \
-            --scripts "$deploy_wrapper" \
-            --output json 2>&1)
+            --query "instanceView.statuses[?starts_with(code, 'PowerState/')].code" \
+            -o tsv 2>/dev/null || echo "PowerState/unavailable")
 
-          # Check if the command executed successfully
-          echo "Checking if command passed/failed..."
-          if [ $? -ne 0 ]; then
+          if [[ "$vm_state" == "PowerState/running" ]]; then
+            echo "VM is running (state: $vm_state)"
+
+            echo "Creating script to check docker instance"
+            script_content=$(cat scripts/check_docker_instance.sh)
+            deploy_wrapper="
+              mkdir -p /home/$AZURE_VMUSER/scripts
+              cat > /home/$AZURE_VMUSER/scripts/check_docker_instance.sh << 'SCRIPT_END'
+              $script_content
+              SCRIPT_END
+              chmod +x /home/$AZURE_VMUSER/scripts/check_docker_instance.sh
+              /home/$AZURE_VMUSER/scripts/check_docker_instance.sh
+            "
+
+            echo "Running deploy DOCKER checker"
+            OUTPUT=$(az vm run-command invoke \
+              -g $AZURE_RESOURCE_GROUP \
+              -n $AZURE_VM_INSTANCE \
+              --command-id RunShellScript \
+              --scripts "$deploy_wrapper" \
+              --output json 2>&1)
+
+            # Check if the command executed successfully
+            echo "Checking if command passed/failed..."
+            if [ $? -ne 0 ]; then
               echo "✗ Failed to execute command on Azure VM"
               echo "Error: $OUTPUT"
-              echo "azure_status=unavailable" >> $GITHUB_ENV
-          else 
-            # Parse the output
-            echo "Parsing output..."
-            stdout_content=$(echo "$OUTPUT" | jq -r '.value[0].message' 2>/dev/null | grep -oP '\[stdout\]\K.*' | sed 's/\\n/\n/g')
-
-            # Determine the status based on output
-            echo "Determing Azure VM Instance status..."
-            if echo "$stdout_content" | grep -q "NO_CONTAINERS"; then
-                echo "✓ No Docker containers running on Azure VM - VM is available"
-                echo "azure_status=available" >> $GITHUB_ENV
-            elif echo "$stdout_content" | grep -q "NO_APP_CONTAINERS"; then
-                echo "✓ No application containers running on Azure VM - VM is available"
-                echo "azure_status=available" >> $GITHUB_ENV
-            elif echo "$stdout_content" | grep -q "VERIGEN_RUNNING"; then
-                echo "✗ VeriGenLLM-v2 is already running on Azure VM"
-                # Extract and display the container details
-                container_info=$(echo "$stdout_content" | grep -A 10 "VERIGEN_RUNNING" | tail -n +2 | head -n -1)
-                echo "Running containers:"
-                echo "$container_info"
-                echo "azure_status=busy" >> $GITHUB_ENV
-            elif echo "$stdout_content" | grep -q "OTHER_APPS_RUNNING"; then
-                echo "⚠ Other applications are running on Azure VM"
-                # Extract and display the container details
-                container_info=$(echo "$stdout_content" | grep -A 10 "OTHER_APPS_RUNNING" | tail -n +2 | head -n -1)
-                echo "Running containers:"
-                echo "$container_info"
-                echo "azure_status=busy" >> $GITHUB_ENV
+              echo "azure_status=unknown" >> $GITHUB_ENV
             else
-                echo "✗ Unable to determine Azure VM status"
-                echo "azure_status=unknown" >> $GITHUB_ENV
+              # Parse the output
+              echo "Parsing output..."
+              stdout_content=$(echo "$OUTPUT" | jq -r '.value[0].message' 2>/dev/null | grep -oP '\[stdout\]\K.*' | sed 's/\\n/\n/g')
+  
+              # Determine the status based on output
+              echo "Determing Azure VM Instance status..."
+              if echo "$stdout_content" | grep -q "NO_CONTAINERS"; then
+                  echo "✓ No Docker containers running on Azure VM - VM is available"
+                  echo "azure_status=available" >> $GITHUB_ENV
+              elif echo "$stdout_content" | grep -q "NO_APP_CONTAINERS"; then
+                  echo "✓ No application containers running on Azure VM - VM is available"
+                  echo "azure_status=available" >> $GITHUB_ENV
+              elif echo "$stdout_content" | grep -q "VERIGEN_RUNNING"; then
+                  echo "✗ VeriGenLLM-v2 is already running on Azure VM"
+                  # Extract and display the container details
+                  container_info=$(echo "$stdout_content" | grep -A 10 "VERIGEN_RUNNING" | tail -n +2 | head -n -1)
+                  echo "Running containers:"
+                  echo "$container_info"
+                  echo "azure_status=busy" >> $GITHUB_ENV
+              elif echo "$stdout_content" | grep -q "OTHER_APPS_RUNNING"; then
+                  echo "⚠ Other applications are running on Azure VM"
+                  # Extract and display the container details
+                  container_info=$(echo "$stdout_content" | grep -A 10 "OTHER_APPS_RUNNING" | tail -n +2 | head -n -1)
+                  echo "Running containers:"
+                  echo "$container_info"
+                  echo "azure_status=busy" >> $GITHUB_ENV
+              else
+                  echo "✗ Unable to determine Azure VM status"
+                  echo "azure_status=unknown" >> $GITHUB_ENV
+              fi
             fi
-          fi
-      
-      # Deploy to Azure if VM is available
-      # Condition 1: Azure VM could be OFF -> Start and deploy + RLFT
-      - name: Deploy to Azure VM by starting it
-        env:
-          AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
-          AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
-          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
-          AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
-          APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
-          GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
-          GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
-          GITHUB_BRANCH: "enhance-v1"
-        if: env.azure_status == 'unavailable'
-        run: |
-          echo "Deploying to Azure VM..."
 
-          echo "Azure Cloud login..."
-          az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
-
-          echo "Starting Azure VM..."
-          az vm start --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_VM_INSTANCE
-          
-          if [ $? -ne 0 ]; then
+          elif [[ "$vm_state" == "PowerState/deallocated" ]]; then
+            echo "Azure VM instance deallocated"
+            echo "Starting Azure VM..."
+            OUTPUT=$(az vm start --resource-group $AZURE_RESOURCE_GROUP \ 
+              --name $AZURE_VM_INSTANCE)
+            if [ $? -ne 0 ]; then
               echo "✗ Failed to start Azure VM"
               echo "azure_status=failure" >> $GITHUB_ENV
               exit 0
-          fi
+            fi
+            
+            # Wait for VM to be ready
+            sleep 60
+            echo "✓ Azure VM has started"
+            echo "azure_status=available" >> $GITHUB_ENV
 
-          # Wait for VM to be ready
-          sleep 60
-
-          # Create and run deployment script
-          script_content=$(cat scripts/starter.sh)
-          deploy_wrapper="
-            mkdir -p /home/$AZURE_VMUSER/scripts
-            cat > /home/$AZURE_VMUSER/scripts/starter.sh << 'SCRIPT_END'
-            $script_content
-            SCRIPT_END
-            chmod +x /home/$AZURE_VMUSER/scripts/starter.sh
-            /home/$AZURE_VMUSER/scripts/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'
-          "
-
-          OUTPUT=$(az vm run-command invoke \
-            -g $AZURE_RESOURCE_GROUP \
-            -n $AZURE_VM_INSTANCE \
-            --command-id RunShellScript \
-            --scripts "$deploy_wrapper" \
-            --output json 2>&1)
-          
-          if [ $? -eq 0 ]; then
-            echo "✓ Successfully deployed to Azure VM"
-            echo "azure_status=success" >> $GITHUB_ENV
           else
-            echo "✗ Failed to deploy on Azure VM"
-            echo "azure_status=failure" >> $GITHUB_ENV
+            echo "✗ Azure instance is in unexpected state: $vm_state"
+            echo "azure_status=unknown" >> $GITHUB_ENV
+            exit 0
           fi
         
       # Deploy to Azure if VM is available
-      # Condition 2: Azure VM is ON -> Deploy + RLFT
       - name: Deploy to Azure VM
         env:
           AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
@@ -224,8 +197,8 @@ jobs:
           echo "Azure Cloud login..."
           az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
 
-          echo "Copying starter script to Azure VM"
           # Create and run deployment script
+          echo "Copying starter script to Azure VM"
           script_content=$(cat scripts/starter.sh)
           deploy_wrapper="
             mkdir -p /home/$AZURE_VMUSER/scripts
@@ -235,7 +208,8 @@ jobs:
             chmod +x /home/$AZURE_VMUSER/scripts/starter.sh
             /home/$AZURE_VMUSER/scripts/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'
           "
-
+          
+          echo "Running starter script in Azure VM"
           OUTPUT=$(az vm run-command invoke \
             -g $AZURE_RESOURCE_GROUP \
             -n $AZURE_VM_INSTANCE \
@@ -269,7 +243,7 @@ jobs:
           GCP_VMUSER: ${{ secrets.GCP_VMUSER }}
           GCP_INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
           GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
-        if: env.azure_status != 'available' && env.azure_status != 'success'
+        if: env.azure_status != 'available' || env.azure_status != 'success'
         run: |
           echo "Deploying to GCP because Azure return VM instance: busy/failure/unknown"
           
@@ -290,7 +264,7 @@ jobs:
             "auth_provider_x509_cert_url": "$GCP_CERT",
             "client_x509_cert_url": "$GCP_CERT_URI",
             "universe_domain": "$GCP_DOMAIN"
-            }
+          }
           EOF
             
           echo "GCP Cloud login..."
@@ -394,7 +368,7 @@ jobs:
           GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
           GITHUB_BRANCH: "enhance-v1"
-        if: env.azure_status != 'available' && env.azure_status != 'success' && env.gcp_status == 'available'
+        if: env.azure_status != 'available' || env.azure_status != 'success' && env.gcp_status == 'available'
         run: |
           echo "Deploying App to GCP VM"
 
@@ -415,7 +389,7 @@ jobs:
             "auth_provider_x509_cert_url": "$GCP_CERT",
             "client_x509_cert_url": "$GCP_CERT_URI",
             "universe_domain": "$GCP_DOMAIN"
-            }
+          }
           EOF
           
           echo "GCP Cloud login..."
