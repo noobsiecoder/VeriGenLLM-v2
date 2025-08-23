@@ -242,7 +242,7 @@ jobs:
           GCP_VMUSER: ${{ secrets.GCP_VMUSER }}
           GCP_INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
           GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
-        if: env.azure_status != 'available' || env.azure_status != 'success'
+        if: env.azure_status != 'success'
         run: |
           echo "Deploying to GCP because Azure return VM instance: busy/failure/unknown"
           
@@ -367,7 +367,7 @@ jobs:
           GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
           GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
           GITHUB_BRANCH: "enhance-v1"
-        if: env.azure_status != 'available' || env.azure_status != 'success' && env.gcp_status == 'available'
+        if: env.azure_status != 'success' && env.gcp_status == 'available'
         run: |
           echo "Deploying App to GCP VM"
 
