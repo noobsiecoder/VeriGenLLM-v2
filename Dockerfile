@@ -8,10 +8,6 @@
 FROM nvidia/cuda:12.2.0-base-ubuntu22.04 AS builder
 
 # Get arguments
-# Repository URI
-ARG REPO_URI
-# Branch name of the repository
-ARG BRANCH_NAME
 # Secrets
 ARG GCP_STORAGE_JSON_FILE
 ARG MODELS_API_ENV_FILE

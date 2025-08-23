@@ -189,12 +189,6 @@ jobs:
 
       - name: Run script as VM user
         uses: appleboy/ssh-action@v0.1.9
-        # env:
-        #   GITHUB_REPO_URI: ${{ secrets.AZURE_VMIP }}
-        #   GITHUB_REPO_BRANCH: ${{ secrets.AZURE_VMIP }}
-        #   APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
-        #   GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
-        #   GITHUB_BRANCH: "enhance-v1"
         # if: env.azure_status == 'success'
         with:
           host: ${{ secrets.AZURE_VMIP }}
@@ -204,185 +198,84 @@ jobs:
             LOGFILE="rlft_setup_$(date '+%F_%X').log"
             GITHUB_REPO_URL="https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git"
             PROJECT_NAME="$(basename ${{ github.repository }})"
+            DOCKER_IMAGE_NAME="verilog-rlft"
 
             log() {
               msg=$1
-              echo "$(date '+%F_%X'): $msg" >> "~/logs/$LOGFILE"
+              echo "$(date '+%F_%X'): $msg" >> ~/logs/$LOGFILE
             }
 
             log "Creating src/"
             mkdir -p ~/src
             cd ~/src
-            
-            log "Checking if project cloned"
+
+            log "Check Docker"
+            if ! command -v docker &> /dev/null; then
+              log "⚠ Docker not installed. Installing..."
+              sudo apt-get update 2>&1 | while IFS= read -r line; do log "$line"; done
+
+              log "Adding Docker's official GPG key..."
+              sudo apt-get update 2>&1 | while IFS= read -r line; do log "$line"; done
+              sudo apt-get install ca-certificates curl 2>&1 | while IFS= read -r line; do log "$line"; done
+              sudo install -m 0755 -d /etc/apt/keyrings 2>&1 | while IFS= read -r line; do log "$line"; done
+              sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc 2>&1 | while IFS= read -r line; do log "$line"; done
+              sudo chmod a+r /etc/apt/keyrings/docker.asc 2>&1 | while IFS= read -r line; do log "$line"; done
+
+              log "Adding the repository to Apt sources..."
+              echo \
+              "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+              $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+              sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 2>&1 | while IFS= read -r line; do log "$line"; done
+              sudo apt-get update 2>&1 | while IFS= read -r line; do log "$line"; done
+
+              log "Installing the latest version..."
+              sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 2>&1 | while IFS= read -r line; do log "$line"; done
+              
+              log "Running command to use docker w/o root access for $USER..."
+              sudo usermod -aG docker $USER
+            else
+              log "✓ Docker installed"
+            fi
+
+            log "Check NVIDIA drivers"
+            # GPU check
+            if ! command -v nvidia-smi &> /dev/null; then
+              log "⚠ No GPU detected, Installing..."
+              # NOTE: To install NVIDIA Drivers in Standard NVadsA10_v5 VM (Ubuntu 22.04), 
+              # Use the following link:
+              # https://forums.developer.nvidia.com/t/installing-nvidia-drivers-cuda-on-azure-nvadsa10-v5-vm-ubuntu-22-04/321128/3
+              log "Exiting..."
+              exit 0
+            else
+              GPU_FLAG="--gpus all"
+              log "✓ GPU detected"
+            fi
+
+            log "Checking if project cloned..."
             if [ -d "$PROJECT_NAME" ]; then
               log "✓ Project found"
               cd "$PROJECT_NAME"
 
               log "Pulling from repository"
-              git reset --hard
-              git pull "https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git" enhance-v1
+              git reset --hard 2>&1 | while IFS= read -r line; do log "$line"; done
+              git pull "https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git" enhance-v1 2>&1 | while IFS= read -r line; do log "$line"; done
             else
               log "Cloning $PROJECT_NAME"
               git clone "$GITHUB_REPO_URL"
               cd "$PROJECT_NAME"
             fi
 
-      # # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
-      # - name: Check Azure VM container availability
-      #   # Handles necessary environment secrets
-      #   env:
-      #     AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-      #     AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
-      #     AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
-      #     AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #     AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
-      #     AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
-      #   # This will run a script to check VM instance availability.
-      #   run: |
-      #     # --------------- AZURE CLOUD LOGIN ---------------
-      #     echo "Azure Cloud login..."
-      #     az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
+            log "Building Docker image..."
+            docker build -f Dockerfile \
+            --build-arg GCP_STORAGE_JSON_FILE="${{ secrets.GCP_SECRETS_FILE }}" \
+            --build-arg MODELS_API_ENV_FILE="${{ secrets.APIKEYS_FILE }}" \
+            --no-cache \
+            -t "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
 
-      #     # --------- FUNCTION TO AZURE VM HEALTH -----------
-      #     check_health() {
-      #       vm_state=$(az vm get-instance-view \
-      #         -g "$AZURE_RESOURCE_GROUP" \
-      #         -n "$AZURE_VM_INSTANCE" \
-      #         --query "instanceView.statuses[?starts_with(code,'PowerState/')].displayStatus" \
-      #         -o tsv 2>/dev/null)
-      #       echo "VM state: $vm_state"
-      #     }
+            log "Running Docker image in detached mode..."
+            docker run -d $GPU_FLAG "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
 
-      #     # --------- FUNCTION TO START INSTANCE ------------
-      #     start_instance() {
-      #       local sleep_time=$1
-      #       echo "Waiting $sleep_time seconds before starting VM..."
-      #       sleep "$sleep_time"
-
-      #       echo "Starting VM..."
-      #       az vm start -g "$AZURE_RESOURCE_GROUP" -n "$AZURE_VM_INSTANCE"
-
-      #       echo "Waiting 60 seconds for VM to initialize..."
-      #       sleep 60
-      #       check_health
-      #     }
-
-      #     # --------- FUNCTION TO CAPTURE ERROR -------------
-      #     capture_err() {
-      #       echo "✗ Azure state is unknown"
-      #       echo "Returned state: $vm_state"
-      #       echo "azure_status=unknown" >> "$GITHUB_ENV"
-      #       exit 0
-      #     }
-
-      #     # ----------- FUNCTION TO VM RESOURCE -------------
-      #     check_resource() {
-      #       local script_to_run="$1"
-      #       resource=$(az vm run-command invoke \
-      #         -g "$AZURE_RESOURCE_GROUP" \
-      #         -n "$AZURE_VM_INSTANCE" \
-      #         --command-id RunShellScript \
-      #         --scripts "$script_to_run")
-      #     }
-
-      #     # ----------------- MAIN FUNCTION -----------------
-      #     # VM States
-      #     VM_DEALLOCATING="VM deallocating"
-      #     VM_DEALLOCATED="VM deallocated"
-      #     VM_RUNNING="VM running"
-      #     VM_STARTING="VM starting"
-
-      #     # ------------ CHECK AZURE VM HEALTH --------------
-      #     check_health
-
-      #     # ------------- CONDITIONAL CHECKS ----------------
-      #     case "$vm_state" in
-      #       "$VM_DEALLOCATING")
-      #           start_instance 120
-      #           ;;
-      #       "$VM_DEALLOCATED")
-      #         start_instance 60
-      #         if [ "$vm_state" = "$VM_RUNNING" ]; then
-      #           echo "✓ VM started successfully"
-      #          echo "azure_status=available" >> "$GITHUB_ENV"
-      #         elif [ "$vm_state" = "$VM_STARTING" ]; then
-      #           echo "⚠ VM still starting..."
-      #           echo "azure_status=starting" >> "$GITHUB_ENV"
-      #         else
-      #           capture_err
-      #         fi
-      #         ;;
-      #       "$VM_STARTING")
-      #         echo "⚠ VM is starting, waiting..."
-      #         sleep 60
-      #         check_health
-      #         if [ "$vm_state" = "$VM_RUNNING" ]; then
-      #           echo "✓ VM started successfully"
-      #           echo "azure_status=available" >> "$GITHUB_ENV"
-      #         elif [ "$vm_state" = "$VM_STARTING" ]; then
-      #           echo "⚠ VM still starting..."
-      #           echo "azure_status=starting" >> "$GITHUB_ENV"
-      #         else
-      #           capture_err
-      #         fi
-      #         ;;
-      #       "$VM_RUNNING")
-      #         echo "✓ VM already running"
-      #         echo "Checking VM resources..."
-      #         check_docker_instance_script=$(tail -n +2 scripts/check_docker_instance.sh)
-      #         check_resource "$check_docker_instance_script"
-      #         if [[ "$resource" = "OTHER_APPS_RUNNING" || "$resource" = "VERIGEN_RUNNING" ]]; then
-      #           echo "✗ VM resource busy"
-      #           echo "azure_status=busy" >> "$GITHUB_ENV"
-      #           exit 0
-      #         else
-      #           echo "✓ VM is available"
-      #           echo "azure_status=available" >> "$GITHUB_ENV"
-      #         fi
-      #         ;;
-      #       *)
-      #         capture_err
-      #         ;;
-      #     esac
-
-      # # Deploy to Azure if VM is available
-      # - name: Deploy to Azure VM
-      #   env:
-      #     AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-      #     AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
-      #     AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
-      #     AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #     AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
-      #     AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
-      #     APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
-      #     GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
-      #     GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
-      #     GITHUB_BRANCH: "enhance-v1"
-      #   if: env.azure_status == 'available'
-      #   run: |
-      #     echo "Azure Cloud login..."
-      #     az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
-
-      #     # Create and run deployment script
-      #     echo "Copying starter script to Azure VM"
-      #     starter_script_content=$(tail -n +2 scripts/starter.sh)
-          
-      #     echo "Running starter script in Azure VM"
-      #     OUTPUT=$(az vm run-command invoke \
-      #       -g $AZURE_RESOURCE_GROUP \
-      #       -n $AZURE_VM_INSTANCE \
-      #       --command-id RunShellScript \
-      #       --scripts "$starter_script_content" \
-      #       --output json 2>&1)
-          
-      #     if [ $? -eq 0 ]; then
-      #       echo "✓ Successfully deployed to Azure VM"
-      #       echo "azure_status=success" >> $GITHUB_ENV
-      #     else
-      #       echo "✗ Failed to deploy on Azure VM"
-      #       echo "azure_status=failure" >> $GITHUB_ENV
-      #     fi
+            log "✓ Cloud deployment done successfully"
 
       # # ==================================== STEP 4 ====================================== #
       # # Step 4: Check if instance is available for RLFT in GCP and deploy (if free) since Azure returned status: busy/failed/unknown
