@@ -18,8 +18,11 @@ ARG MODELS_API_ENV_FILE
 
 RUN apt-get update && apt-get install -y git curl && apt-get clean
 
+# Work directory of the application
 WORKDIR /src
-RUN git clone ${REPO_URI} . && git checkout ${BRANCH_NAME}
+
+# Copy contents to src/
+COPY . .
 
 # Write secrets
 RUN mkdir -p secrets && \
@@ -48,9 +51,8 @@ ENV PATH="/root/.cargo/bin:/root/.local/bin:${PATH}"
 # Work directory of the application
 WORKDIR /src
 
-# Clone the repository and switch to the specific branch
-RUN git clone ${REPO_URI} . && \
-    git checkout ${BRANCH_NAME}
+# Copy contents to src/
+COPY . .
 
 # Install python dependencies
 # NOTE: Runs as a cautionary step
