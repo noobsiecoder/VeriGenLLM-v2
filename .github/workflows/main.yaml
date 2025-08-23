@@ -125,11 +125,8 @@ jobs:
               echo "Error: $OUTPUT"
               echo "azure_status=unknown" >> $GITHUB_ENV
             else
-              # Parse the output
-              echo "Parsing output..."
-              stdout_content=$(echo "$OUTPUT" | jq -r '.value[0].message' 2>/dev/null | grep -oP '\[stdout\]\K.*' | sed 's/\\n/\n/g')
-  
               # Determine the status based on output
+              stdout_content="$OUTPUT"
               echo "Determing Azure VM Instance status..."
               if echo "$stdout_content" | grep -q "NO_CONTAINERS"; then
                   echo "✓ No Docker containers running on Azure VM - VM is available"
