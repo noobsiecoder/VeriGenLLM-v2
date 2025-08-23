@@ -19,6 +19,9 @@ LOGFILE="/var/log/rlft_setup.log"
 BUILD_LOGFILE="/var/log/docker_build.log"
 RUN_LOGFILE="/var/log/docker_run.log"
 
+# Step x: Shutdown VM instance
+trap 'echo "Shutting down VM..."; sudo shutdown now' EXIT
+
 # Step 0: Redirect all logs
 exec > >(sudo tee -a "$LOGFILE") 2>&1
 echo "===== Starting RLFT setup at $(date) ====="
