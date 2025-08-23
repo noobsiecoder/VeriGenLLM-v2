@@ -267,10 +267,11 @@ jobs:
 
             log "Building Docker image..."
             docker build -f Dockerfile \
-            --build-arg GCP_STORAGE_JSON_FILE="${{ secrets.GCP_SECRETS_FILE }}" \
-            --build-arg MODELS_API_ENV_FILE="${{ secrets.APIKEYS_FILE }}" \
-            --no-cache \
-            -t "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
+              --build-arg GCP_STORAGE_JSON_FILE="${{ secrets.GCP_SECRETS_FILE }}" \
+              --build-arg MODELS_API_ENV_FILE="${{ secrets.APIKEYS_FILE }}" \
+              --no-cache \
+              -t "$DOCKER_IMAGE_NAME" \
+              . 2>&1 | while IFS= read -r line; do log "$line"; done
 
             log "Running Docker image in detached mode..."
             docker run -d $GPU_FLAG "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
