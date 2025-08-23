@@ -3,6 +3,7 @@
 #   1) Code lint checking
 #   2) Runs tests from tests/
 #   3) Runs tests in Verilog dataset
+# NOTE: This script is ran via Dockerfile.ci
 #
 # Author: Abhishek Sriram <noobsiecoder@gmail.com>
 # Date:   Aug 20th, 2025
