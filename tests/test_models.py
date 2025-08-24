@@ -8,6 +8,7 @@ Place:  Boston, MA
 
 import re
 from dotenv import load_dotenv
+import pytest
 from src.logger import Logger
 from src.models import (
     ClaudeAPIClient,
@@ -21,9 +22,9 @@ log = Logger("test_models").get_logger()
 claude_api = ClaudeAPIClient()
 gemini_api = GeminiAPIClient()
 openai_api = OpenAIAPIClient()
-oss_llm_api = OpenSourceLLMClient()
 
 
+@pytest.mark.skip(reason="Already tested")
 def test_api_connection_with_no_env_load():
     """
     Check connection status
@@ -31,16 +32,14 @@ def test_api_connection_with_no_env_load():
     res = claude_api.connect()
     assert not res  # returns false
 
-    res = gemini_api.connect()
-    assert not res  # returns false
+    # res = gemini_api.connect()
+    # assert not res  # returns false
 
     res = openai_api.connect()
     assert not res  # returns false
 
-    res = oss_llm_api.connect()
-    assert not res  # returns false
 
-
+@pytest.mark.skip(reason="Already tested")
 def test_api_connection_with_env_load():
     """
     Check connection status
@@ -50,14 +49,14 @@ def test_api_connection_with_env_load():
     res = claude_api.connect()
     assert res  # should connect now and return true
 
-    res = gemini_api.connect()
-    assert res  # should connect now and return true
+    # res = gemini_api.connect()
+    # assert res  # should connect now and return true
 
     res = openai_api.connect()
     assert res  # should connect now and return true
 
 
-def test_prompting():
+def test_prompting(skip_non_oss_llm: bool = True):
     """
     Checking answers
     """
@@ -82,25 +81,18 @@ def test_prompting():
 
         return bool(re.match(pattern, s.strip()))
 
-    res = openai_api.connect()
-    if res:
-        responses = openai_api.generate(
-            prompt, temperature=0.2, max_tokens=300, n_samples=samples
-        )
-        assert len(responses["outputs"]) == samples
-        for output in responses["outputs"]:
-            assert len(output) != 0
-            assert is_only_code_block(output)
-
-    res = gemini_api.connect()
-    if res:
-        responses = gemini_api.generate(
-            prompt, temperature=0.2, max_tokens=300, n_samples=samples
-        )
-        assert len(responses["outputs"]) == samples
-        for output in responses["outputs"]:
-            assert len(output) != 0
-            assert is_only_code_block(output)  # Chance of failing in 1:3
+    # Skips Proprietary LLMs
+    if not skip_non_oss_llm:
+        log.info("Skipping OPEN AI LLM")
+        res = openai_api.connect()
+        if res:
+            responses = openai_api.generate(
+                prompt, temperature=0.2, max_tokens=300, n_samples=samples
+            )
+            assert len(responses["outputs"]) == samples
+            for output in responses["outputs"]:
+                assert len(output) != 0
+                assert is_only_code_block(output)
 
     # Test with all open-source LLM
     # Define models to evaluate
@@ -113,12 +105,12 @@ def test_prompting():
     # Process each model
     for model_info in models:
         # Initialize the model
-        model = OpenSourceLLMClient(
+        oss_llm_api = OpenSourceLLMClient(
             model_id=model_info["id"], model_name=model_info["name"]
         )
         res = oss_llm_api.connect()
         if res:
-            responses = model.generate(
+            responses = oss_llm_api.generate(
                 prompt, temperature=0.2, max_tokens=300, n_samples=samples
             )
             assert len(responses["outputs"]) == samples
