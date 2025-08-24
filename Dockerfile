@@ -7,11 +7,6 @@
 # Build stage with secrets
 FROM nvidia/cuda:12.2.0-base-ubuntu22.04 AS builder
 
-# Get arguments
-# Secrets
-ARG GCP_STORAGE_JSON_FILE
-ARG MODELS_API_ENV_FILE
-
 RUN apt-get update && apt-get install -y git curl && apt-get clean
 
 # Work directory of the application
@@ -19,11 +14,6 @@ WORKDIR /src
 
 # Copy contents to src/
 COPY . .
-
-# Write secrets
-RUN mkdir -p secrets && \
-    echo "${GCP_STORAGE_JSON_FILE}" | base64 -d > secrets/gcp-storage.json && \
-    echo "${MODELS_API_ENV_FILE}" | base64 -d > secrets/models-api.env
 
 # Image (OS) type
 FROM nvidia/cuda:12.2.0-base-ubuntu22.04
