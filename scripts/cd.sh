@@ -8,12 +8,14 @@
 # Place:  Boston, MA
 set -e
 
-mkdir -p ~/logs
+# TODO: Automatically shutdown
+
+mkdir -p ./logs
 LOGFILE="rlft_training_$(date '+%F_%X').log"
 
 log() {
     msg=$1
-    echo "$(date '+%F_%X'): $msg" >> ~/logs/$LOGFILE
+    echo "$(date '+%F_%X'): $msg" >> ./logs/$LOGFILE
 }
 
 # Step 1: Run few more tests to check if LLM loads in cloud instance
