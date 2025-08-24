@@ -273,7 +273,10 @@ jobs:
               . 2>&1 | while IFS= read -r line; do log "$line"; done
 
             log "Running Docker image in detached mode..."
-            docker run -d --gpus all "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
+            docker run -d \
+              -v $HOME/logs:/src/logs \
+              --gpus all \
+              --name "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
 
             log "✓ Cloud deployment done successfully"
 
