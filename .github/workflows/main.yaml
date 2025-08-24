@@ -242,8 +242,9 @@ jobs:
             if ! command -v nvidia-smi &> /dev/null; then
               log "⚠ No GPU detected, Installing..."
               # NOTE: To install NVIDIA Drivers in Standard NVadsA10_v5 VM (Ubuntu 22.04), 
-              # Use the following link:
+              # Use the following link(s):
               # https://forums.developer.nvidia.com/t/installing-nvidia-drivers-cuda-on-azure-nvadsa10-v5-vm-ubuntu-22-04/321128/3
+              # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
               log "Exiting..."
               exit 0
             else
@@ -276,7 +277,7 @@ jobs:
             docker run -d \
               -v $HOME/logs:/src/logs \
               --gpus all \
-              --name "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
+              "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
 
             log "✓ Cloud deployment done successfully"
 
