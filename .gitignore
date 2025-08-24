@@ -1,6 +1,9 @@
 # MacOS
 **/.DS_Store
 
+# Key pairs files
+**/*.pem
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
