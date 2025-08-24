@@ -59,137 +59,137 @@ jobs:
           ref: enhance-v1
 
       # ==================================== STEP 2 ====================================== #
-      # # Step 2: Install Cloud services' CLI tool
-      # - name: Install Cloud CLI Tool(s)
-      #   run: |
-      #     echo "Installing Azure CLI..."
-      #     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      # Step 2: Install Cloud services' CLI tool
+      - name: Install Cloud CLI Tool(s)
+        run: |
+          echo "Installing Azure CLI..."
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-      #     echo "Installing jq for JSON parsing..."
-      #     sudo apt-get install jq -y
+          echo "Installing jq for JSON parsing..."
+          sudo apt-get install jq -y
 
       # # ==================================== STEP 3 ====================================== #
-      # # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
-      # - name: Check Azure VM container availability
-      #   # Handles necessary environment secrets
-      #   env:
-      #     AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-      #     AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
-      #     AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
-      #     AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #     AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
-      #     AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
-      #   # This will run a script to check VM instance availability.
-      #   run: |
-      #     # --------------- AZURE CLOUD LOGIN ---------------
-      #     echo "Azure Cloud login..."
-      #     az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
+      # Step 3: Check if instance is available for RLFT in Azure and deploy (if available)
+      - name: Check Azure VM container availability
+        # Handles necessary environment secrets
+        env:
+          AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
+          AZURE_TENANT: ${{ secrets.AZURE_TENANT }}
+          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          AZURE_VM_INSTANCE: ${{ secrets.AZURE_VM_INSTANCE }}
+          AZURE_VMUSER: ${{ secrets.AZURE_VMUSER }}
+        # This will run a script to check VM instance availability.
+        run: |
+          # --------------- AZURE CLOUD LOGIN ---------------
+          echo "Azure Cloud login..."
+          az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $AZURE_TENANT > /dev/null 2>&1
 
-      #     # --------- FUNCTION TO AZURE VM HEALTH -----------
-      #     check_health() {
-      #       vm_state=$(az vm get-instance-view \
-      #         -g "$AZURE_RESOURCE_GROUP" \
-      #         -n "$AZURE_VM_INSTANCE" \
-      #         --query "instanceView.statuses[?starts_with(code,'PowerState/')].displayStatus" \
-      #         -o tsv 2>/dev/null)
-      #       echo "VM state: $vm_state"
-      #     }
+          # --------- FUNCTION TO AZURE VM HEALTH -----------
+          check_health() {
+            vm_state=$(az vm get-instance-view \
+              -g "$AZURE_RESOURCE_GROUP" \
+              -n "$AZURE_VM_INSTANCE" \
+              --query "instanceView.statuses[?starts_with(code,'PowerState/')].displayStatus" \
+              -o tsv 2>/dev/null)
+            echo "VM state: $vm_state"
+          }
 
-      #     # --------- FUNCTION TO START INSTANCE ------------
-      #     start_instance() {
-      #       local sleep_time=$1
-      #       echo "Waiting $sleep_time seconds before starting VM..."
-      #       sleep "$sleep_time"
+          # --------- FUNCTION TO START INSTANCE ------------
+          start_instance() {
+            local sleep_time=$1
+            echo "Waiting $sleep_time seconds before starting VM..."
+            sleep "$sleep_time"
 
-      #       echo "Starting VM..."
-      #       az vm start -g "$AZURE_RESOURCE_GROUP" -n "$AZURE_VM_INSTANCE"
+            echo "Starting VM..."
+            az vm start -g "$AZURE_RESOURCE_GROUP" -n "$AZURE_VM_INSTANCE"
 
-      #       echo "Waiting 60 seconds for VM to initialize..."
-      #       sleep 60
-      #       check_health
-      #     }
+            echo "Waiting 60 seconds for VM to initialize..."
+            sleep 60
+            check_health
+          }
 
-      #     # --------- FUNCTION TO CAPTURE ERROR -------------
-      #     capture_err() {
-      #       echo "✗ Azure state is unknown"
-      #       echo "Returned state: $vm_state"
-      #       echo "azure_status=unknown" >> "$GITHUB_ENV"
-      #       exit 0
-      #     }
+          # --------- FUNCTION TO CAPTURE ERROR -------------
+          capture_err() {
+            echo "✗ Azure state is unknown"
+            echo "Returned state: $vm_state"
+            echo "azure_status=unknown" >> "$GITHUB_ENV"
+            exit 0
+          }
 
-      #     # ----------- FUNCTION TO VM RESOURCE -------------
-      #     check_resource() {
-      #       local script_to_run="$1"
-      #       resource=$(az vm run-command invoke \
-      #         -g "$AZURE_RESOURCE_GROUP" \
-      #         -n "$AZURE_VM_INSTANCE" \
-      #         --command-id RunShellScript \
-      #         --scripts "$script_to_run")
-      #     }
+          # ----------- FUNCTION TO VM RESOURCE -------------
+          check_resource() {
+            local script_to_run="$1"
+            resource=$(az vm run-command invoke \
+              -g "$AZURE_RESOURCE_GROUP" \
+              -n "$AZURE_VM_INSTANCE" \
+              --command-id RunShellScript \
+              --scripts "$script_to_run")
+          }
 
-      #     # ----------------- MAIN FUNCTION -----------------
-      #     # VM States
-      #     VM_DEALLOCATING="VM deallocating"
-      #     VM_DEALLOCATED="VM deallocated"
-      #     VM_RUNNING="VM running"
-      #     VM_STARTING="VM starting"
+          # ----------------- MAIN FUNCTION -----------------
+          # VM States
+          VM_DEALLOCATING="VM deallocating"
+          VM_DEALLOCATED="VM deallocated"
+          VM_RUNNING="VM running"
+          VM_STARTING="VM starting"
 
-      #     # ------------ CHECK AZURE VM HEALTH --------------
-      #     check_health
+          # ------------ CHECK AZURE VM HEALTH --------------
+          check_health
 
-      #     # ------------- CONDITIONAL CHECKS ----------------
-      #     case "$vm_state" in
-      #       "$VM_DEALLOCATING")
-      #           start_instance 120
-      #           ;;
-      #       "$VM_DEALLOCATED")
-      #         start_instance 60
-      #         if [ "$vm_state" = "$VM_RUNNING" ]; then
-      #           echo "✓ VM started successfully"
-      #          echo "azure_status=available" >> "$GITHUB_ENV"
-      #         elif [ "$vm_state" = "$VM_STARTING" ]; then
-      #           echo "⚠ VM still starting..."
-      #           echo "azure_status=starting" >> "$GITHUB_ENV"
-      #         else
-      #           capture_err
-      #         fi
-      #         ;;
-      #       "$VM_STARTING")
-      #         echo "⚠ VM is starting, waiting..."
-      #         sleep 60
-      #         check_health
-      #         if [ "$vm_state" = "$VM_RUNNING" ]; then
-      #           echo "✓ VM started successfully"
-      #           echo "azure_status=available" >> "$GITHUB_ENV"
-      #         elif [ "$vm_state" = "$VM_STARTING" ]; then
-      #           echo "⚠ VM still starting..."
-      #           echo "azure_status=starting" >> "$GITHUB_ENV"
-      #         else
-      #           capture_err
-      #         fi
-      #         ;;
-      #       "$VM_RUNNING")
-      #         echo "✓ VM already running"
-      #         echo "Checking VM resources..."
-      #         check_docker_instance_script=$(tail -n +2 scripts/check_docker_instance.sh)
-      #         check_resource "$check_docker_instance_script"
-      #         if [[ "$resource" = "OTHER_APPS_RUNNING" || "$resource" = "VERIGEN_RUNNING" ]]; then
-      #           echo "✗ VM resource busy"
-      #           echo "azure_status=busy" >> "$GITHUB_ENV"
-      #           exit 0
-      #         else
-      #           echo "✓ VM is available"
-      #           echo "azure_status=available" >> "$GITHUB_ENV"
-      #         fi
-      #         ;;
-      #       *)
-      #         capture_err
-      #         ;;
-      #     esac
+          # ------------- CONDITIONAL CHECKS ----------------
+          case "$vm_state" in
+            "$VM_DEALLOCATING")
+                start_instance 120
+                ;;
+            "$VM_DEALLOCATED")
+              start_instance 60
+              if [ "$vm_state" = "$VM_RUNNING" ]; then
+                echo "✓ VM started successfully"
+               echo "azure_status=available" >> "$GITHUB_ENV"
+              elif [ "$vm_state" = "$VM_STARTING" ]; then
+                echo "⚠ VM still starting..."
+                echo "azure_status=starting" >> "$GITHUB_ENV"
+              else
+                capture_err
+              fi
+              ;;
+            "$VM_STARTING")
+              echo "⚠ VM is starting, waiting..."
+              sleep 60
+              check_health
+              if [ "$vm_state" = "$VM_RUNNING" ]; then
+                echo "✓ VM started successfully"
+                echo "azure_status=available" >> "$GITHUB_ENV"
+              elif [ "$vm_state" = "$VM_STARTING" ]; then
+                echo "⚠ VM still starting..."
+                echo "azure_status=starting" >> "$GITHUB_ENV"
+              else
+                capture_err
+              fi
+              ;;
+            "$VM_RUNNING")
+              echo "✓ VM already running"
+              echo "Checking VM resources..."
+              check_docker_instance_script=$(tail -n +2 scripts/check_docker_instance.sh)
+              check_resource "$check_docker_instance_script"
+              if [[ "$resource" = "OTHER_APPS_RUNNING" || "$resource" = "VERIGEN_RUNNING" ]]; then
+                echo "✗ VM resource busy"
+                echo "azure_status=busy" >> "$GITHUB_ENV"
+                exit 0
+              else
+                echo "✓ VM is available"
+                echo "azure_status=available" >> "$GITHUB_ENV"
+              fi
+              ;;
+            *)
+              capture_err
+              ;;
+          esac
 
       - name: Run script as VM user
         uses: appleboy/ssh-action@v0.1.9
-        # if: env.azure_status == 'success'
+        if: env.azure_status == 'success'
         with:
           host: ${{ secrets.AZURE_VMIP }}
           username: ${{ secrets.AZURE_VMUSER }}
@@ -285,214 +285,14 @@ jobs:
 
             log "✓ Cloud deployment done successfully"
 
-      # # ==================================== STEP 4 ====================================== #
-      # # Step 4: Check if instance is available for RLFT in GCP and deploy (if free) since Azure returned status: busy/failed/unknown
-      # - name: Check GCP VM container availability based on previous Azure attempt
-      #   env:
-      #     GCP_TYPE: ${{ secrets.GCP_TYPE }}
-      #     GCP_PRIVATE_KEY_ID: ${{ secrets.GCP_PRIVATE_KEY_ID }}
-      #     GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }} 
-      #     GCP_PRIVATE_KEY: ${{ secrets.GCP_PRIVATE_KEY }}
-      #     GCP_CLIENT_EMAIL: ${{ secrets.GCP_CLIENT_EMAIL }}
-      #     GCP_CLIENT_ID: ${{ secrets.GCP_CLIENT_ID }}
-      #     GCP_AUTH_URI: ${{ secrets.GCP_AUTH_URI }}
-      #     GCP_TOKEN_URI: ${{ secrets.GCP_TOKEN_URI }}
-      #     GCP_CERT: ${{ secrets.GCP_CERT }}
-      #     GCP_CERT_URI: ${{ secrets.GCP_CERT_URI }}
-      #     GCP_DOMAIN: ${{ secrets.GCP_DOMAIN }}
-      #     GCP_VMUSER: ${{ secrets.GCP_VMUSER }}
-      #     GCP_INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
-      #     GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
-      #   if: env.azure_status != 'success'
-      #   run: |
-      #     echo "Deploying to GCP because Azure return VM instance: busy/failure/unknown"
-          
-      #     # Replace literal '\n' with actual newlines in private key
-      #     FIXED_PRIVATE_KEY=$(echo "$GCP_PRIVATE_KEY" | sed 's/\\n/\n/g')
-          
-      #     # Write security object to /tmp/gcp-secret.json
-      #     cat > /tmp/gcp-secret.json <<EOF
-      #     {
-      #       "type": "$GCP_TYPE",
-      #       "project_id": "$GCP_PROJECT_ID",
-      #       "private_key_id": "$GCP_PRIVATE_KEY_ID",
-      #       "private_key": "$FIXED_PRIVATE_KEY",
-      #       "client_email": "$GCP_CLIENT_EMAIL",
-      #       "client_id": "$GCP_CLIENT_ID",
-      #       "auth_uri": "$GCP_AUTH_URI",
-      #       "token_uri": "$GCP_TOKEN_URI",
-      #       "auth_provider_x509_cert_url": "$GCP_CERT",
-      #       "client_x509_cert_url": "$GCP_CERT_URI",
-      #       "universe_domain": "$GCP_DOMAIN"
-      #     }
-      #     EOF
-            
-      #     echo "GCP Cloud login..."
-      #     export GOOGLE_APPLICATION_CREDENTIALS="/tmp/gcp-secret.json"
-      #     gcloud auth activate-service-account --key-file=/tmp/gcp-secret.json > /dev/null 2>&1
-      #     gcloud config set project $GCP_PROJECT_ID > /dev/null 2>&1
-
-      #     # Check if instance is running
-      #     echo "Checking GCP health status..."
-      #     instance_status=$(gcloud compute instances describe $GCP_INSTANCE_NAME \
-      #       --zone=$GCP_INSTANCE_ZONE \
-      #       --format="get(status)" 2>&1)
-          
-      #     if [ "$instance_status" != "RUNNING" ]; then
-      #       echo "GCP instance is not running (status: $instance_status)"
-      #       if [ "$instance_status" == "TERMINATED" ]; then
-      #         echo "Starting GCP instance..."
-      #         gcloud compute instances start $GCP_INSTANCE_NAME --zone=$GCP_INSTANCE_ZONE
-              
-      #         # Wait for instance to be ready
-      #         echo "Waiting for instance to start..."
-      #         for i in {1..30}; do
-      #           status=$(gcloud compute instances describe $GCP_INSTANCE_NAME \
-      #             --zone=$GCP_INSTANCE_ZONE \
-      #             --format="get(status)" 2>&1)
-      #           if [ "$status" == "RUNNING" ]; then
-      #             echo "Instance is now running"
-      #             sleep 10  # Extra time for SSH to be ready
-      #             break
-      #           fi
-      #           sleep 10
-      #         done
-      #       else
-      #         echo "✗ GCP instance is in unexpected state: $instance_status"
-      #         echo "gcp_status=unavailable" >> $GITHUB_ENV
-      #         exit 0
-      #       fi
-      #     else 
-      #       echo "Copying check script to GCP VM"
-      #       gcloud compute scp scripts/checker_docker_instance.sh $GCP_INSTANCE_NAME:/home/$GCP_VMUSER/checker_docker_instance.sh --zone=$GCP_INSTANCE_ZONE
-            
-      #       echo "Checking GCP VM for running containers..."
-      #       # Run the check script on GCP instance
-      #       output=$(gcloud compute ssh $GCP_INSTANCE_NAME \
-      #         --zone=$GCP_INSTANCE_ZONE \
-      #         --command="chmod +x /home/$GCP_VMUSER/check_docker_instance.sh && /home/$GCP_VMUSER/check_docker_instance.sh" \
-      #         --ssh-flag="-o ConnectTimeout=10" \
-      #         2>&1)
-            
-      #       check_exit_code=$?
-      #       # Parse the output
-      #       if [ $check_exit_code -ne 0 ]; then
-      #         echo "✗ Failed to execute command on GCP VM"
-      #         echo "Error: $output"
-      #         echo "gcp_status=unavailable" >> $GITHUB_ENV
-      #       elif echo "$output" | grep -q "NO_CONTAINERS"; then
-      #         echo "✓ No Docker containers running on GCP VM - VM is available"
-      #         echo "gcp_status=available" >> $GITHUB_ENV
-      #       elif echo "$output" | grep -q "NO_APP_CONTAINERS"; then
-      #         echo "✓ No application containers running on GCP VM - VM is available"
-      #         echo "gcp_status=available" >> $GITHUB_ENV
-      #       elif echo "$output" | grep -q "VERIGEN_RUNNING"; then
-      #         echo "✗ VeriGenLLM-v2 is already running on GCP VM"
-      #         container_info=$(echo "$output" | grep -A 10 "VERIGEN_RUNNING" | tail -n +2)
-      #         echo "Running containers:"
-      #         echo "$container_info"
-      #         echo "gcp_status=busy" >> $GITHUB_ENV
-      #       elif echo "$output" | grep -q "OTHER_APPS_RUNNING"; then
-      #         echo "⚠ Other applications are running on GCP VM"
-      #         container_info=$(echo "$output" | grep -A 10 "OTHER_APPS_RUNNING" | tail -n +2)
-      #         echo "Running containers:"
-      #         echo "$container_info"
-      #         echo "gcp_status=busy" >> $GITHUB_ENV
-      #       else
-      #         echo "✗ Unable to determine GCP VM status"
-      #         echo "gcp_status=unknown" >> $GITHUB_ENV
-      #       fi
-      #     fi
-
-      #     # Clean up credentials
-      #     rm -f /tmp/gcp-secret.json
-      
-      # # Deploy to GCP if VM is available
-      # - name: Deploy to GCP VM
-      #   env:
-      #     GCP_TYPE: ${{ secrets.GCP_TYPE }}
-      #     GCP_PRIVATE_KEY_ID: ${{ secrets.GCP_PRIVATE_KEY_ID }}
-      #     GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }} 
-      #     GCP_PRIVATE_KEY: ${{ secrets.GCP_PRIVATE_KEY }}
-      #     GCP_CLIENT_EMAIL: ${{ secrets.GCP_CLIENT_EMAIL }}
-      #     GCP_CLIENT_ID: ${{ secrets.GCP_CLIENT_ID }}
-      #     GCP_AUTH_URI: ${{ secrets.GCP_AUTH_URI }}
-      #     GCP_TOKEN_URI: ${{ secrets.GCP_TOKEN_URI }}
-      #     GCP_CERT: ${{ secrets.GCP_CERT }}
-      #     GCP_CERT_URI: ${{ secrets.GCP_CERT_URI }}
-      #     GCP_DOMAIN: ${{ secrets.GCP_DOMAIN }}
-      #     GCP_VMUSER: ${{ secrets.GCP_VMUSER }}
-      #     GCP_INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
-      #     GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
-      #     APIKEYS_FILE: ${{ secrets.APIKEYS_FILE }}
-      #     GCP_SECRETS_FILE: ${{ secrets.GCP_SECRETS_FILE }}
-      #     GITHUB_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
-      #     GITHUB_BRANCH: "enhance-v1"
-      #   if: env.azure_status != 'success' && env.gcp_status == 'available'
-      #   run: |
-      #     echo "Deploying App to GCP VM"
-
-      #     # Replace literal '\n' with actual newlines in private key
-      #     FIXED_PRIVATE_KEY=$(echo "$GCP_PRIVATE_KEY" | sed 's/\\n/\n/g')
-          
-      #     # Write security object to /tmp/gcp-secret.json
-      #     cat > /tmp/gcp-secret.json <<EOF
-      #     {
-      #       "type": "$GCP_TYPE",
-      #       "project_id": "$GCP_PROJECT_ID",
-      #       "private_key_id": "$GCP_PRIVATE_KEY_ID",
-      #       "private_key": "$FIXED_PRIVATE_KEY",
-      #       "client_email": "$GCP_CLIENT_EMAIL",
-      #       "client_id": "$GCP_CLIENT_ID",
-      #       "auth_uri": "$GCP_AUTH_URI",
-      #       "token_uri": "$GCP_TOKEN_URI",
-      #       "auth_provider_x509_cert_url": "$GCP_CERT",
-      #       "client_x509_cert_url": "$GCP_CERT_URI",
-      #       "universe_domain": "$GCP_DOMAIN"
-      #     }
-      #     EOF
-          
-      #     echo "GCP Cloud login..."
-      #     export GOOGLE_APPLICATION_CREDENTIALS="/tmp/gcp-secret.json"
-      #     gcloud auth activate-service-account --key-file=/tmp/gcp-secret.json > /dev/null 2>&1
-      #     gcloud config set project $GCP_PROJECT_ID > /dev/null 2>&1
-
-      #     # Execute deployment on GCP VM
-      #     echo "Copying starter script to GCP VM"
-      #     gcloud compute scp scripts/starter.sh $GCP_INSTANCE_NAME:/home/$GCP_VMUSER/starter.sh --zone=$GCP_INSTANCE_ZONE
-
-      #     echo "Running in GCP VM..."
-      #     gcloud compute ssh $GCP_INSTANCE_NAME \
-      #       --zone=$GCP_INSTANCE_ZONE \
-      #       --command="chmod +x /home/$GCP_VMUSER/starter.sh && /home/$GCP_VMUSER/starter.sh '$GITHUB_REPO_URL' '$GITHUB_BRANCH' '$GCP_SECRETS_FILE' '$APIKEYS_FILE'" \
-      #       --ssh-flag="-o ConnectTimeout=30"
-          
-      #     if [ $? -eq 0 ]; then
-      #       echo "✓ Deployment completed on GCP VM"
-      #     else
-      #       echo "✗ Deployment failed on GCP VM"
-      #     fi
-
-      #     # Clean up credentials
-      #     rm -f /tmp/gcp-secret.json
-
       # # ==================================== STEP 5 ====================================== #
-      # # Step 5: Final Summary
-      # - name: Deployment Summary
-      #   if: always()
-      #   run: |
-      #     echo "===== Deployment Summary ====="
-      #     echo "Azure Status: ${{ env.azure_status || 'not checked' }}"
-      #     echo "GCP Status: ${{ env.gcp_status || 'not checked' }}"
+      # Step 5: Final Summary
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "===== Deployment Summary ====="
+          echo "Azure Status: ${{ env.azure_status || 'not checked' }}"
           
-      #     if [ "${{ env.azure_status }}" == "available" ]; then
-      #       echo "✓ Deployed to Azure VM"
-      #     elif [ "${{ env.gcp_status }}" == "available" ] && [ "${{ env.azure_status }}" != "available" ]; then
-      #       echo "✓ Deployed to GCP VM"
-      #     else
-      #       echo "✗ No deployment - all VMs are busy or unavailable"
-      #       echo "Considerations:"
-      #       echo "  - Wait for current jobs to complete"
-      #       echo "  - Adding more VM instances"
-      #       echo "  - Implementing a queue system + scheduler (TODO)"
-      #     fi
+          if [ "${{ env.azure_status }}" == "available" ]; then
+            echo "✓ Deployed to Azure VM"
+          fi
