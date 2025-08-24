@@ -259,16 +259,19 @@ jobs:
               log "Pulling from repository"
               git reset --hard 2>&1 | while IFS= read -r line; do log "$line"; done
               git pull "https://${{ secrets.GH_APIKEY }}@github.com/${{ github.repository }}.git" enhance-v1 2>&1 | while IFS= read -r line; do log "$line"; done
+
             else
               log "Cloning $PROJECT_NAME"
               git clone "$GITHUB_REPO_URL"
               cd "$PROJECT_NAME"
             fi
 
+            log "Writing secret files..."
+            echo "${{ secrets.GCP_SECRETS_FILE }}" | base64 -d > ./secrets/gcp-storage.json 2>&1 | while IFS= read -r line; do log "$line"; done
+            echo "${{ secrets.APIKEYS_FILE }}" | base64 -d > ./secrets/models-api.env 2>&1 | while IFS= read -r line; do log "$line"; done
+
             log "Building Docker image..."
             docker build -f Dockerfile \
-              --build-arg GCP_STORAGE_JSON_FILE="${{ secrets.GCP_SECRETS_FILE }}" \
-              --build-arg MODELS_API_ENV_FILE="${{ secrets.APIKEYS_FILE }}" \
               --no-cache \
               -t "$DOCKER_IMAGE_NAME" \
               . 2>&1 | while IFS= read -r line; do log "$line"; done
@@ -276,6 +279,7 @@ jobs:
             log "Running Docker image in detached mode..."
             docker run -d \
               -v $HOME/logs:/src/logs \
+              -v $HOME/src/$PROJECT_NAME/secrets:/src/secrets \
               --gpus all \
               "$DOCKER_IMAGE_NAME" 2>&1 | while IFS= read -r line; do log "$line"; done
 
