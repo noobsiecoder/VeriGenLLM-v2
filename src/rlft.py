@@ -349,6 +349,7 @@ class RLFineTuner:
                         temperature=TRAINING_CONFIG["temperature"],
                         max_tokens=TRAINING_CONFIG["max_tokens"],
                         n_samples=TRAINING_CONFIG["n_samples"],
+                        training_mode=True
                     )
 
                     # Calculate rewards
