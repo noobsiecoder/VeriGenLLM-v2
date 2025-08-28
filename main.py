@@ -541,7 +541,12 @@ if __name__ == "__main__":
                 index=None,
             )
 
-    # Run each LLM -> generate response
+    # Run RLFT on LLM
+    elif len(args) == 4 and ("rlft" in args and "--algo" in args):
+        alg_name = args[sys.argv.index("--algo") + 1]
+        env = ENVLoader()
+
+    # Run each LLM -> generate response (Used in inference/benchmarking)
     elif len(args) == 4 and ("prompt" in args and "--bucket" in args):
         bucket_name = args[sys.argv.index("--bucket") + 1]
         env = ENVLoader()
