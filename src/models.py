@@ -1032,6 +1032,10 @@ class OpenSourceLLMClient:
                 temperature=temperature,  # Control randomness
                 max_new_tokens=max_tokens,  # Limit response length
                 num_return_sequences=n_samples,  # Generate multiple samples
+                pad_token_id=self.tokenizer.pad_token_id,  # Ensure pad token is set
+                eos_token_id=self.tokenizer.eos_token_id,  # Ensure eos token is set
+                top_p=0.95,  # Add nucleus sampling to avoid extreme probabilities
+                top_k=50,    # Limit vocabulary to avoid invalid tokens
             )
 
         end_time = time.time()
