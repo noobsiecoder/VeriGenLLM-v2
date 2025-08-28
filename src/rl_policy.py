@@ -122,6 +122,7 @@ class PPO(BaseRLPolicy):
 
     def __init__(
         self,
+        clip_param: float = 0.2,
         clip_epsilon: float = 0.2,
         value_coef: float = 0.5,
         entropy_coef: float = 0.01,
@@ -131,6 +132,7 @@ class PPO(BaseRLPolicy):
         gamma: float = 0.99,
         lam: float = 0.95,
     ):
+        self.clip_param = clip_param
         self.clip_epsilon = clip_epsilon
         self.value_coef = value_coef
         self.entropy_coef = entropy_coef
@@ -214,7 +216,7 @@ class PPO(BaseRLPolicy):
         entropy_loss = -entropy.mean()
         
         # Total loss
-        loss = policy_loss + self.value_coefficient * value_loss + self.entropy_coefficient * entropy_loss
+        loss = policy_loss + self.value_coef * value_loss + self.entropy_coef * entropy_loss
         
         return {
             "loss": loss,
