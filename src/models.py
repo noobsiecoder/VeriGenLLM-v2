@@ -1036,56 +1036,68 @@ class OpenSourceLLMClient:
         # Generation with error handling
         try:
             with torch.no_grad():
-                outputs = self.model.generate(
-                    **inputs,
-                    do_sample=True,
-                    temperature=temperature,
-                    max_new_tokens=max_tokens,
-                    num_return_sequences=n_samples,
-                    pad_token_id=self.tokenizer.pad_token_id,
-                    eos_token_id=self.tokenizer.eos_token_id,
-                    top_p=0.95,
-                    top_k=50,
-                )
+                # Generate separately for each prompt to avoid indexing issues
+                all_outputs = []
+                for prompt_idx in range(batch_size):
+                    # Get input for this specific prompt
+                    prompt_inputs = {
+                        "input_ids": inputs["input_ids"][prompt_idx:prompt_idx+1],
+                        "attention_mask": inputs["attention_mask"][prompt_idx:prompt_idx+1]
+                    }
+                    
+                    prompt_outputs = self.model.generate(
+                        **prompt_inputs,
+                        do_sample=True if temperature > 0 else False,
+                        temperature=max(temperature, 1e-7),  # Prevent division by zero
+                        max_new_tokens=max_tokens,
+                        num_return_sequences=n_samples,
+                        pad_token_id=self.tokenizer.pad_token_id,
+                        eos_token_id=self.tokenizer.eos_token_id,
+                        top_p=0.95,
+                        top_k=50,
+                    )
+                    all_outputs.append(prompt_outputs)
+                    
         except RuntimeError as e:
             self.log.error(f"Generation failed: {e}")
-            # Try with more conservative parameters
-            outputs = self.model.generate(
-                **inputs,
-                do_sample=False,  # Use greedy decoding
-                max_new_tokens=max_tokens,
-                num_return_sequences=1,  # Generate only one sample
-                pad_token_id=self.tokenizer.pad_token_id,
-                eos_token_id=self.tokenizer.eos_token_id,
-            )
+            # Fallback: generate one sample per prompt with greedy decoding
+            all_outputs = []
+            for prompt_idx in range(batch_size):
+                prompt_inputs = {
+                    "input_ids": inputs["input_ids"][prompt_idx:prompt_idx+1],
+                    "attention_mask": inputs["attention_mask"][prompt_idx:prompt_idx+1]
+                }
+                
+                prompt_outputs = self.model.generate(
+                    **prompt_inputs,
+                    do_sample=False,  # Use greedy decoding
+                    max_new_tokens=max_tokens,
+                    num_return_sequences=1,  # Generate only one sample
+                    pad_token_id=self.tokenizer.pad_token_id,
+                    eos_token_id=self.tokenizer.eos_token_id,
+                )
+                all_outputs.append(prompt_outputs)
+                
+            # Adjust n_samples since we're only generating 1 per prompt in fallback
+            n_samples = 1
 
         end_time = time.time()
         generation_time = end_time - start_time
 
-        # Log generation completion and timing
-        self.log.info(
-            f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
-        )
-        self.log.info(f"Generating response: {self.model_id} ...")
-
         # Store for all responses
         responses = []
-        for prompt_idx, prompt in enumerate(prompts):
-            # Extract outputs for this specific prompt
-            # outputs shape: [batch_size * n_samples, sequence_length]
-            start_idx = prompt_idx * n_samples
-            end_idx = start_idx + n_samples
+        for prompt_idx, (prompt, prompt_outputs) in enumerate(zip(prompts, all_outputs)):
             # Calculate output tokens for each sample
-            prompt_outputs = []
+            prompt_responses = []
             tokens_per_sample = []
             total_output_tokens = 0
 
             # Get the input length for THIS specific prompt
             input_length = inputs["input_ids"][prompt_idx].shape[0]
 
-            for sample_idx in range(start_idx, end_idx):
+            for sample_idx in range(n_samples):
                 # Get the generated output for this sample
-                output = outputs[sample_idx]
+                output = prompt_outputs[sample_idx]
 
                 # Extract only the generated portion (after input)
                 generated_ids = output[input_length:]
@@ -1102,7 +1114,7 @@ class OpenSourceLLMClient:
                     generated_ids,
                     skip_special_tokens=True,
                 )
-                prompt_outputs.append(generated_text)
+                prompt_responses.append(generated_text)
 
             # Calculate metrics for this specific prompt
             prompt_time = generation_time / batch_size  # Average time per prompt
@@ -1111,23 +1123,16 @@ class OpenSourceLLMClient:
             )
             total_tokens_per_second = (
                 (input_token_counts[prompt_idx] + total_output_tokens) / prompt_time
-                if prompt_time > 0
-                else 0
+                if prompt_time > 0 else 0
             )
-
-            # Log generation completion and timing
-            self.log.info(
-                f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
-            )
-            self.log.info(f"Generating response: {self.model_id} ...")
 
             # Create response dict for this prompt
             response = {
                 "question": prompt,
-                "outputs": prompt_outputs,
+                "outputs": prompt_responses,
                 "config": {
                     "model": self.model_name,
-                    "system_instruction": SYSTEM_PROMPT,
+                    "system_instruction": SYSTEM_PROMPT if not self.training_mode else "You are a Verilog code generator...",
                     "temperature": temperature,
                     "max_tokens": max_tokens,
                     "samples": n_samples,
@@ -1137,9 +1142,7 @@ class OpenSourceLLMClient:
                 "output_tokens": total_output_tokens,
                 "total_tokens": input_token_counts[prompt_idx] + total_output_tokens,
                 "tokens_per_sample": tokens_per_sample,
-                "avg_tokens_per_sample": total_output_tokens / n_samples
-                if n_samples > 0
-                else 0,
+                "avg_tokens_per_sample": total_output_tokens / n_samples if n_samples > 0 else 0,
                 "output_tokens_per_second": output_tokens_per_second,
                 "total_tokens_per_second": total_tokens_per_second,
             }
