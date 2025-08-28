@@ -231,6 +231,7 @@ class PPO(BaseRLPolicy):
         prompts: List[str],
         responses: List[Dict],
         rewards: List[Dict],
+        accumulation_steps: int = 4,    
     ) -> Dict[str, float]:
         """
         Update policy using PPO algorithm
@@ -292,6 +293,7 @@ class PPO(BaseRLPolicy):
         for epoch in range(self.ppo_epochs):
             # Mini-batch training
             indices = torch.randperm(len(input_ids))
+            batch_count = 0  # Add counter for gradient accumulation
             
             for start in range(0, len(indices), self.mini_batch_size):
                 end = start + self.mini_batch_size
@@ -330,24 +332,34 @@ class PPO(BaseRLPolicy):
                     returns=mb_returns,
                     entropy=entropy,
                 )
-                
-                loss = loss_dict["loss"]
+
+                # Scale loss by accumulation steps
+                loss = loss_dict["loss"] / accumulation_steps
                 
                 # Backward pass
                 model_engine.backward(loss)
+                batch_count += 1
                 
-                # Gradient clipping
-                torch.nn.utils.clip_grad_norm_(
-                    model.parameters(), self.max_grad_norm
-                )
+                # Only update weights every accumulation_steps batches
+                if batch_count % accumulation_steps == 0 or (start + self.mini_batch_size) >= len(indices):
+                    # Gradient clipping
+                    torch.nn.utils.clip_grad_norm_(
+                        model.parameters(), self.max_grad_norm
+                    )
+                    
+                    # Optimizer step
+                    model_engine.step()
+                    
+                    # Clear gradients for next accumulation
+                    optimizer.zero_grad()
                 
-                # Optimizer step
-                model_engine.step()
-                
-                # Accumulate metrics
+                # Accumulate metrics (scale back up)
                 for key, value in loss_dict.items():
                     if key in total_metrics:
                         total_metrics[key] += value.item()
+            
+            # Clear cache after each epoch to save memory
+            torch.cuda.empty_cache()
         
         # Average metrics
         num_updates = self.ppo_epochs * (len(indices) // self.mini_batch_size)

@@ -79,11 +79,11 @@ TRAINING_CONFIG = {
     
     # Training parameters
     "learning_rate": 2e-5,
-    "batch_size": 2,
+    "batch_size": 1,
     "epochs": 5,
     "max_tokens": 300,
     "temperature": 0.7,
-    "n_samples": 2,
+    "n_samples": 5,
     
     # PPO specific
     "ppo_clip_epsilon": 0.2,
