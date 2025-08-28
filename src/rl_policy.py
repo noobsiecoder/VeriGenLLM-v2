@@ -12,6 +12,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from transformers import AutoModel
+from src.logger import Logger
 
 
 class ValueHead(torch.nn.Module):
@@ -141,6 +142,7 @@ class PPO(BaseRLPolicy):
         self.mini_batch_size = mini_batch_size
         self.gamma = gamma
         self.lam = lam
+        self.log = Logger("PPO-policy").get_logger()
 
     def compute_advantages(
         self,
