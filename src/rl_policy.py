@@ -127,7 +127,7 @@ class PPO(BaseRLPolicy):
         entropy_coef: float = 0.01,
         max_grad_norm: float = 0.5,
         ppo_epochs: int = 4,
-        mini_batch_size: int = 4,
+        mini_batch_size: int = 2,
         gamma: float = 0.99,
         lam: float = 0.95,
     ):
@@ -190,6 +190,10 @@ class PPO(BaseRLPolicy):
         """
         Compute PPO loss components
         """
+        # Ensure type is maintained
+        advantages = advantages.to(torch.float16)
+        returns = returns.to(torch.float16)
+
         # Normalize advantages
         advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
 
@@ -220,13 +224,14 @@ class PPO(BaseRLPolicy):
             + self.entropy_coef * entropy_loss
         )
 
+        # Ensure all outputs are float16
         return {
-            "loss": loss,
-            "policy_loss": policy_loss,
-            "value_loss": value_loss,
-            "entropy_loss": entropy_loss,
-            "ratio": ratio.mean(),
-            "advantages": advantages.mean(),
+            "loss": loss.to(torch.float16),
+            "policy_loss": policy_loss.to(torch.float16),
+            "value_loss": value_loss.to(torch.float16),
+            "entropy_loss": entropy_loss.to(torch.float16),
+            "ratio": ratio.mean().to(torch.float16),
+            "advantages": advantages.mean().to(torch.float16),
         }
 
     def update(
