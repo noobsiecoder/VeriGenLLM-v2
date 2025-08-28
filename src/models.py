@@ -683,11 +683,11 @@ class OpenSourceLLMClient:
 
             # Apply LoRA to the model
             self.model = get_peft_model(self.model, lora_config)
-
             # Enable gradient checkpointing for memory efficiency
             self.model.enable_input_require_grads()
             if hasattr(self.model, "gradient_checkpointing_enable"):
                 self.model.gradient_checkpointing_enable()
+                self.log.info("Gradient checkpointing enabled")
 
             # Print trainable parameters info
             trainable_params = sum(
