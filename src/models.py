@@ -933,18 +933,19 @@ class OpenSourceLLMClient:
         # Get device from base model
         device = next(self.model.parameters()).device
 
-        # Move value head to same device with float16
-        actor_critic_model.value_head = actor_critic_model.value_head.to(
-            device=device, dtype=torch.float16
-        )
+        # Move value head to same device - but keep in float32 for stability
+        actor_critic_model.value_head = actor_critic_model.value_head.to(device)
+        
+        # Keep value head in float32 even if base model is float16
+        actor_critic_model.value_head = actor_critic_model.value_head.float()
 
         # Initialize value head weights with float16
         with torch.no_grad():
             actor_critic_model.value_head.summary.weight.data.normal_(
-                mean=0.0, std=0.02
+                mean=0.0, std=0.002
             )
             actor_critic_model.value_head.summary.bias.data.zero_()
-            actor_critic_model.value_head.value.weight.data.normal_(mean=0.0, std=0.02)
+            actor_critic_model.value_head.value.weight.data.normal_(mean=0.0, std=0.002)
             actor_critic_model.value_head.value.bias.data.zero_()
 
         self.log.info(
@@ -1025,19 +1026,38 @@ class OpenSourceLLMClient:
         # Before that ensure model.evals() is ran -> if in training mode
         if training_mode:
             self.model.eval()
+
+        # Check for NaN/inf in model weights
+        for name, param in self.model.named_parameters():
+            if torch.isnan(param).any() or torch.isinf(param).any():
+                self.log.error(f"NaN/inf detected in parameter: {name}")
+                raise ValueError(f"Model contains NaN/inf values in {name}")
         # Uses sampling with temperature to create diverse outputs
         # Generate for the batch
-        with torch.no_grad():
+        # Generation with error handling
+        try:
+            with torch.no_grad():
+                outputs = self.model.generate(
+                    **inputs,
+                    do_sample=True,
+                    temperature=temperature,
+                    max_new_tokens=max_tokens,
+                    num_return_sequences=n_samples,
+                    pad_token_id=self.tokenizer.pad_token_id,
+                    eos_token_id=self.tokenizer.eos_token_id,
+                    top_p=0.95,
+                    top_k=50,
+                )
+        except RuntimeError as e:
+            self.log.error(f"Generation failed: {e}")
+            # Try with more conservative parameters
             outputs = self.model.generate(
-                **inputs,  # Unpack input tensors
-                do_sample=True,  # Enable sampling (vs greedy decoding)
-                temperature=temperature,  # Control randomness
-                max_new_tokens=max_tokens,  # Limit response length
-                num_return_sequences=n_samples,  # Generate multiple samples
-                pad_token_id=self.tokenizer.pad_token_id,  # Ensure pad token is set
-                eos_token_id=self.tokenizer.eos_token_id,  # Ensure eos token is set
-                top_p=0.95,  # Add nucleus sampling to avoid extreme probabilities
-                top_k=50,  # Limit vocabulary to avoid invalid tokens
+                **inputs,
+                do_sample=False,  # Use greedy decoding
+                max_new_tokens=max_tokens,
+                num_return_sequences=1,  # Generate only one sample
+                pad_token_id=self.tokenizer.pad_token_id,
+                eos_token_id=self.tokenizer.eos_token_id,
             )
 
         end_time = time.time()
