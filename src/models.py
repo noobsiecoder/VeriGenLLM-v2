@@ -572,8 +572,6 @@ class OpenSourceLLMClient:
         self.model_name = model_name
         self.device = device
         self.training_mode = training_mode
-        if self.training_mode:
-            SYSTEM_PROMPT = "You are a Verilog code generator. Output your reasoning on the workflow of the code in <reason>...</reason> format and generate the Verilog code enclosed in ```verilog...```."
 
         # Initialize logger with model-specific name
         self.log = Logger(model_id).get_logger()
@@ -889,23 +887,21 @@ class OpenSourceLLMClient:
         else:
             # Simple optimizer setup without DeepSpeed
             self.log.info("Using standard optimizer without DeepSpeed")
-            
+
             # Create optimizer
             optimizer = torch.optim.AdamW(
                 self.model.parameters(),
                 lr=lr,
                 betas=(0.9, 0.999),
                 eps=1e-8,
-                weight_decay=0.01
+                weight_decay=0.01,
             )
-            
+
             # Create scheduler
             lr_scheduler = torch.optim.lr_scheduler.StepLR(
-                optimizer, 
-                step_size=100,
-                gamma=0.95
+                optimizer, step_size=100, gamma=0.95
             )
-            
+
             # Create a mock model engine for compatibility
             class SimpleModelEngine:
                 def __init__(self, model, optimizer, device):
@@ -913,39 +909,45 @@ class OpenSourceLLMClient:
                     self.optimizer = optimizer
                     self.device = device
                     self.tokenizer = None  # Will be set by caller
-                    
+
                 def backward(self, loss):
                     loss.backward()
-                    
+
                 def step(self):
                     self.optimizer.step()
                     self.optimizer.zero_grad()
-            
+
             model_engine = SimpleModelEngine(self.model, optimizer, self.device)
-            
+
             return model_engine, optimizer, lr_scheduler
-    
+
     def prepare_actor_critic_model(self):
         """
         Wrap the base model with actor-critic architecture for PPO
         """
         # Create actor-critic model
         actor_critic_model = ActorCriticModel(self.model, self.tokenizer)
-        
+
         # Get device from base model
         device = next(self.model.parameters()).device
-        
+
         # Move value head to same device with float16
-        actor_critic_model.value_head = actor_critic_model.value_head.to(device=device, dtype=torch.float16)
-        
+        actor_critic_model.value_head = actor_critic_model.value_head.to(
+            device=device, dtype=torch.float16
+        )
+
         # Initialize value head weights with float16
         with torch.no_grad():
-            actor_critic_model.value_head.summary.weight.data.normal_(mean=0.0, std=0.02)
+            actor_critic_model.value_head.summary.weight.data.normal_(
+                mean=0.0, std=0.02
+            )
             actor_critic_model.value_head.summary.bias.data.zero_()
             actor_critic_model.value_head.value.weight.data.normal_(mean=0.0, std=0.02)
             actor_critic_model.value_head.value.bias.data.zero_()
-        
-        self.log.info(f"Actor-critic model prepared with value head on {device} with dtype float16")
+
+        self.log.info(
+            f"Actor-critic model prepared with value head on {device} with dtype float16"
+        )
         return actor_critic_model
 
     def batch_generate(
@@ -985,7 +987,12 @@ class OpenSourceLLMClient:
         for prompt in prompts:
             all_messages.append(
                 [
-                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {
+                        "role": "system",
+                        "content": SYSTEM_PROMPT
+                        if not self.training_mode
+                        else "You are a Verilog code generator. Output your reasoning on the workflow of the code in <reason>...</reason> format and generate the Verilog code enclosed in ```verilog...```.",
+                    },
                     {"role": "user", "content": prompt},
                 ]
             )
