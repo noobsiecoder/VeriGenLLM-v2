@@ -388,60 +388,61 @@ class PPO(BaseRLPolicy):
         all_rewards = []
         all_action_masks = []
 
+        # First collect all texts to find max length
+        all_texts = []
+        all_prompts = []
+        all_reward_values = []
+        
         for prompt, response_data, reward_list in zip(prompts, responses, rewards):
-            # Handle different reward formats
             if isinstance(reward_list, list):
-                # Multiple responses per prompt
                 outputs = response_data["outputs"]
                 rewards_for_prompt = reward_list
             else:
-                # Single response
                 outputs = [response_data["outputs"]]
                 rewards_for_prompt = [reward_list]
-
+                
             for output, reward in zip(outputs, rewards_for_prompt):
-                # Tokenize prompt + response
-                full_text = prompt + output
-                encoded = tokenizer(
-                    full_text,
-                    return_tensors="pt",
-                    padding=True,
-                    truncation=True,
-                    max_length=512,
-                )
-
-                input_ids = encoded["input_ids"]
-                attention_mask = encoded["attention_mask"]
-
-                # Calculate action mask
-                prompt_encoded = tokenizer(
-                    prompt,
-                    return_tensors="pt",
-                    padding=False,
-                    truncation=True,
-                )
-                prompt_length = prompt_encoded["input_ids"].shape[1]
-
-                action_mask = torch.zeros_like(input_ids)
-                action_mask[:, prompt_length:] = attention_mask[:, prompt_length:]
-
-                all_input_ids.append(input_ids)
-                all_attention_masks.append(attention_mask)
-                all_action_masks.append(action_mask)
-
-                # Extract reward value
+                all_texts.append(prompt + output)
+                all_prompts.append(prompt)
+                
                 if isinstance(reward, dict):
                     reward_value = reward.get("total_reward", 0.0)
                 else:
                     reward_value = float(reward)
-                all_rewards.append(reward_value)
-
-        # Stack all tensors
+                all_reward_values.append(reward_value)
+        
+        # Batch tokenize all texts at once for consistent padding
+        encoded_batch = tokenizer(
+            all_texts,
+            return_tensors="pt",
+            padding=True,  # This will pad all to the same length
+            truncation=True,
+            max_length=512,
+        )
+        
+        # Tokenize prompts to get lengths
+        prompt_lengths = []
+        for prompt in all_prompts:
+            prompt_encoded = tokenizer(
+                prompt,
+                return_tensors="pt",
+                padding=False,
+                truncation=True,
+            )
+            prompt_lengths.append(prompt_encoded["input_ids"].shape[1])
+        
+        # Create action masks
+        batch_size, seq_len = encoded_batch["input_ids"].shape
+        action_masks = torch.zeros_like(encoded_batch["input_ids"])
+        
+        for i, prompt_len in enumerate(prompt_lengths):
+            action_masks[i, prompt_len:] = encoded_batch["attention_mask"][i, prompt_len:]
+        
         return {
-            "input_ids": torch.cat(all_input_ids, dim=0),
-            "attention_masks": torch.cat(all_attention_masks, dim=0),
-            "action_masks": torch.cat(all_action_masks, dim=0),
-            "rewards": torch.tensor(all_rewards),
+            "input_ids": encoded_batch["input_ids"],
+            "attention_masks": encoded_batch["attention_mask"],
+            "action_masks": action_masks,
+            "rewards": torch.tensor(all_reward_values),
         }
 
     def _get_logprobs_and_entropy(
