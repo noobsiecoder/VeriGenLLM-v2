@@ -598,6 +598,8 @@ class OpenSourceLLMClient:
             self.tokenizer = AutoTokenizer.from_pretrained(
                 self.model_name,
             )
+            if self.tokenizer.pad_token is None:
+               self.tokenizer.pad_token = self.tokenizer.eos_token
 
             # Load the actual model weights
             self.log.info(f"Loading model from {self.model_name}...")
@@ -1035,7 +1037,7 @@ class OpenSourceLLMClient:
                 pad_token_id=self.tokenizer.pad_token_id,  # Ensure pad token is set
                 eos_token_id=self.tokenizer.eos_token_id,  # Ensure eos token is set
                 top_p=0.95,  # Add nucleus sampling to avoid extreme probabilities
-                top_k=50,    # Limit vocabulary to avoid invalid tokens
+                top_k=50,  # Limit vocabulary to avoid invalid tokens
             )
 
         end_time = time.time()

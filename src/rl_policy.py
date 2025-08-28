@@ -356,7 +356,9 @@ class PPO(BaseRLPolicy):
                 ) >= len(indices):
                     # Gradient clipping
                     torch.nn.utils.clip_grad_norm_(
-                        model.parameters(), self.max_grad_norm
+                        model.parameters(),
+                        self.max_grad_norm,
+                        error_if_nonfinite=False,  # Don't error on inf/nan, just clip
                     )
 
                     # Optimizer step
@@ -397,7 +399,7 @@ class PPO(BaseRLPolicy):
         all_texts = []
         all_prompts = []
         all_reward_values = []
-        
+
         for prompt, response_data, reward_list in zip(prompts, responses, rewards):
             if isinstance(reward_list, list):
                 outputs = response_data["outputs"]
@@ -405,17 +407,17 @@ class PPO(BaseRLPolicy):
             else:
                 outputs = [response_data["outputs"]]
                 rewards_for_prompt = [reward_list]
-                
+
             for output, reward in zip(outputs, rewards_for_prompt):
                 all_texts.append(prompt + output)
                 all_prompts.append(prompt)
-                
+
                 if isinstance(reward, dict):
                     reward_value = reward.get("total_reward", 0.0)
                 else:
                     reward_value = float(reward)
                 all_reward_values.append(reward_value)
-        
+
         # Batch tokenize all texts at once for consistent padding
         encoded_batch = tokenizer(
             all_texts,
@@ -424,7 +426,7 @@ class PPO(BaseRLPolicy):
             truncation=True,
             max_length=512,
         )
-        
+
         # Tokenize prompts to get lengths
         prompt_lengths = []
         for prompt in all_prompts:
@@ -435,14 +437,16 @@ class PPO(BaseRLPolicy):
                 truncation=True,
             )
             prompt_lengths.append(prompt_encoded["input_ids"].shape[1])
-        
+
         # Create action masks
         batch_size, seq_len = encoded_batch["input_ids"].shape
         action_masks = torch.zeros_like(encoded_batch["input_ids"])
-        
+
         for i, prompt_len in enumerate(prompt_lengths):
-            action_masks[i, prompt_len:] = encoded_batch["attention_mask"][i, prompt_len:]
-        
+            action_masks[i, prompt_len:] = encoded_batch["attention_mask"][
+                i, prompt_len:
+            ]
+
         return {
             "input_ids": encoded_batch["input_ids"],
             "attention_masks": encoded_batch["attention_mask"],
