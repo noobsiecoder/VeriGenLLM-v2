@@ -937,6 +937,10 @@ class OpenSourceLLMClient:
         # Create actor-critic model
         actor_critic_model = ActorCriticModel(self.model, self.tokenizer)
         
+        # Move value head to same device as base model
+        device = next(self.model.parameters()).device
+        actor_critic_model.value_head = actor_critic_model.value_head.to(device)
+        
         # Initialize value head weights
         with torch.no_grad():
             actor_critic_model.value_head.summary.weight.normal_(mean=0.0, std=0.02)
@@ -944,7 +948,7 @@ class OpenSourceLLMClient:
             actor_critic_model.value_head.value.weight.normal_(mean=0.0, std=0.02)
             actor_critic_model.value_head.value.bias.zero_()
         
-        self.log.info("Actor-critic model prepared with value head")
+        self.log.info(f"Actor-critic model prepared with value head on device: {device}")
         return actor_critic_model
 
     def batch_generate(
