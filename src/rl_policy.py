@@ -187,51 +187,40 @@ class PPO(BaseRLPolicy):
         returns: torch.Tensor,
         entropy: torch.Tensor,
     ) -> Dict[str, torch.Tensor]:
-        """
-        Compute PPO loss components
-        """
-        # Ensure type is maintained
-        advantages = advantages.to(torch.float16)
-        returns = returns.to(torch.float16)
-
-        # Normalize advantages
-        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
-
-        # Policy loss with clipping
+        """Compute PPO loss with safety checks"""
+        
+        # Compute probability ratio
         ratio = torch.exp(logprobs - old_logprobs)
+        
+        # Clamp ratio to prevent extreme values
+        ratio = torch.clamp(ratio, min=0.0, max=100.0)
+        
+        # Compute surrogate losses
         surr1 = ratio * advantages
-        surr2 = (
-            torch.clamp(ratio, 1 - self.clip_epsilon, 1 + self.clip_epsilon)
-            * advantages
-        )
+        surr2 = torch.clamp(ratio, 1.0 - self.clip_param, 1.0 + self.clip_param) * advantages
+        
+        # Policy loss (negative because we want to maximize)
         policy_loss = -torch.min(surr1, surr2).mean()
-
+        
         # Value loss with clipping
         values_clipped = old_values + torch.clamp(
-            values - old_values, -self.clip_epsilon, self.clip_epsilon
+            values - old_values, -self.clip_param, self.clip_param
         )
-        value_loss_unclipped = F.mse_loss(values, returns)
-        value_loss_clipped = F.mse_loss(values_clipped, returns)
-        value_loss = torch.max(value_loss_unclipped, value_loss_clipped)
-
-        # Entropy bonus
+        value_loss_unclipped = (values - returns) ** 2
+        value_loss_clipped = (values_clipped - returns) ** 2
+        value_loss = 0.5 * torch.max(value_loss_unclipped, value_loss_clipped).mean()
+        
+        # Entropy loss (negative because we want to maximize entropy)
         entropy_loss = -entropy.mean()
-
+        
         # Total loss
-        loss = (
-            policy_loss
-            + self.value_coef * value_loss
-            + self.entropy_coef * entropy_loss
-        )
-
-        # Ensure all outputs are float16
+        loss = policy_loss + self.value_coefficient * value_loss + self.entropy_coefficient * entropy_loss
+        
         return {
-            "loss": loss.to(torch.float16),
-            "policy_loss": policy_loss.to(torch.float16),
-            "value_loss": value_loss.to(torch.float16),
-            "entropy_loss": entropy_loss.to(torch.float16),
-            "ratio": ratio.mean().to(torch.float16),
-            "advantages": advantages.mean().to(torch.float16),
+            "loss": loss,
+            "policy_loss": policy_loss,
+            "value_loss": value_loss,
+            "entropy_loss": entropy_loss,
         }
 
     def update(
@@ -243,17 +232,8 @@ class PPO(BaseRLPolicy):
         rewards: List[Dict],
         accumulation_steps: int = 4,
     ) -> Dict[str, float]:
-        """
-        Update policy using PPO algorithm
-
-        Parameters:
-        -----------
-        model_engine: DeepSpeed model engine
-        optimizer: DeepSpeed optimizer
-        prompts: List of input prompts
-        responses: List of generated responses
-        rewards: List of reward dictionaries
-        """
+        """Update policy using PPO algorithm"""
+        
         # Check if model has value head
         model = model_engine.module
         has_value_head = hasattr(model, "value_head")
@@ -274,6 +254,12 @@ class PPO(BaseRLPolicy):
         action_masks = batch_data["action_masks"].to(device)
         rewards_tensor = batch_data["rewards"].to(device)
 
+        # Check rewards for NaN/Inf
+        if torch.isnan(rewards_tensor).any() or torch.isinf(rewards_tensor).any():
+            self.log.warning("NaN/Inf detected in rewards, clamping...")
+            rewards_tensor = torch.nan_to_num(rewards_tensor, nan=0.0, posinf=1.0, neginf=-1.0)
+            rewards_tensor = torch.clamp(rewards_tensor, min=-10.0, max=10.0)
+
         # Get old values and log probs
         with torch.no_grad():
             outputs = model(
@@ -283,13 +269,36 @@ class PPO(BaseRLPolicy):
             )
             old_logits = outputs.logits
             old_values = outputs.values
+            
+            # Check for NaN/Inf in model outputs
+            if torch.isnan(old_logits).any() or torch.isinf(old_logits).any():
+                self.log.error("NaN/Inf in old_logits")
+                return {"error": "NaN/Inf in model outputs"}
+                
+            if torch.isnan(old_values).any() or torch.isinf(old_values).any():
+                self.log.warning("NaN/Inf in old_values, reinitializing value head")
+                # Reinitialize value head
+                for param in model.value_head.parameters():
+                    torch.nn.init.normal_(param, mean=0.0, std=0.01)
+                # Recompute
+                outputs = model(input_ids=input_ids, attention_mask=attention_masks, return_dict=True)
+                old_values = outputs.values
+                
             old_logprobs, old_entropy = self._get_logprobs_and_entropy(
                 old_logits, input_ids, action_masks
             )
 
-        # Compute advantages and returns
-        dones = torch.zeros_like(rewards_tensor)  # Episodes don't end mid-generation
+        # Compute advantages and returns with safety checks
+        dones = torch.zeros_like(rewards_tensor)
         advantages, returns = self.compute_advantages(rewards_tensor, old_values, dones)
+        
+        # Normalize advantages
+        if advantages.numel() > 1:
+            advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+        
+        # Clamp advantages and returns to prevent extreme values
+        advantages = torch.clamp(advantages, min=-5.0, max=5.0)
+        returns = torch.clamp(returns, min=-10.0, max=10.0)
 
         # Store metrics
         total_metrics = {
@@ -297,17 +306,22 @@ class PPO(BaseRLPolicy):
             "policy_loss": 0.0,
             "value_loss": 0.0,
             "entropy_loss": 0.0,
+            "grad_norm": 0.0,
         }
 
         # PPO epochs
         for epoch in range(self.ppo_epochs):
             # Mini-batch training
             indices = torch.randperm(len(input_ids))
-            batch_count = 0  # Add counter for gradient accumulation
+            batch_count = 0
 
             for start in range(0, len(indices), self.mini_batch_size):
-                end = start + self.mini_batch_size
+                end = min(start + self.mini_batch_size, len(indices))
                 mb_indices = indices[start:end]
+
+                # Skip if batch is too small
+                if len(mb_indices) < 2:
+                    continue
 
                 # Mini-batch data
                 mb_input_ids = input_ids[mb_indices]
@@ -318,65 +332,93 @@ class PPO(BaseRLPolicy):
                 mb_old_logprobs = old_logprobs[mb_indices]
                 mb_old_values = old_values[mb_indices]
 
-                # Forward pass
-                outputs = model(
-                    input_ids=mb_input_ids,
-                    attention_mask=mb_attention_mask,
-                    return_dict=True,
-                )
-                logits = outputs.logits
-                values = outputs.values
+                # Forward pass with mixed precision context
+                with torch.cuda.amp.autocast(enabled=False):  # Disable for stability
+                    outputs = model(
+                        input_ids=mb_input_ids,
+                        attention_mask=mb_attention_mask,
+                        return_dict=True,
+                    )
+                    logits = outputs.logits
+                    values = outputs.values
 
-                # Get log probs and entropy
-                logprobs, entropy = self._get_logprobs_and_entropy(
-                    logits, mb_input_ids, mb_action_masks
-                )
+                    # Check outputs
+                    if torch.isnan(logits).any() or torch.isinf(logits).any():
+                        self.log.warning(f"NaN/Inf in logits at epoch {epoch}, batch {batch_count}")
+                        continue
+                        
+                    if torch.isnan(values).any() or torch.isinf(values).any():
+                        self.log.warning(f"NaN/Inf in values at epoch {epoch}, batch {batch_count}")
+                        continue
 
-                # Compute loss
-                loss_dict = self.compute_loss(
-                    logprobs=logprobs,
-                    old_logprobs=mb_old_logprobs,
-                    advantages=mb_advantages,
-                    values=values,
-                    old_values=mb_old_values,
-                    returns=mb_returns,
-                    entropy=entropy,
-                )
+                    # Get log probs and entropy
+                    logprobs, entropy = self._get_logprobs_and_entropy(
+                        logits, mb_input_ids, mb_action_masks
+                    )
 
-                # Scale loss by accumulation steps
-                loss = loss_dict["loss"] / accumulation_steps
+                    # Compute loss with safety checks
+                    loss_dict = self.compute_loss(
+                        logprobs=logprobs,
+                        old_logprobs=mb_old_logprobs,
+                        advantages=mb_advantages,
+                        values=values,
+                        old_values=mb_old_values,
+                        returns=mb_returns,
+                        entropy=entropy,
+                    )
+
+                    # Check loss
+                    if torch.isnan(loss_dict["loss"]) or torch.isinf(loss_dict["loss"]):
+                        self.log.warning(f"NaN/Inf loss at epoch {epoch}, batch {batch_count}")
+                        continue
+
+                    # Scale loss by accumulation steps
+                    loss = loss_dict["loss"] / accumulation_steps
 
                 # Backward pass
                 model_engine.backward(loss)
                 batch_count += 1
 
                 # Only update weights every accumulation_steps batches
-                if batch_count % accumulation_steps == 0 or (
-                    start + self.mini_batch_size
-                ) >= len(indices):
+                if batch_count % accumulation_steps == 0 or end >= len(indices):
+                    # Check gradients before clipping
+                    grad_norm_before = 0.0
+                    for param in model.parameters():
+                        if param.grad is not None:
+                            grad_norm_before += param.grad.data.norm(2).item() ** 2
+                            # Zero out NaN/Inf gradients
+                            if torch.isnan(param.grad).any() or torch.isinf(param.grad).any():
+                                self.log.warning("NaN/Inf gradient detected, zeroing...")
+                                param.grad.data.zero_()
+                    grad_norm_before = grad_norm_before ** 0.5
+
                     # Gradient clipping
-                    torch.nn.utils.clip_grad_norm_(
+                    grad_norm = torch.nn.utils.clip_grad_norm_(
                         model.parameters(),
                         self.max_grad_norm,
-                        error_if_nonfinite=False,  # Don't error on inf/nan, just clip
+                        error_if_nonfinite=False,
                     )
+                    
+                    # Log if gradients were severely clipped
+                    if grad_norm_before > self.max_grad_norm * 10:
+                        self.log.warning(f"Large gradient norm: {grad_norm_before:.2f} -> {grad_norm:.2f}")
 
                     # Optimizer step
                     model_engine.step()
-
-                    # Clear gradients for next accumulation
                     optimizer.zero_grad()
+                    
+                    total_metrics["grad_norm"] += grad_norm
 
-                # Accumulate metrics (scale back up)
+                # Accumulate metrics
                 for key, value in loss_dict.items():
-                    if key in total_metrics:
+                    if key in total_metrics and not torch.isnan(value):
                         total_metrics[key] += value.item()
 
-            # Clear cache after each epoch to save memory
+            # Clear cache after each epoch
             torch.cuda.empty_cache()
 
         # Average metrics
-        num_updates = self.ppo_epochs * (len(indices) // self.mini_batch_size)
+        num_updates = max(1, self.ppo_epochs * (len(indices) // self.mini_batch_size))
         for key in total_metrics:
             total_metrics[key] /= num_updates
 
@@ -455,40 +497,41 @@ class PPO(BaseRLPolicy):
         }
 
     def _get_logprobs_and_entropy(
-        self, logits: torch.Tensor, input_ids: torch.Tensor, action_masks: torch.Tensor
+        self,
+        logits: torch.Tensor,
+        input_ids: torch.Tensor,
+        action_masks: torch.Tensor,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
-        """Calculate log probabilities and entropy of actions taken"""
-        # Shift for autoregressive
-        shift_logits = logits[:, :-1, :].contiguous()
-        shift_labels = input_ids[:, 1:].contiguous()
-        shift_masks = action_masks[:, 1:].contiguous()
-
-        # Get probabilities
-        logprobs = F.log_softmax(shift_logits, dim=-1)
-        probs = F.softmax(shift_logits, dim=-1)
-
-        # Entropy
-        entropy = -(probs * logprobs).sum(dim=-1)
-
+        """Get log probabilities and entropy with safety checks"""
+        
+        # Shift logits and labels for next token prediction
+        shift_logits = logits[..., :-1, :].contiguous()
+        shift_labels = input_ids[..., 1:].contiguous()
+        shift_masks = action_masks[..., 1:].contiguous()
+        
+        # Get log probabilities
+        log_probs = torch.nn.functional.log_softmax(shift_logits, dim=-1)
+        
+        # Clamp log_probs to prevent -inf
+        log_probs = torch.clamp(log_probs, min=-100.0)
+        
         # Get specific action log probs
         batch_size, seq_len = shift_labels.shape
-        gathered_logprobs = logprobs.gather(
-            dim=2, index=shift_labels.unsqueeze(2)
-        ).squeeze(2)
-
-        # Apply masking and sum
-        masked_logprobs = gathered_logprobs * shift_masks
-        masked_entropy = entropy * shift_masks
-
-        # Sum over sequence
-        total_logprobs = masked_logprobs.sum(dim=1)
-        total_entropy = masked_entropy.sum(dim=1)
-
-        # Normalize by number of actions
-        num_actions = shift_masks.sum(dim=1).clamp(min=1)
-        avg_entropy = total_entropy / num_actions
-
-        return total_logprobs, avg_entropy
+        selected_log_probs = log_probs.gather(
+            dim=-1, 
+            index=shift_labels.unsqueeze(-1)
+        ).squeeze(-1)
+        
+        # Apply action mask and compute mean
+        selected_log_probs = selected_log_probs * shift_masks
+        logprobs = selected_log_probs.sum(dim=-1) / shift_masks.sum(dim=-1).clamp(min=1.0)
+        
+        # Compute entropy with numerical stability
+        probs = torch.exp(log_probs)
+        entropy = -(probs * log_probs).sum(dim=-1)
+        entropy = (entropy * shift_masks).sum(dim=-1) / shift_masks.sum(dim=-1).clamp(min=1.0)
+        
+        return logprobs, entropy
 
 
 class GRPO(BaseRLPolicy):

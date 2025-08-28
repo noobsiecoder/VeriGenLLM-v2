@@ -634,36 +634,14 @@ class OpenSourceLLMClient:
         target_modules: List[str] = None,
         task_type: str = "CAUSAL_LM",
     ):
-        """
-        Apply LoRA adapters to the loaded model for efficient fine-tuning
-
-        Parameters:
-        -----------
-        r : int
-            Rank of the LoRA decomposition (lower = fewer parameters)
-        lora_alpha : int
-            Scaling parameter for LoRA
-        lora_dropout : float
-            Dropout probability for LoRA layers
-        target_modules : List[str]
-            Specific modules to apply LoRA to (None = auto-detect)
-        task_type : str
-            Type of task (CAUSAL_LM for generation)
-
-        Returns:
-        --------
-        self.model : PeftModel
-            Model wrapped with LoRA adapters
-        """
+        """Apply LoRA adapters to the loaded model for efficient fine-tuning"""
         try:
             self.log.info("Configuring LoRA adapters...")
 
-            # Auto-detect target modules if not specified
             if target_modules is None:
-                # For DeepSeek-Coder and similar models
                 target_modules = [
                     "q_proj",
-                    "k_proj",
+                    "k_proj", 
                     "v_proj",
                     "o_proj",
                     "gate_proj",
@@ -671,7 +649,7 @@ class OpenSourceLLMClient:
                     "down_proj",
                 ]
 
-            # Create LoRA configuration
+            # Create LoRA configuration with better initialization
             lora_config = LoraConfig(
                 r=r,
                 lora_alpha=lora_alpha,
@@ -679,15 +657,32 @@ class OpenSourceLLMClient:
                 target_modules=target_modules,
                 bias="none",
                 task_type=TaskType.CAUSAL_LM,
+                init_lora_weights="gaussian",  # Better initialization
             )
 
             # Apply LoRA to the model
             self.model = get_peft_model(self.model, lora_config)
+            
             # Enable gradient checkpointing for memory efficiency
             self.model.enable_input_require_grads()
             if hasattr(self.model, "gradient_checkpointing_enable"):
                 self.model.gradient_checkpointing_enable()
                 self.log.info("Gradient checkpointing enabled")
+
+            # Initialize LoRA weights with smaller values to prevent instability
+            for name, param in self.model.named_parameters():
+                if "lora_" in name:
+                    if "lora_A" in name:
+                        # Initialize A matrices with smaller variance
+                        torch.nn.init.normal_(param, mean=0.0, std=0.01)
+                    elif "lora_B" in name:
+                        # Initialize B matrices to zero
+                        torch.nn.init.zeros_(param)
+                        
+            # Add gradient clipping to all LoRA parameters
+            for param in self.model.parameters():
+                if param.requires_grad:
+                    param.register_hook(lambda grad: torch.clamp(grad, -1.0, 1.0))
 
             # Print trainable parameters info
             trainable_params = sum(
