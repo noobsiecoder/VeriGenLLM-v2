@@ -928,27 +928,24 @@ class OpenSourceLLMClient:
     def prepare_actor_critic_model(self):
         """
         Wrap the base model with actor-critic architecture for PPO
-        
-        Returns:
-        --------
-        model: ActorCriticModel with value head
         """
-        
         # Create actor-critic model
         actor_critic_model = ActorCriticModel(self.model, self.tokenizer)
         
-        # Move value head to same device as base model
+        # Get device from base model
         device = next(self.model.parameters()).device
-        actor_critic_model.value_head = actor_critic_model.value_head.to(device)
         
-        # Initialize value head weights
+        # Move value head to same device with float16
+        actor_critic_model.value_head = actor_critic_model.value_head.to(device=device, dtype=torch.float16)
+        
+        # Initialize value head weights with float16
         with torch.no_grad():
-            actor_critic_model.value_head.summary.weight.normal_(mean=0.0, std=0.02)
-            actor_critic_model.value_head.summary.bias.zero_()
-            actor_critic_model.value_head.value.weight.normal_(mean=0.0, std=0.02)
-            actor_critic_model.value_head.value.bias.zero_()
+            actor_critic_model.value_head.summary.weight.data.normal_(mean=0.0, std=0.02)
+            actor_critic_model.value_head.summary.bias.data.zero_()
+            actor_critic_model.value_head.value.weight.data.normal_(mean=0.0, std=0.02)
+            actor_critic_model.value_head.value.bias.data.zero_()
         
-        self.log.info(f"Actor-critic model prepared with value head on device: {device}")
+        self.log.info(f"Actor-critic model prepared with value head on {device} with dtype float16")
         return actor_critic_model
 
     def batch_generate(
