@@ -852,6 +852,7 @@ class OpenSourceLLMClient:
         lr: float = 2e-5,
         # For PPO policy
         use_actor_critic: bool = True,
+        use_deepspeed: bool = False,
     ):
         """
         Convenience method to prepare model for RLFT by applying both LoRA and DeepSpeed
@@ -877,13 +878,52 @@ class OpenSourceLLMClient:
             self.model = self.prepare_actor_critic_model()
             self.log.info("Using actor-critic model for PPO")
 
-        # Then apply DeepSpeed
-        return self.apply_deepspeed(
-            gradient_accumulation_steps=gradient_accumulation_steps,
-            train_batch_size=train_batch_size,
-            zero_stage=zero_stage,
-            lr=lr,
-        )
+        # Apply DeepSpeed or use simple optimizer
+        if use_deepspeed:
+            return self.apply_deepspeed(
+                gradient_accumulation_steps=gradient_accumulation_steps,
+                train_batch_size=train_batch_size,
+                zero_stage=zero_stage,
+                lr=lr,
+            )
+        else:
+            # Simple optimizer setup without DeepSpeed
+            self.log.info("Using standard optimizer without DeepSpeed")
+            
+            # Create optimizer
+            optimizer = torch.optim.AdamW(
+                self.model.parameters(),
+                lr=lr,
+                betas=(0.9, 0.999),
+                eps=1e-8,
+                weight_decay=0.01
+            )
+            
+            # Create scheduler
+            lr_scheduler = torch.optim.lr_scheduler.StepLR(
+                optimizer, 
+                step_size=100,
+                gamma=0.95
+            )
+            
+            # Create a mock model engine for compatibility
+            class SimpleModelEngine:
+                def __init__(self, model, optimizer, device):
+                    self.module = model
+                    self.optimizer = optimizer
+                    self.device = device
+                    self.tokenizer = None  # Will be set by caller
+                    
+                def backward(self, loss):
+                    loss.backward()
+                    
+                def step(self):
+                    self.optimizer.step()
+                    self.optimizer.zero_grad()
+            
+            model_engine = SimpleModelEngine(self.model, optimizer, self.device)
+            
+            return model_engine, optimizer, lr_scheduler
     
     def prepare_actor_critic_model(self):
         """

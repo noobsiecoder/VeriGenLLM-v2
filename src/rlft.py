@@ -282,7 +282,9 @@ class RLFineTuner:
                 lr=TRAINING_CONFIG["learning_rate"],
                 use_actor_critic=use_actor_critic,
             )
-            self.log.info("Model prepared for RLFT successfully")
+        
+            # Set tokenizer on model engine
+            model_engine.tokenizer = llm_client.tokenizer
         except Exception as e:
             self.log.critical(f"Failed to prepare model for RLFT: {e}")
             return
