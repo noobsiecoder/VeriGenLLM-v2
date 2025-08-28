@@ -13,7 +13,7 @@ import os
 
 class WandbLogger:
     """Handles Weights & Biases logging for RLFT"""
-    
+
     def __init__(
         self,
         project_name: str = "verilog-rlft",
@@ -26,7 +26,7 @@ class WandbLogger:
         self.config = config or {}
         self.tags = tags or []
         self.run = None
-        
+
     def init(self):
         """Initialize W&B run"""
         self.run = wandb.init(
@@ -37,13 +37,13 @@ class WandbLogger:
             reinit=True,
         )
         return self.run
-    
+
     def log(self, metrics: Dict, step: Optional[int] = None):
         """Log metrics to W&B"""
         if self.run is None:
             raise RuntimeError("WandbLogger not initialized. Call init() first.")
         wandb.log(metrics, step=step)
-    
+
     def log_batch_metrics(
         self,
         epoch: int,
@@ -63,13 +63,12 @@ class WandbLogger:
             "train/epoch": epoch,
             "train/batch": batch_idx,
         }
-        
+
         # Create histogram of rewards
-        wandb.log({
-            **metrics,
-            "train/reward_distribution": wandb.Histogram(rewards_dist)
-        })
-    
+        wandb.log(
+            {**metrics, "train/reward_distribution": wandb.Histogram(rewards_dist)}
+        )
+
     def log_epoch_metrics(
         self,
         epoch: int,
@@ -85,7 +84,7 @@ class WandbLogger:
             "epoch/number": epoch,
         }
         wandb.log(metrics)
-    
+
     def save_model(self, model_path: str, aliases: Optional[List[str]] = None):
         """Save model artifact to W&B"""
         artifact = wandb.Artifact(
@@ -95,7 +94,7 @@ class WandbLogger:
         )
         artifact.add_dir(model_path)
         wandb.log_artifact(artifact, aliases=aliases or ["latest"])
-    
+
     def finish(self):
         """Finish W&B run"""
         if self.run:

@@ -151,11 +151,11 @@ class PPO(BaseRLPolicy):
         """
         advantages = torch.zeros_like(rewards)
         returns = torch.zeros_like(rewards)
-        
+
         # Last advantage and return
         lastgaelam = 0
         last_value = values[-1]
-        
+
         for t in reversed(range(len(rewards))):
             if t == len(rewards) - 1:
                 next_value = 0  # No next value at the end
@@ -163,13 +163,15 @@ class PPO(BaseRLPolicy):
             else:
                 next_value = values[t + 1]
                 next_not_done = 1 - dones[t + 1]
-            
+
             # TD error
             delta = rewards[t] + self.gamma * next_value * next_not_done - values[t]
-            
+
             # GAE
-            advantages[t] = lastgaelam = delta + self.gamma * self.lam * next_not_done * lastgaelam
-            
+            advantages[t] = lastgaelam = (
+                delta + self.gamma * self.lam * next_not_done * lastgaelam
+            )
+
             # Returns for value loss
             returns[t] = advantages[t] + values[t]
 
@@ -194,7 +196,10 @@ class PPO(BaseRLPolicy):
         # Policy loss with clipping
         ratio = torch.exp(logprobs - old_logprobs)
         surr1 = ratio * advantages
-        surr2 = torch.clamp(ratio, 1 - self.clip_epsilon, 1 + self.clip_epsilon) * advantages
+        surr2 = (
+            torch.clamp(ratio, 1 - self.clip_epsilon, 1 + self.clip_epsilon)
+            * advantages
+        )
         policy_loss = -torch.min(surr1, surr2).mean()
 
         # Value loss with clipping
@@ -210,8 +215,8 @@ class PPO(BaseRLPolicy):
 
         # Total loss
         loss = (
-            policy_loss 
-            + self.value_coef * value_loss 
+            policy_loss
+            + self.value_coef * value_loss
             + self.entropy_coef * entropy_loss
         )
 
@@ -231,7 +236,7 @@ class PPO(BaseRLPolicy):
         prompts: List[str],
         responses: List[Dict],
         rewards: List[Dict],
-        accumulation_steps: int = 4,    
+        accumulation_steps: int = 4,
     ) -> Dict[str, float]:
         """
         Update policy using PPO algorithm
@@ -246,24 +251,24 @@ class PPO(BaseRLPolicy):
         """
         # Check if model has value head
         model = model_engine.module
-        has_value_head = hasattr(model, 'value_head')
+        has_value_head = hasattr(model, "value_head")
         if not has_value_head:
             raise ValueError(
                 "Model must have value head for PPO. Use ActorCriticModel wrapper."
             )
-        
+
         tokenizer = model_engine.tokenizer
 
         # Prepare batch data
         batch_data = self._prepare_batch_data(tokenizer, prompts, responses, rewards)
-        
+
         # Move to device
         device = model_engine.device
-        input_ids = batch_data['input_ids'].to(device)
-        attention_masks = batch_data['attention_masks'].to(device)
-        action_masks = batch_data['action_masks'].to(device)
-        rewards_tensor = batch_data['rewards'].to(device)
-        
+        input_ids = batch_data["input_ids"].to(device)
+        attention_masks = batch_data["attention_masks"].to(device)
+        action_masks = batch_data["action_masks"].to(device)
+        rewards_tensor = batch_data["rewards"].to(device)
+
         # Get old values and log probs
         with torch.no_grad():
             outputs = model(
@@ -276,11 +281,11 @@ class PPO(BaseRLPolicy):
             old_logprobs, old_entropy = self._get_logprobs_and_entropy(
                 old_logits, input_ids, action_masks
             )
-        
+
         # Compute advantages and returns
         dones = torch.zeros_like(rewards_tensor)  # Episodes don't end mid-generation
         advantages, returns = self.compute_advantages(rewards_tensor, old_values, dones)
-        
+
         # Store metrics
         total_metrics = {
             "loss": 0.0,
@@ -288,17 +293,17 @@ class PPO(BaseRLPolicy):
             "value_loss": 0.0,
             "entropy_loss": 0.0,
         }
-        
+
         # PPO epochs
         for epoch in range(self.ppo_epochs):
             # Mini-batch training
             indices = torch.randperm(len(input_ids))
             batch_count = 0  # Add counter for gradient accumulation
-            
+
             for start in range(0, len(indices), self.mini_batch_size):
                 end = start + self.mini_batch_size
                 mb_indices = indices[start:end]
-                
+
                 # Mini-batch data
                 mb_input_ids = input_ids[mb_indices]
                 mb_attention_mask = attention_masks[mb_indices]
@@ -307,7 +312,7 @@ class PPO(BaseRLPolicy):
                 mb_returns = returns[mb_indices]
                 mb_old_logprobs = old_logprobs[mb_indices]
                 mb_old_values = old_values[mb_indices]
-                
+
                 # Forward pass
                 outputs = model(
                     input_ids=mb_input_ids,
@@ -316,12 +321,12 @@ class PPO(BaseRLPolicy):
                 )
                 logits = outputs.logits
                 values = outputs.values
-                
+
                 # Get log probs and entropy
                 logprobs, entropy = self._get_logprobs_and_entropy(
                     logits, mb_input_ids, mb_action_masks
                 )
-                
+
                 # Compute loss
                 loss_dict = self.compute_loss(
                     logprobs=logprobs,
@@ -335,37 +340,39 @@ class PPO(BaseRLPolicy):
 
                 # Scale loss by accumulation steps
                 loss = loss_dict["loss"] / accumulation_steps
-                
+
                 # Backward pass
                 model_engine.backward(loss)
                 batch_count += 1
-                
+
                 # Only update weights every accumulation_steps batches
-                if batch_count % accumulation_steps == 0 or (start + self.mini_batch_size) >= len(indices):
+                if batch_count % accumulation_steps == 0 or (
+                    start + self.mini_batch_size
+                ) >= len(indices):
                     # Gradient clipping
                     torch.nn.utils.clip_grad_norm_(
                         model.parameters(), self.max_grad_norm
                     )
-                    
+
                     # Optimizer step
                     model_engine.step()
-                    
+
                     # Clear gradients for next accumulation
                     optimizer.zero_grad()
-                
+
                 # Accumulate metrics (scale back up)
                 for key, value in loss_dict.items():
                     if key in total_metrics:
                         total_metrics[key] += value.item()
-            
+
             # Clear cache after each epoch to save memory
             torch.cuda.empty_cache()
-        
+
         # Average metrics
         num_updates = self.ppo_epochs * (len(indices) // self.mini_batch_size)
         for key in total_metrics:
             total_metrics[key] /= num_updates
-            
+
         return total_metrics
 
     def _prepare_batch_data(
@@ -391,14 +398,14 @@ class PPO(BaseRLPolicy):
                 # Single response
                 outputs = [response_data["outputs"]]
                 rewards_for_prompt = [reward_list]
-                
+
             for output, reward in zip(outputs, rewards_for_prompt):
                 # Tokenize prompt + response
                 full_text = prompt + output
                 encoded = tokenizer(
                     full_text,
                     return_tensors="pt",
-                    padding="max_length",
+                    padding=True,
                     truncation=True,
                     max_length=512,
                 )
@@ -414,14 +421,14 @@ class PPO(BaseRLPolicy):
                     truncation=True,
                 )
                 prompt_length = prompt_encoded["input_ids"].shape[1]
-                
+
                 action_mask = torch.zeros_like(input_ids)
                 action_mask[:, prompt_length:] = attention_mask[:, prompt_length:]
 
                 all_input_ids.append(input_ids)
                 all_attention_masks.append(attention_mask)
                 all_action_masks.append(action_mask)
-                
+
                 # Extract reward value
                 if isinstance(reward, dict):
                     reward_value = reward.get("total_reward", 0.0)
@@ -431,50 +438,46 @@ class PPO(BaseRLPolicy):
 
         # Stack all tensors
         return {
-            'input_ids': torch.cat(all_input_ids, dim=0),
-            'attention_masks': torch.cat(all_attention_masks, dim=0),
-            'action_masks': torch.cat(all_action_masks, dim=0),
-            'rewards': torch.tensor(all_rewards),
+            "input_ids": torch.cat(all_input_ids, dim=0),
+            "attention_masks": torch.cat(all_attention_masks, dim=0),
+            "action_masks": torch.cat(all_action_masks, dim=0),
+            "rewards": torch.tensor(all_rewards),
         }
 
     def _get_logprobs_and_entropy(
-        self, 
-        logits: torch.Tensor, 
-        input_ids: torch.Tensor, 
-        action_masks: torch.Tensor
+        self, logits: torch.Tensor, input_ids: torch.Tensor, action_masks: torch.Tensor
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         """Calculate log probabilities and entropy of actions taken"""
         # Shift for autoregressive
         shift_logits = logits[:, :-1, :].contiguous()
         shift_labels = input_ids[:, 1:].contiguous()
         shift_masks = action_masks[:, 1:].contiguous()
-        
+
         # Get probabilities
         logprobs = F.log_softmax(shift_logits, dim=-1)
         probs = F.softmax(shift_logits, dim=-1)
-        
+
         # Entropy
         entropy = -(probs * logprobs).sum(dim=-1)
-        
+
         # Get specific action log probs
         batch_size, seq_len = shift_labels.shape
         gathered_logprobs = logprobs.gather(
-            dim=2, 
-            index=shift_labels.unsqueeze(2)
+            dim=2, index=shift_labels.unsqueeze(2)
         ).squeeze(2)
-        
+
         # Apply masking and sum
         masked_logprobs = gathered_logprobs * shift_masks
         masked_entropy = entropy * shift_masks
-        
+
         # Sum over sequence
         total_logprobs = masked_logprobs.sum(dim=1)
         total_entropy = masked_entropy.sum(dim=1)
-        
+
         # Normalize by number of actions
         num_actions = shift_masks.sum(dim=1).clamp(min=1)
         avg_entropy = total_entropy / num_actions
-        
+
         return total_logprobs, avg_entropy
 
 
