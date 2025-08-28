@@ -933,14 +933,25 @@ class OpenSourceLLMClient:
             device=device, dtype=torch.float16
         )
 
-        # Initialize value head weights with float16
+        # Initialize value head weights with much smaller values for float16 stability
         with torch.no_grad():
+            # Use very small initialization values to prevent overflow in float16
+            init_std = 0.0001  # Much smaller than 0.002
+            
             actor_critic_model.value_head.summary.weight.data.normal_(
-                mean=0.0, std=0.002
+                mean=0.0, std=init_std
             )
             actor_critic_model.value_head.summary.bias.data.zero_()
-            actor_critic_model.value_head.value.weight.data.normal_(mean=0.0, std=0.002)
+            actor_critic_model.value_head.value.weight.data.normal_(
+                mean=0.0, std=init_std
+            )
             actor_critic_model.value_head.value.bias.data.zero_()
+            
+            # Verify no NaN/inf after initialization
+            for name, param in actor_critic_model.value_head.named_parameters():
+                if torch.isnan(param).any() or torch.isinf(param).any():
+                    self.log.warning(f"NaN/inf detected in {name} after init, using zeros")
+                    param.data.zero_()
 
         self.log.info(
             f"Actor-critic model prepared with value head on {device} with dtype float16"
@@ -988,7 +999,7 @@ class OpenSourceLLMClient:
                         "role": "system",
                         "content": SYSTEM_PROMPT
                         if not self.training_mode
-                        else "You are a Verilog code generator. Output your reasoning on the workflow of the code in <reason>...</reason> format and generate the Verilog code enclosed in ```verilog...```.",
+                        else "You are a Verilog code generator. In your response, output your reasoning for the workflow of the code in your response within <reason>...</reason> and continue to write the Verilog code enclosed in ```verilog...```.",
                     },
                     {"role": "user", "content": prompt},
                 ]
@@ -1024,8 +1035,17 @@ class OpenSourceLLMClient:
         # Check for NaN/inf in model weights
         for name, param in self.model.named_parameters():
             if torch.isnan(param).any() or torch.isinf(param).any():
-                self.log.error(f"NaN/inf detected in parameter: {name}")
-                raise ValueError(f"Model contains NaN/inf values in {name}")
+                # Special handling for value head parameters
+                if "value_head" in name and param.requires_grad:
+                    self.log.warning(f"NaN/inf detected in {name}, reinitializing...")
+                    with torch.no_grad():
+                        if "weight" in name:
+                            param.data.normal_(mean=0.0, std=0.0001)
+                        else:  # bias
+                            param.data.zero_()
+                else:
+                    self.log.error(f"NaN/inf detected in parameter: {name}")
+                    raise ValueError(f"Model contains NaN/inf values in {name}")
         # Uses sampling with temperature to create diverse outputs
         # Generate for the batch
         # Generation with error handling
