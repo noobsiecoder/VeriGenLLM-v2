@@ -1031,48 +1031,30 @@ class OpenSourceLLMClient:
         # Generation with error handling
         try:
             with torch.no_grad():
-                # Generate separately for each prompt to avoid indexing issues
-                all_outputs = []
-                for prompt_idx in range(batch_size):
-                    # Get input for this specific prompt
-                    prompt_inputs = {
-                        "input_ids": inputs["input_ids"][prompt_idx:prompt_idx+1],
-                        "attention_mask": inputs["attention_mask"][prompt_idx:prompt_idx+1]
-                    }
-                    
-                    prompt_outputs = self.model.generate(
-                        **prompt_inputs,
-                        do_sample=True if temperature > 0 else False,
-                        temperature=max(temperature, 1e-7),  # Prevent division by zero
-                        max_new_tokens=max_tokens,
-                        num_return_sequences=n_samples,
-                        pad_token_id=self.tokenizer.pad_token_id,
-                        eos_token_id=self.tokenizer.eos_token_id,
-                        top_p=0.95,
-                        top_k=50,
-                    )
-                    all_outputs.append(prompt_outputs)
-                    
-        except RuntimeError as e:
-            self.log.error(f"Generation failed: {e}")
-            # Fallback: generate one sample per prompt with greedy decoding
-            all_outputs = []
-            for prompt_idx in range(batch_size):
-                prompt_inputs = {
-                    "input_ids": inputs["input_ids"][prompt_idx:prompt_idx+1],
-                    "attention_mask": inputs["attention_mask"][prompt_idx:prompt_idx+1]
-                }
-                
-                prompt_outputs = self.model.generate(
-                    **prompt_inputs,
-                    do_sample=False,  # Use greedy decoding
+                # Generate for all prompts at once
+                outputs = self.model.generate(
+                    **inputs,  # This already contains all prompts
+                    do_sample=True if temperature > 0 else False,
+                    temperature=max(temperature, 1e-7),
                     max_new_tokens=max_tokens,
-                    num_return_sequences=1,  # Generate only one sample
+                    num_return_sequences=n_samples,
                     pad_token_id=self.tokenizer.pad_token_id,
                     eos_token_id=self.tokenizer.eos_token_id,
+                    top_p=0.95,
+                    top_k=50,
                 )
-                all_outputs.append(prompt_outputs)
                 
+        except RuntimeError as e:
+            self.log.error(f"Generation failed: {e}")
+            # Fallback: generate with more conservative parameters
+            outputs = self.model.generate(
+                **inputs,
+                do_sample=False,  # Use greedy decoding
+                max_new_tokens=max_tokens,
+                num_return_sequences=1,  # Generate only one sample
+                pad_token_id=self.tokenizer.pad_token_id,
+                eos_token_id=self.tokenizer.eos_token_id,
+            )
             # Adjust n_samples since we're only generating 1 per prompt in fallback
             n_samples = 1
 
@@ -1081,7 +1063,10 @@ class OpenSourceLLMClient:
 
         # Store for all responses
         responses = []
-        for prompt_idx, (prompt, prompt_outputs) in enumerate(zip(prompts, all_outputs)):
+
+        # outputs shape: [batch_size * n_samples, sequence_length]
+        # Need to reshape to group by prompt
+        for prompt_idx, prompt in enumerate(prompts):
             # Calculate output tokens for each sample
             prompt_responses = []
             tokens_per_sample = []
@@ -1090,9 +1075,13 @@ class OpenSourceLLMClient:
             # Get the input length for THIS specific prompt
             input_length = inputs["input_ids"][prompt_idx].shape[0]
 
+            # Extract outputs for this prompt
             for sample_idx in range(n_samples):
+                # Calculate the correct index in the flattened outputs
+                output_idx = prompt_idx * n_samples + sample_idx
+                
                 # Get the generated output for this sample
-                output = prompt_outputs[sample_idx]
+                output = outputs[output_idx]
 
                 # Extract only the generated portion (after input)
                 generated_ids = output[input_length:]
