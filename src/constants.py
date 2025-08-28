@@ -66,31 +66,28 @@ class RewardScores:
             + weights["synthesis"] * self.synthesis
         )
 
+
 # Training Hyperparameters
 TRAINING_CONFIG = {
     # LoRA parameters
     "lora_r": 16,
     "lora_alpha": 32,
     "lora_dropout": 0.1,
-    
     # DeepSpeed parameters
     "gradient_accumulation_steps": 4,
     "zero_stage": 2,
-    
     # Training parameters
     "learning_rate": 2e-5,
-    "batch_size": 1,
+    "batch_size": 2,
     "epochs": 5,
     "max_tokens": 300,
     "temperature": 0.7,
-    "n_samples": 5,
-    
+    "n_samples": 4,
     # PPO specific
     "ppo_clip_epsilon": 0.2,
     "ppo_value_coef": 0.5,
     "ppo_entropy_coef": 0.01,
     "ppo_epochs": 4,
-    
     # GRPO specific
     "grpo_group_size": 4,
     "grpo_baseline_momentum": 0.9,
