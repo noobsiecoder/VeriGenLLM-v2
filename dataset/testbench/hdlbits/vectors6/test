@@ -1,0 +1,603 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x133e08540 .scope module, "tb_vector_concat" "tb_vector_concat" 2 3;
+ .timescale -9 -12;
+v0x600003e38fc0_0 .var "a", 4 0;
+v0x600003e39050_0 .var "b", 4 0;
+v0x600003e390e0_0 .var "c", 4 0;
+v0x600003e39170_0 .var "d", 4 0;
+v0x600003e39200_0 .var "e", 4 0;
+v0x600003e39290_0 .var "expected_concat", 31 0;
+v0x600003e39320_0 .var "expected_w", 7 0;
+v0x600003e393b0_0 .var "expected_x", 7 0;
+v0x600003e39440_0 .var "expected_y", 7 0;
+v0x600003e394d0_0 .var "expected_z", 7 0;
+v0x600003e39560_0 .var "f", 4 0;
+v0x600003e395f0_0 .var/i "num_tests_passed", 31 0;
+v0x600003e39680_0 .var/i "total_tests", 31 0;
+v0x600003e39710_0 .net "w", 7 0, L_0x600003d380a0;  1 drivers
+v0x600003e397a0_0 .net "x", 7 0, L_0x600003d38140;  1 drivers
+v0x600003e39830_0 .net "y", 7 0, L_0x600003d381e0;  1 drivers
+v0x600003e398c0_0 .net "z", 7 0, L_0x600003d38280;  1 drivers
+S_0x133e0a8d0 .scope task, "display_and_check" "display_and_check" 2 157, 2 157 0, S_0x133e08540;
+ .timescale -9 -12;
+v0x600003e38630_0 .var "exp_w", 7 0;
+v0x600003e386c0_0 .var "exp_x", 7 0;
+v0x600003e38750_0 .var "exp_y", 7 0;
+v0x600003e387e0_0 .var "exp_z", 7 0;
+v0x600003e38870_0 .var "test_name", 160 1;
+TD_tb_vector_concat.display_and_check ;
+    %load/vec4 v0x600003e39680_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600003e39680_0, 0, 32;
+    %vpi_call 2 163 "$display", "Inputs: a=%05b, b=%05b, c=%05b, d=%05b, e=%05b, f=%05b", v0x600003e38fc0_0, v0x600003e39050_0, v0x600003e390e0_0, v0x600003e39170_0, v0x600003e39200_0, v0x600003e39560_0 {0 0 0};
+    %vpi_call 2 165 "$display", "Expected: w=%08b, x=%08b, y=%08b, z=%08b", v0x600003e38630_0, v0x600003e386c0_0, v0x600003e38750_0, v0x600003e387e0_0 {0 0 0};
+    %vpi_call 2 167 "$display", "Actual:   w=%08b, x=%08b, y=%08b, z=%08b", v0x600003e39710_0, v0x600003e397a0_0, v0x600003e39830_0, v0x600003e398c0_0 {0 0 0};
+    %load/vec4 v0x600003e39710_0;
+    %load/vec4 v0x600003e38630_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_0.4, 4;
+    %load/vec4 v0x600003e397a0_0;
+    %load/vec4 v0x600003e386c0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.4;
+    %flag_set/vec4 10;
+    %flag_get/vec4 10;
+    %jmp/0 T_0.3, 10;
+    %load/vec4 v0x600003e39830_0;
+    %load/vec4 v0x600003e38750_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.3;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_0.2, 9;
+    %load/vec4 v0x600003e398c0_0;
+    %load/vec4 v0x600003e387e0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.2;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %vpi_call 2 171 "$display", "Result: PASS" {0 0 0};
+    %load/vec4 v0x600003e395f0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600003e395f0_0, 0, 32;
+    %jmp T_0.1;
+T_0.0 ;
+    %vpi_call 2 174 "$display", "Result: FAIL" {0 0 0};
+    %load/vec4 v0x600003e39710_0;
+    %load/vec4 v0x600003e38630_0;
+    %cmp/ne;
+    %jmp/0xz  T_0.5, 4;
+    %vpi_call 2 175 "$display", "  w mismatch!" {0 0 0};
+T_0.5 ;
+    %load/vec4 v0x600003e397a0_0;
+    %load/vec4 v0x600003e386c0_0;
+    %cmp/ne;
+    %jmp/0xz  T_0.7, 4;
+    %vpi_call 2 176 "$display", "  x mismatch!" {0 0 0};
+T_0.7 ;
+    %load/vec4 v0x600003e39830_0;
+    %load/vec4 v0x600003e38750_0;
+    %cmp/ne;
+    %jmp/0xz  T_0.9, 4;
+    %vpi_call 2 177 "$display", "  y mismatch!" {0 0 0};
+T_0.9 ;
+    %load/vec4 v0x600003e398c0_0;
+    %load/vec4 v0x600003e387e0_0;
+    %cmp/ne;
+    %jmp/0xz  T_0.11, 4;
+    %vpi_call 2 178 "$display", "  z mismatch!" {0 0 0};
+T_0.11 ;
+T_0.1 ;
+    %end;
+S_0x133e0e3d0 .scope module, "dut" "vector_concat" 2 11, 3 1 0, S_0x133e08540;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 5 "a";
+    .port_info 1 /INPUT 5 "b";
+    .port_info 2 /INPUT 5 "c";
+    .port_info 3 /INPUT 5 "d";
+    .port_info 4 /INPUT 5 "e";
+    .port_info 5 /INPUT 5 "f";
+    .port_info 6 /OUTPUT 8 "w";
+    .port_info 7 /OUTPUT 8 "x";
+    .port_info 8 /OUTPUT 8 "y";
+    .port_info 9 /OUTPUT 8 "z";
+L_0x138078010 .functor BUFT 1, C4<11>, C4<0>, C4<0>, C4<0>;
+v0x600003e38900_0 .net/2u *"_ivl_0", 1 0, L_0x138078010;  1 drivers
+v0x600003e38990_0 .net "a", 4 0, v0x600003e38fc0_0;  1 drivers
+v0x600003e38a20_0 .net "b", 4 0, v0x600003e39050_0;  1 drivers
+v0x600003e38ab0_0 .net "c", 4 0, v0x600003e390e0_0;  1 drivers
+v0x600003e38b40_0 .net "concat_out", 31 0, L_0x600003d38000;  1 drivers
+v0x600003e38bd0_0 .net "d", 4 0, v0x600003e39170_0;  1 drivers
+v0x600003e38c60_0 .net "e", 4 0, v0x600003e39200_0;  1 drivers
+v0x600003e38cf0_0 .net "f", 4 0, v0x600003e39560_0;  1 drivers
+v0x600003e38d80_0 .net "w", 7 0, L_0x600003d380a0;  alias, 1 drivers
+v0x600003e38e10_0 .net "x", 7 0, L_0x600003d38140;  alias, 1 drivers
+v0x600003e38ea0_0 .net "y", 7 0, L_0x600003d381e0;  alias, 1 drivers
+v0x600003e38f30_0 .net "z", 7 0, L_0x600003d38280;  alias, 1 drivers
+LS_0x600003d38000_0_0 .concat [ 2 5 5 5], L_0x138078010, v0x600003e39560_0, v0x600003e39200_0, v0x600003e39170_0;
+LS_0x600003d38000_0_4 .concat [ 5 5 5 0], v0x600003e390e0_0, v0x600003e39050_0, v0x600003e38fc0_0;
+L_0x600003d38000 .concat [ 17 15 0 0], LS_0x600003d38000_0_0, LS_0x600003d38000_0_4;
+L_0x600003d380a0 .part L_0x600003d38000, 24, 8;
+L_0x600003d38140 .part L_0x600003d38000, 16, 8;
+L_0x600003d381e0 .part L_0x600003d38000, 8, 8;
+L_0x600003d38280 .part L_0x600003d38000, 0, 8;
+    .scope S_0x133e08540;
+T_1 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600003e395f0_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600003e39680_0, 0, 32;
+    %vpi_call 2 30 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 31 "$display", "Testing Vector Concatenation Module" {0 0 0};
+    %vpi_call 2 32 "$display", "Function: {a, b, c, d, e, f, 2'b11} => 32-bit split to 8-bit outputs" {0 0 0};
+    %vpi_call 2 33 "$display", "Total bits: 5*6 + 2 = 32 bits" {0 0 0};
+    %vpi_call 2 34 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 37 "$display", "\012Test Case 1: All zeros" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %store/vec4 v0x600003e39290_0, 0, 32;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 24, 6;
+    %store/vec4 v0x600003e39320_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 16, 6;
+    %store/vec4 v0x600003e393b0_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 8, 5;
+    %store/vec4 v0x600003e39440_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 0, 2;
+    %store/vec4 v0x600003e394d0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 65, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819025530, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701998451, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600003e38870_0, 0, 160;
+    %load/vec4 v0x600003e39320_0;
+    %store/vec4 v0x600003e38630_0, 0, 8;
+    %load/vec4 v0x600003e393b0_0;
+    %store/vec4 v0x600003e386c0_0, 0, 8;
+    %load/vec4 v0x600003e39440_0;
+    %store/vec4 v0x600003e38750_0, 0, 8;
+    %load/vec4 v0x600003e394d0_0;
+    %store/vec4 v0x600003e387e0_0, 0, 8;
+    %fork TD_tb_vector_concat.display_and_check, S_0x133e0a8d0;
+    %join;
+    %vpi_call 2 49 "$display", "\012Test Case 2: All ones" {0 0 0};
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %store/vec4 v0x600003e39290_0, 0, 32;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 24, 6;
+    %store/vec4 v0x600003e39320_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 16, 6;
+    %store/vec4 v0x600003e393b0_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 8, 5;
+    %store/vec4 v0x600003e39440_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 0, 2;
+    %store/vec4 v0x600003e394d0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1097624608, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600003e38870_0, 0, 160;
+    %load/vec4 v0x600003e39320_0;
+    %store/vec4 v0x600003e38630_0, 0, 8;
+    %load/vec4 v0x600003e393b0_0;
+    %store/vec4 v0x600003e386c0_0, 0, 8;
+    %load/vec4 v0x600003e39440_0;
+    %store/vec4 v0x600003e38750_0, 0, 8;
+    %load/vec4 v0x600003e394d0_0;
+    %store/vec4 v0x600003e387e0_0, 0, 8;
+    %fork TD_tb_vector_concat.display_and_check, S_0x133e0a8d0;
+    %join;
+    %vpi_call 2 61 "$display", "\012Test Case 3: Sequential pattern" {0 0 0};
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 3, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 4, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 5, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 6, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %store/vec4 v0x600003e39290_0, 0, 32;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 24, 6;
+    %store/vec4 v0x600003e39320_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 16, 6;
+    %store/vec4 v0x600003e393b0_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 8, 5;
+    %store/vec4 v0x600003e39440_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 0, 2;
+    %store/vec4 v0x600003e394d0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 21349, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1903519086, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1953063276, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600003e38870_0, 0, 160;
+    %load/vec4 v0x600003e39320_0;
+    %store/vec4 v0x600003e38630_0, 0, 8;
+    %load/vec4 v0x600003e393b0_0;
+    %store/vec4 v0x600003e386c0_0, 0, 8;
+    %load/vec4 v0x600003e39440_0;
+    %store/vec4 v0x600003e38750_0, 0, 8;
+    %load/vec4 v0x600003e394d0_0;
+    %store/vec4 v0x600003e387e0_0, 0, 8;
+    %fork TD_tb_vector_concat.display_and_check, S_0x133e0a8d0;
+    %join;
+    %vpi_call 2 73 "$display", "\012Test Case 4: Testing individual input visibility" {0 0 0};
+    %vpi_call 2 74 "$display", "Setting only one input at a time to 5'b11111:" {0 0 0};
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %delay 10000, 0;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %vpi_call 2 80 "$display", "  Only a=11111: concat=%032b", S<0,vec4,u32> {1 0 0};
+    %vpi_call 2 81 "$display", "  w=%08b, x=%08b, y=%08b, z=%08b", v0x600003e39710_0, v0x600003e397a0_0, v0x600003e39830_0, v0x600003e398c0_0 {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 31, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %delay 10000, 0;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %vpi_call 2 87 "$display", "  Only b=11111: concat=%032b", S<0,vec4,u32> {1 0 0};
+    %vpi_call 2 88 "$display", "  w=%08b, x=%08b, y=%08b, z=%08b", v0x600003e39710_0, v0x600003e397a0_0, v0x600003e39830_0, v0x600003e398c0_0 {0 0 0};
+    %vpi_call 2 91 "$display", "\012Test Case 5: Bit position verification" {0 0 0};
+    %pushi/vec4 16, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 8, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 4, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 17, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %store/vec4 v0x600003e39290_0, 0, 32;
+    %delay 10000, 0;
+    %vpi_call 2 96 "$display", "Concatenated: %032b", v0x600003e39290_0 {0 0 0};
+    %vpi_call 2 97 "$display", "Bit mapping:" {0 0 0};
+    %vpi_call 2 98 "$display", "  Bits [31:27] = a = %05b", v0x600003e38fc0_0 {0 0 0};
+    %vpi_call 2 99 "$display", "  Bits [26:22] = b = %05b", v0x600003e39050_0 {0 0 0};
+    %vpi_call 2 100 "$display", "  Bits [21:17] = c = %05b", v0x600003e390e0_0 {0 0 0};
+    %vpi_call 2 101 "$display", "  Bits [16:12] = d = %05b", v0x600003e39170_0 {0 0 0};
+    %vpi_call 2 102 "$display", "  Bits [11:7]  = e = %05b", v0x600003e39200_0 {0 0 0};
+    %vpi_call 2 103 "$display", "  Bits [6:2]   = f = %05b", v0x600003e39560_0 {0 0 0};
+    %vpi_call 2 104 "$display", "  Bits [1:0]   = 11" {0 0 0};
+    %vpi_call 2 105 "$display", "Output mapping:" {0 0 0};
+    %vpi_call 2 106 "$display", "  w[7:0] = bits[31:24] = %08b", v0x600003e39710_0 {0 0 0};
+    %vpi_call 2 107 "$display", "  x[7:0] = bits[23:16] = %08b", v0x600003e397a0_0 {0 0 0};
+    %vpi_call 2 108 "$display", "  y[7:0] = bits[15:8]  = %08b", v0x600003e39830_0 {0 0 0};
+    %vpi_call 2 109 "$display", "  z[7:0] = bits[7:0]   = %08b", v0x600003e398c0_0 {0 0 0};
+    %vpi_call 2 112 "$display", "\012Test Case 6: Random patterns" {0 0 0};
+    %pushi/vec4 21, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 10, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 25, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 6, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 30, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 3, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %store/vec4 v0x600003e39290_0, 0, 32;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 24, 6;
+    %store/vec4 v0x600003e39320_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 16, 6;
+    %store/vec4 v0x600003e393b0_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 8, 5;
+    %store/vec4 v0x600003e39440_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 0, 2;
+    %store/vec4 v0x600003e394d0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1382116964, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869422641, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600003e38870_0, 0, 160;
+    %load/vec4 v0x600003e39320_0;
+    %store/vec4 v0x600003e38630_0, 0, 8;
+    %load/vec4 v0x600003e393b0_0;
+    %store/vec4 v0x600003e386c0_0, 0, 8;
+    %load/vec4 v0x600003e39440_0;
+    %store/vec4 v0x600003e38750_0, 0, 8;
+    %load/vec4 v0x600003e394d0_0;
+    %store/vec4 v0x600003e387e0_0, 0, 8;
+    %fork TD_tb_vector_concat.display_and_check, S_0x133e0a8d0;
+    %join;
+    %pushi/vec4 28, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 7, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 16, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 15, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 18, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 13, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %load/vec4 v0x600003e38fc0_0;
+    %load/vec4 v0x600003e39050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e390e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39170_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39200_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600003e39560_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 3, 0, 2;
+    %store/vec4 v0x600003e39290_0, 0, 32;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 24, 6;
+    %store/vec4 v0x600003e39320_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 16, 6;
+    %store/vec4 v0x600003e393b0_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 8, 5;
+    %store/vec4 v0x600003e39440_0, 0, 8;
+    %load/vec4 v0x600003e39290_0;
+    %parti/s 8, 0, 2;
+    %store/vec4 v0x600003e394d0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1382116964, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869422642, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600003e38870_0, 0, 160;
+    %load/vec4 v0x600003e39320_0;
+    %store/vec4 v0x600003e38630_0, 0, 8;
+    %load/vec4 v0x600003e393b0_0;
+    %store/vec4 v0x600003e386c0_0, 0, 8;
+    %load/vec4 v0x600003e39440_0;
+    %store/vec4 v0x600003e38750_0, 0, 8;
+    %load/vec4 v0x600003e394d0_0;
+    %store/vec4 v0x600003e387e0_0, 0, 8;
+    %fork TD_tb_vector_concat.display_and_check, S_0x133e0a8d0;
+    %join;
+    %vpi_call 2 135 "$display", "\012Test Case 7: Verifying constant 2'b11 in LSBs" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e38fc0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39050_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e390e0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39170_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39200_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x600003e39560_0, 0, 5;
+    %delay 10000, 0;
+    %vpi_call 2 139 "$display", "With all inputs zero, z[1:0] should be 11: z=%08b", v0x600003e398c0_0 {0 0 0};
+    %load/vec4 v0x600003e398c0_0;
+    %parti/s 2, 0, 2;
+    %cmpi/e 3, 0, 2;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.0, 8;
+    %pushi/vec4 18446744073709551507, 0, 24; draw_string_vec4
+    %jmp/1 T_1.1, 8;
+T_1.0 ; End of true expr.
+    %pushi/vec4 18446744073709551511, 0, 24; draw_string_vec4
+    %jmp/0 T_1.1, 8;
+ ; End of false expr.
+    %blend;
+T_1.1;
+    %vpi_call 2 140 "$display", "z[1:0] = %02b %s", &PV<v0x600003e398c0_0, 0, 2>, S<0,vec4,u24> {1 0 0};
+    %vpi_call 2 143 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 144 "$display", "Test Summary: %0d/%0d tests passed", v0x600003e395f0_0, v0x600003e39680_0 {0 0 0};
+    %load/vec4 v0x600003e395f0_0;
+    %load/vec4 v0x600003e39680_0;
+    %cmp/e;
+    %jmp/0xz  T_1.2, 4;
+    %vpi_call 2 146 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_1.3;
+T_1.2 ;
+    %load/vec4 v0x600003e395f0_0;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_1.4, 4;
+    %vpi_call 2 148 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+    %jmp T_1.5;
+T_1.4 ;
+    %vpi_call 2 150 "$display", "Overall Result: NO TESTS PASSED \342\234\227" {0 0 0};
+T_1.5 ;
+T_1.3 ;
+    %vpi_call 2 151 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 153 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0x133e08540;
+T_2 ;
+    %vpi_call 2 185 "$dumpfile", "vector_concat_tb.vcd" {0 0 0};
+    %vpi_call 2 186 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x133e08540 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_vector-concat.v";
+    "answer_vector-concat.v";

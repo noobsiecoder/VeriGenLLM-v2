@@ -1,0 +1,299 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x13be069f0 .scope module, "tb_four_bit_vector_gates" "tb_four_bit_vector_gates" 2 3;
+ .timescale -9 -12;
+v0x60000117d830_0 .var "expected_and", 0 0;
+v0x60000117d8c0_0 .var "expected_or", 0 0;
+v0x60000117d950_0 .var "expected_xor", 0 0;
+v0x60000117d9e0_0 .var/i "i", 31 0;
+v0x60000117da70_0 .var "in", 3 0;
+v0x60000117db00_0 .var/i "num_tests_passed", 31 0;
+v0x60000117db90_0 .var/i "ones_count", 31 0;
+v0x60000117dc20_0 .net "out_and", 0 0, L_0x600000870540;  1 drivers
+v0x60000117dcb0_0 .net "out_or", 0 0, L_0x600000870690;  1 drivers
+v0x60000117dd40_0 .net "out_xor", 0 0, L_0x6000008707e0;  1 drivers
+v0x60000117ddd0_0 .var/i "total_tests", 31 0;
+S_0x13be06d80 .scope module, "dut" "four_bit_vector_gates" 2 13, 3 1 0, S_0x13be069f0;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 4 "in";
+    .port_info 1 /OUTPUT 1 "out_and";
+    .port_info 2 /OUTPUT 1 "out_or";
+    .port_info 3 /OUTPUT 1 "out_xor";
+L_0x600000870460 .functor AND 1, L_0x600001278000, L_0x6000012780a0, C4<1>, C4<1>;
+L_0x6000008704d0 .functor AND 1, L_0x600000870460, L_0x600001278140, C4<1>, C4<1>;
+L_0x600000870540 .functor AND 1, L_0x6000008704d0, L_0x6000012781e0, C4<1>, C4<1>;
+L_0x6000008705b0 .functor OR 1, L_0x600001278280, L_0x600001278320, C4<0>, C4<0>;
+L_0x600000870620 .functor OR 1, L_0x6000008705b0, L_0x6000012783c0, C4<0>, C4<0>;
+L_0x600000870690 .functor OR 1, L_0x600000870620, L_0x600001278460, C4<0>, C4<0>;
+L_0x600000870700 .functor XOR 1, L_0x600001278500, L_0x6000012785a0, C4<0>, C4<0>;
+L_0x600000870770 .functor XOR 1, L_0x600000870700, L_0x600001278640, C4<0>, C4<0>;
+L_0x6000008707e0 .functor XOR 1, L_0x600000870770, L_0x6000012786e0, C4<0>, C4<0>;
+v0x60000117cbd0_0 .net *"_ivl_1", 0 0, L_0x600001278000;  1 drivers
+v0x60000117cc60_0 .net *"_ivl_11", 0 0, L_0x6000012781e0;  1 drivers
+v0x60000117ccf0_0 .net *"_ivl_15", 0 0, L_0x600001278280;  1 drivers
+v0x60000117cd80_0 .net *"_ivl_17", 0 0, L_0x600001278320;  1 drivers
+v0x60000117ce10_0 .net *"_ivl_18", 0 0, L_0x6000008705b0;  1 drivers
+v0x60000117cea0_0 .net *"_ivl_21", 0 0, L_0x6000012783c0;  1 drivers
+v0x60000117cf30_0 .net *"_ivl_22", 0 0, L_0x600000870620;  1 drivers
+v0x60000117cfc0_0 .net *"_ivl_25", 0 0, L_0x600001278460;  1 drivers
+v0x60000117d050_0 .net *"_ivl_29", 0 0, L_0x600001278500;  1 drivers
+v0x60000117d0e0_0 .net *"_ivl_3", 0 0, L_0x6000012780a0;  1 drivers
+v0x60000117d170_0 .net *"_ivl_31", 0 0, L_0x6000012785a0;  1 drivers
+v0x60000117d200_0 .net *"_ivl_32", 0 0, L_0x600000870700;  1 drivers
+v0x60000117d290_0 .net *"_ivl_35", 0 0, L_0x600001278640;  1 drivers
+v0x60000117d320_0 .net *"_ivl_36", 0 0, L_0x600000870770;  1 drivers
+v0x60000117d3b0_0 .net *"_ivl_39", 0 0, L_0x6000012786e0;  1 drivers
+v0x60000117d440_0 .net *"_ivl_4", 0 0, L_0x600000870460;  1 drivers
+v0x60000117d4d0_0 .net *"_ivl_7", 0 0, L_0x600001278140;  1 drivers
+v0x60000117d560_0 .net *"_ivl_8", 0 0, L_0x6000008704d0;  1 drivers
+v0x60000117d5f0_0 .net "in", 3 0, v0x60000117da70_0;  1 drivers
+v0x60000117d680_0 .net "out_and", 0 0, L_0x600000870540;  alias, 1 drivers
+v0x60000117d710_0 .net "out_or", 0 0, L_0x600000870690;  alias, 1 drivers
+v0x60000117d7a0_0 .net "out_xor", 0 0, L_0x6000008707e0;  alias, 1 drivers
+L_0x600001278000 .part v0x60000117da70_0, 0, 1;
+L_0x6000012780a0 .part v0x60000117da70_0, 1, 1;
+L_0x600001278140 .part v0x60000117da70_0, 2, 1;
+L_0x6000012781e0 .part v0x60000117da70_0, 3, 1;
+L_0x600001278280 .part v0x60000117da70_0, 0, 1;
+L_0x600001278320 .part v0x60000117da70_0, 1, 1;
+L_0x6000012783c0 .part v0x60000117da70_0, 2, 1;
+L_0x600001278460 .part v0x60000117da70_0, 3, 1;
+L_0x600001278500 .part v0x60000117da70_0, 0, 1;
+L_0x6000012785a0 .part v0x60000117da70_0, 1, 1;
+L_0x600001278640 .part v0x60000117da70_0, 2, 1;
+L_0x6000012786e0 .part v0x60000117da70_0, 3, 1;
+    .scope S_0x13be069f0;
+T_0 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x60000117db00_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x60000117ddd0_0, 0, 32;
+    %vpi_call 2 37 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 38 "$display", "Testing 4-bit Vector Reduction Gates Module" {0 0 0};
+    %vpi_call 2 39 "$display", "Functions:" {0 0 0};
+    %vpi_call 2 40 "$display", "  - AND reduction: out_and = &in (all bits must be 1)" {0 0 0};
+    %vpi_call 2 41 "$display", "  - OR reduction:  out_or = |in (at least one bit is 1)" {0 0 0};
+    %vpi_call 2 42 "$display", "  - XOR reduction: out_xor = ^in (odd number of 1s)" {0 0 0};
+    %vpi_call 2 43 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 44 "$display", "Time | in[3:0] | AND | OR | XOR | Expected AND/OR/XOR | Result" {0 0 0};
+    %vpi_call 2 45 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x60000117d9e0_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v0x60000117d9e0_0;
+    %cmpi/s 16, 0, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v0x60000117d9e0_0;
+    %parti/s 4, 0, 2;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %load/vec4 v0x60000117da70_0;
+    %cmpi/e 15, 0, 4;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.2, 8;
+    %pushi/vec4 1, 0, 1;
+    %jmp/1 T_0.3, 8;
+T_0.2 ; End of true expr.
+    %pushi/vec4 0, 0, 1;
+    %jmp/0 T_0.3, 8;
+ ; End of false expr.
+    %blend;
+T_0.3;
+    %store/vec4 v0x60000117d830_0, 0, 1;
+    %load/vec4 v0x60000117da70_0;
+    %cmpi/ne 0, 0, 4;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.4, 8;
+    %pushi/vec4 1, 0, 1;
+    %jmp/1 T_0.5, 8;
+T_0.4 ; End of true expr.
+    %pushi/vec4 0, 0, 1;
+    %jmp/0 T_0.5, 8;
+ ; End of false expr.
+    %blend;
+T_0.5;
+    %store/vec4 v0x60000117d8c0_0, 0, 1;
+    %load/vec4 v0x60000117da70_0;
+    %parti/s 1, 0, 2;
+    %pad/u 32;
+    %load/vec4 v0x60000117da70_0;
+    %parti/s 1, 1, 2;
+    %pad/u 32;
+    %add;
+    %load/vec4 v0x60000117da70_0;
+    %parti/s 1, 2, 3;
+    %pad/u 32;
+    %add;
+    %load/vec4 v0x60000117da70_0;
+    %parti/s 1, 3, 3;
+    %pad/u 32;
+    %add;
+    %store/vec4 v0x60000117db90_0, 0, 32;
+    %load/vec4 v0x60000117db90_0;
+    %parti/s 1, 0, 2;
+    %store/vec4 v0x60000117d950_0, 0, 1;
+    %delay 10000, 0;
+    %load/vec4 v0x60000117dc20_0;
+    %load/vec4 v0x60000117d830_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_0.9, 4;
+    %load/vec4 v0x60000117dcb0_0;
+    %load/vec4 v0x60000117d8c0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.9;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_0.8, 9;
+    %load/vec4 v0x60000117dd40_0;
+    %load/vec4 v0x60000117d950_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.8;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.6, 8;
+    %load/vec4 v0x60000117db00_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x60000117db00_0, 0, 32;
+    %vpi_call 2 65 "$display", "%3t  |  %b  |  %b  | %b  |  %b  |        %b/%b/%b       | PASS", $time, v0x60000117da70_0, v0x60000117dc20_0, v0x60000117dcb0_0, v0x60000117dd40_0, v0x60000117d830_0, v0x60000117d8c0_0, v0x60000117d950_0 {0 0 0};
+    %jmp T_0.7;
+T_0.6 ;
+    %vpi_call 2 69 "$display", "%3t  |  %b  |  %b  | %b  |  %b  |        %b/%b/%b       | FAIL", $time, v0x60000117da70_0, v0x60000117dc20_0, v0x60000117dcb0_0, v0x60000117dd40_0, v0x60000117d830_0, v0x60000117d8c0_0, v0x60000117d950_0 {0 0 0};
+T_0.7 ;
+    %load/vec4 v0x60000117ddd0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x60000117ddd0_0, 0, 32;
+    %load/vec4 v0x60000117d9e0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x60000117d9e0_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %vpi_call 2 77 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 78 "$display", "Detailed Analysis of Key Cases:" {0 0 0};
+    %vpi_call 2 79 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 84 "$display", "\012All zeros (0000):" {0 0 0};
+    %vpi_call 2 85 "$display", "  AND: %b (0 - need all bits to be 1)", v0x60000117dc20_0 {0 0 0};
+    %vpi_call 2 86 "$display", "  OR:  %b (0 - no bits are 1)", v0x60000117dcb0_0 {0 0 0};
+    %vpi_call 2 87 "$display", "  XOR: %b (0 - even number (0) of 1s)", v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 15, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 92 "$display", "\012All ones (1111):" {0 0 0};
+    %vpi_call 2 93 "$display", "  AND: %b (1 - all bits are 1)", v0x60000117dc20_0 {0 0 0};
+    %vpi_call 2 94 "$display", "  OR:  %b (1 - at least one bit is 1)", v0x60000117dcb0_0 {0 0 0};
+    %vpi_call 2 95 "$display", "  XOR: %b (0 - even number (4) of 1s)", v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 1, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 100 "$display", "\012Single one (0001):" {0 0 0};
+    %vpi_call 2 101 "$display", "  AND: %b (0 - not all bits are 1)", v0x60000117dc20_0 {0 0 0};
+    %vpi_call 2 102 "$display", "  OR:  %b (1 - at least one bit is 1)", v0x60000117dcb0_0 {0 0 0};
+    %vpi_call 2 103 "$display", "  XOR: %b (1 - odd number (1) of 1s)", v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 3, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 108 "$display", "\012Two ones (0011):" {0 0 0};
+    %vpi_call 2 109 "$display", "  AND: %b (0 - not all bits are 1)", v0x60000117dc20_0 {0 0 0};
+    %vpi_call 2 110 "$display", "  OR:  %b (1 - at least one bit is 1)", v0x60000117dcb0_0 {0 0 0};
+    %vpi_call 2 111 "$display", "  XOR: %b (0 - even number (2) of 1s)", v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 7, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 116 "$display", "\012Three ones (0111):" {0 0 0};
+    %vpi_call 2 117 "$display", "  AND: %b (0 - not all bits are 1)", v0x60000117dc20_0 {0 0 0};
+    %vpi_call 2 118 "$display", "  OR:  %b (1 - at least one bit is 1)", v0x60000117dcb0_0 {0 0 0};
+    %vpi_call 2 119 "$display", "  XOR: %b (1 - odd number (3) of 1s)", v0x60000117dd40_0 {0 0 0};
+    %vpi_call 2 122 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 123 "$display", "Walking Ones Test:" {0 0 0};
+    %vpi_call 2 124 "$display", "---------------------------------------------------------------" {0 0 0};
+    %vpi_call 2 125 "$display", "Position | in[3:0] | AND | OR | XOR | Comment" {0 0 0};
+    %vpi_call 2 126 "$display", "---------|---------|-----|----|----|--------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x60000117d9e0_0, 0, 32;
+T_0.10 ;
+    %load/vec4 v0x60000117d9e0_0;
+    %cmpi/s 4, 0, 32;
+    %jmp/0xz T_0.11, 5;
+    %pushi/vec4 1, 0, 4;
+    %load/vec4 v0x60000117d9e0_0;
+    %ix/vec4 4;
+    %shiftl 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 131 "$display", "   %0d     |  %b  |  %b  | %b  |  %b  | Single 1 at bit %0d", v0x60000117d9e0_0, v0x60000117da70_0, v0x60000117dc20_0, v0x60000117dcb0_0, v0x60000117dd40_0, v0x60000117d9e0_0 {0 0 0};
+    %load/vec4 v0x60000117d9e0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x60000117d9e0_0, 0, 32;
+    %jmp T_0.10;
+T_0.11 ;
+    %vpi_call 2 136 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 137 "$display", "XOR Parity Demonstration:" {0 0 0};
+    %vpi_call 2 138 "$display", "---------------------------------------------------------------" {0 0 0};
+    %vpi_call 2 139 "$display", "in[3:0] | # of 1s | XOR | Parity" {0 0 0};
+    %vpi_call 2 140 "$display", "--------|---------|-----|-------" {0 0 0};
+    %pushi/vec4 0, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 143 "$display", " %b   |    0    |  %b  | Even", v0x60000117da70_0, v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 8, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 146 "$display", " %b   |    1    |  %b  | Odd", v0x60000117da70_0, v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 12, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 149 "$display", " %b   |    2    |  %b  | Even", v0x60000117da70_0, v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 14, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 152 "$display", " %b   |    3    |  %b  | Odd", v0x60000117da70_0, v0x60000117dd40_0 {0 0 0};
+    %pushi/vec4 15, 0, 4;
+    %store/vec4 v0x60000117da70_0, 0, 4;
+    %delay 10000, 0;
+    %vpi_call 2 155 "$display", " %b   |    4    |  %b  | Even", v0x60000117da70_0, v0x60000117dd40_0 {0 0 0};
+    %vpi_call 2 158 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 159 "$display", "Test Summary: %0d/%0d tests passed", v0x60000117db00_0, v0x60000117ddd0_0 {0 0 0};
+    %load/vec4 v0x60000117db00_0;
+    %load/vec4 v0x60000117ddd0_0;
+    %cmp/e;
+    %jmp/0xz  T_0.12, 4;
+    %vpi_call 2 161 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_0.13;
+T_0.12 ;
+    %load/vec4 v0x60000117db00_0;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.14, 4;
+    %vpi_call 2 163 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+    %jmp T_0.15;
+T_0.14 ;
+    %vpi_call 2 165 "$display", "Overall Result: NO TESTS PASSED \342\234\227" {0 0 0};
+T_0.15 ;
+T_0.13 ;
+    %vpi_call 2 166 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 168 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x13be069f0;
+T_1 ;
+    %vpi_call 2 173 "$dumpfile", "four_bit_vector_gates_tb.vcd" {0 0 0};
+    %vpi_call 2 174 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x13be069f0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_vector-gates.v";
+    "answer_vector-gates.v";

@@ -1,0 +1,537 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x144e09da0 .scope module, "tb_vector_reverse" "tb_vector_reverse" 2 3;
+ .timescale -9 -12;
+v0x6000003a8bd0_0 .var "expected_out", 7 0;
+v0x6000003a8c60_0 .var/i "i", 31 0;
+v0x6000003a8cf0_0 .var "in", 7 0;
+v0x6000003a8d80_0 .var/i "num_tests_passed", 31 0;
+v0x6000003a8e10_0 .net "out", 7 0, L_0x6000000ac500;  1 drivers
+v0x6000003a8ea0_0 .var/i "total_tests", 31 0;
+S_0x144e0af20 .scope task, "check_result" "check_result" 2 200, 2 200 0, S_0x144e09da0;
+ .timescale -9 -12;
+v0x6000003a8510_0 .var "exp_out", 7 0;
+v0x6000003a85a0_0 .var "test_name", 160 1;
+TD_tb_vector_reverse.check_result ;
+    %load/vec4 v0x6000003a8ea0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8ea0_0, 0, 32;
+    %load/vec4 v0x6000003a8e10_0;
+    %load/vec4 v0x6000003a8510_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.0, 8;
+    %pushi/vec4 1346458451, 0, 32; draw_string_vec4
+    %jmp/1 T_0.1, 8;
+T_0.0 ; End of true expr.
+    %pushi/vec4 1178683724, 0, 32; draw_string_vec4
+    %jmp/0 T_0.1, 8;
+ ; End of false expr.
+    %blend;
+T_0.1;
+    %vpi_call 2 206 "$display", "%3t  | %08b |   %08b  |  %08b  | %s", $time, v0x6000003a8cf0_0, v0x6000003a8510_0, v0x6000003a8e10_0, S<0,vec4,u32> {1 0 0};
+    %load/vec4 v0x6000003a8e10_0;
+    %load/vec4 v0x6000003a8510_0;
+    %cmp/e;
+    %jmp/0xz  T_0.2, 4;
+    %load/vec4 v0x6000003a8d80_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8d80_0, 0, 32;
+T_0.2 ;
+    %end;
+S_0x144e0b800 .scope module, "dut" "vector_reverse" 2 11, 3 1 0, S_0x144e09da0;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 8 "in";
+    .port_info 1 /OUTPUT 8 "out";
+v0x6000003a8630_0 .net *"_ivl_1", 0 0, L_0x6000000ac000;  1 drivers
+v0x6000003a86c0_0 .net *"_ivl_11", 0 0, L_0x6000000ac320;  1 drivers
+v0x6000003a8750_0 .net *"_ivl_13", 0 0, L_0x6000000ac3c0;  1 drivers
+v0x6000003a87e0_0 .net *"_ivl_15", 0 0, L_0x6000000ac460;  1 drivers
+v0x6000003a8870_0 .net *"_ivl_3", 0 0, L_0x6000000ac0a0;  1 drivers
+v0x6000003a8900_0 .net *"_ivl_5", 0 0, L_0x6000000ac140;  1 drivers
+v0x6000003a8990_0 .net *"_ivl_7", 0 0, L_0x6000000ac1e0;  1 drivers
+v0x6000003a8a20_0 .net *"_ivl_9", 0 0, L_0x6000000ac280;  1 drivers
+v0x6000003a8ab0_0 .net "in", 7 0, v0x6000003a8cf0_0;  1 drivers
+v0x6000003a8b40_0 .net "out", 7 0, L_0x6000000ac500;  alias, 1 drivers
+L_0x6000000ac000 .part v0x6000003a8cf0_0, 0, 1;
+L_0x6000000ac0a0 .part v0x6000003a8cf0_0, 1, 1;
+L_0x6000000ac140 .part v0x6000003a8cf0_0, 2, 1;
+L_0x6000000ac1e0 .part v0x6000003a8cf0_0, 3, 1;
+L_0x6000000ac280 .part v0x6000003a8cf0_0, 4, 1;
+L_0x6000000ac320 .part v0x6000003a8cf0_0, 5, 1;
+L_0x6000000ac3c0 .part v0x6000003a8cf0_0, 6, 1;
+L_0x6000000ac460 .part v0x6000003a8cf0_0, 7, 1;
+LS_0x6000000ac500_0_0 .concat [ 1 1 1 1], L_0x6000000ac460, L_0x6000000ac3c0, L_0x6000000ac320, L_0x6000000ac280;
+LS_0x6000000ac500_0_4 .concat [ 1 1 1 1], L_0x6000000ac1e0, L_0x6000000ac140, L_0x6000000ac0a0, L_0x6000000ac000;
+L_0x6000000ac500 .concat [ 4 4 0 0], LS_0x6000000ac500_0_0, LS_0x6000000ac500_0_4;
+    .scope S_0x144e09da0;
+T_1 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000003a8d80_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000003a8ea0_0, 0, 32;
+    %vpi_call 2 30 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 31 "$display", "Testing Vector Reverse Module" {0 0 0};
+    %vpi_call 2 32 "$display", "Function: Reverses bit order of 8-bit input" {0 0 0};
+    %vpi_call 2 33 "$display", "in[7:0] => out[0:7] (MSB becomes LSB, etc.)" {0 0 0};
+    %vpi_call 2 34 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 35 "$display", "Time |   in[7:0]  | Expected out | Actual out | Result" {0 0 0};
+    %vpi_call 2 36 "$display", "-------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 65, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819025530, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701998451, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1097624608, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %pushi/vec4 170, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 85, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 16748, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1952805486, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1635019118, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1730162992, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %pushi/vec4 85, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 170, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 16748, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1952805486, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1635019118, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1730162737, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %vpi_call 2 63 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 64 "$display", "Walking 1 Test:" {0 0 0};
+    %vpi_call 2 65 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000003a8c60_0, 0, 32;
+T_1.0 ;
+    %load/vec4 v0x6000003a8c60_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_1.1, 5;
+    %pushi/vec4 1, 0, 8;
+    %load/vec4 v0x6000003a8c60_0;
+    %ix/vec4 4;
+    %shiftl 4;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 128, 0, 8;
+    %load/vec4 v0x6000003a8c60_0;
+    %ix/vec4 4;
+    %shiftr 4;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 7, 0, 32;
+    %load/vec4 v0x6000003a8c60_0;
+    %sub;
+    %vpi_call 2 70 "$display", "Bit %0d: in=%08b => out=%08b (bit %0d to bit %0d)", v0x6000003a8c60_0, v0x6000003a8cf0_0, v0x6000003a8e10_0, v0x6000003a8c60_0, S<0,vec4,s32> {1 0 0};
+    %load/vec4 v0x6000003a8e10_0;
+    %load/vec4 v0x6000003a8bd0_0;
+    %cmp/e;
+    %jmp/0xz  T_1.2, 4;
+    %load/vec4 v0x6000003a8d80_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8d80_0, 0, 32;
+T_1.2 ;
+    %load/vec4 v0x6000003a8ea0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8ea0_0, 0, 32;
+    %load/vec4 v0x6000003a8c60_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8c60_0, 0, 32;
+    %jmp T_1.0;
+T_1.1 ;
+    %vpi_call 2 79 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 80 "$display", "Walking 0 Test:" {0 0 0};
+    %vpi_call 2 81 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000003a8c60_0, 0, 32;
+T_1.4 ;
+    %load/vec4 v0x6000003a8c60_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_1.5, 5;
+    %pushi/vec4 1, 0, 8;
+    %load/vec4 v0x6000003a8c60_0;
+    %ix/vec4 4;
+    %shiftl 4;
+    %inv;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 128, 0, 8;
+    %load/vec4 v0x6000003a8c60_0;
+    %ix/vec4 4;
+    %shiftr 4;
+    %inv;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 86 "$display", "Bit %0d: in=%08b => out=%08b", v0x6000003a8c60_0, v0x6000003a8cf0_0, v0x6000003a8e10_0 {0 0 0};
+    %load/vec4 v0x6000003a8e10_0;
+    %load/vec4 v0x6000003a8bd0_0;
+    %cmp/e;
+    %jmp/0xz  T_1.6, 4;
+    %load/vec4 v0x6000003a8d80_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8d80_0, 0, 32;
+T_1.6 ;
+    %load/vec4 v0x6000003a8ea0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8ea0_0, 0, 32;
+    %load/vec4 v0x6000003a8c60_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000003a8c60_0, 0, 32;
+    %jmp T_1.4;
+T_1.5 ;
+    %vpi_call 2 95 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 96 "$display", "Palindrome Test (output should equal input):" {0 0 0};
+    %vpi_call 2 97 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 129, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000003a8cf0_0;
+    %load/vec4 v0x6000003a8e10_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.8, 8;
+    %pushi/vec4 18446744073709523744, 0, 32; draw_string_vec4
+    %pushi/vec4 1348562025, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852076655, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 28005, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/1 T_1.9, 8;
+T_1.8 ; End of true expr.
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551586, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551511, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/0 T_1.9, 8;
+ ; End of false expr.
+    %blend;
+T_1.9;
+    %vpi_call 2 101 "$display", "in=%08b, out=%08b %s", v0x6000003a8cf0_0, v0x6000003a8e10_0, S<0,vec4,u112> {1 0 0};
+    %pushi/vec4 195, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000003a8cf0_0;
+    %load/vec4 v0x6000003a8e10_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.10, 8;
+    %pushi/vec4 18446744073709523744, 0, 32; draw_string_vec4
+    %pushi/vec4 1348562025, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852076655, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 28005, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/1 T_1.11, 8;
+T_1.10 ; End of true expr.
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551586, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551511, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/0 T_1.11, 8;
+ ; End of false expr.
+    %blend;
+T_1.11;
+    %vpi_call 2 105 "$display", "in=%08b, out=%08b %s", v0x6000003a8cf0_0, v0x6000003a8e10_0, S<0,vec4,u112> {1 0 0};
+    %pushi/vec4 189, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000003a8cf0_0;
+    %load/vec4 v0x6000003a8e10_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.12, 8;
+    %pushi/vec4 18446744073709523744, 0, 32; draw_string_vec4
+    %pushi/vec4 1348562025, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852076655, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 28005, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/1 T_1.13, 8;
+T_1.12 ; End of true expr.
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551586, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551511, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/0 T_1.13, 8;
+ ; End of false expr.
+    %blend;
+T_1.13;
+    %vpi_call 2 109 "$display", "in=%08b, out=%08b %s", v0x6000003a8cf0_0, v0x6000003a8e10_0, S<0,vec4,u112> {1 0 0};
+    %pushi/vec4 102, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000003a8cf0_0;
+    %load/vec4 v0x6000003a8e10_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.14, 8;
+    %pushi/vec4 18446744073709523744, 0, 32; draw_string_vec4
+    %pushi/vec4 1348562025, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852076655, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 28005, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/1 T_1.15, 8;
+T_1.14 ; End of true expr.
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551586, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 18446744073709551511, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/0 T_1.15, 8;
+ ; End of false expr.
+    %blend;
+T_1.15;
+    %vpi_call 2 113 "$display", "in=%08b, out=%08b %s", v0x6000003a8cf0_0, v0x6000003a8e10_0, S<0,vec4,u112> {1 0 0};
+    %vpi_call 2 116 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 117 "$display", "Common Byte Values Test:" {0 0 0};
+    %vpi_call 2 118 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 15, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 240, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 813183046, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %pushi/vec4 240, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 15, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 813188656, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %pushi/vec4 85, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 170, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 813184309, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %pushi/vec4 170, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 85, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 813187393, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000003a85a0_0, 0, 160;
+    %load/vec4 v0x6000003a8bd0_0;
+    %store/vec4 v0x6000003a8510_0, 0, 8;
+    %fork TD_tb_vector_reverse.check_result, S_0x144e0af20;
+    %join;
+    %vpi_call 2 145 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 146 "$display", "ASCII Character Bit Reversal:" {0 0 0};
+    %vpi_call 2 147 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 65, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 130, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 152 "$display", "'A' (0x41): in=%08b => out=%08b (0x%02X)", v0x6000003a8cf0_0, v0x6000003a8e10_0, v0x6000003a8e10_0 {0 0 0};
+    %pushi/vec4 48, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %pushi/vec4 12, 0, 8;
+    %store/vec4 v0x6000003a8bd0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 157 "$display", "'0' (0x30): in=%08b => out=%08b (0x%02X)", v0x6000003a8cf0_0, v0x6000003a8e10_0, v0x6000003a8e10_0 {0 0 0};
+    %vpi_call 2 160 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 161 "$display", "Double Reversal Test (should return to original):" {0 0 0};
+    %vpi_call 2 162 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 210, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 166 "$display", "Original: %08b", v0x6000003a8cf0_0 {0 0 0};
+    %vpi_call 2 167 "$display", "Reversed: %08b", v0x6000003a8e10_0 {0 0 0};
+    %load/vec4 v0x6000003a8e10_0;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000003a8e10_0;
+    %cmpi/e 210, 0, 8;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.16, 8;
+    %pushi/vec4 18446744073709523744, 0, 32; draw_string_vec4
+    %pushi/vec4 1298232419, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1751479072, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869769063, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1768841580, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/1 T_1.17, 8;
+T_1.16 ; End of true expr.
+    %pushi/vec4 18446744073709551586, 0, 32; draw_string_vec4
+    %pushi/vec4 18446744073702678596, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1868919662, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 661921901, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1635017576, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %jmp/0 T_1.17, 8;
+ ; End of false expr.
+    %blend;
+T_1.17;
+    %vpi_call 2 170 "$display", "Double reversed: %08b %s", v0x6000003a8e10_0, S<0,vec4,u160> {1 0 0};
+    %vpi_call 2 174 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 175 "$display", "Bit Position Mapping:" {0 0 0};
+    %vpi_call 2 176 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 179, 0, 8;
+    %store/vec4 v0x6000003a8cf0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 179 "$display", "Input:  in[7]=%b in[6]=%b in[5]=%b in[4]=%b in[3]=%b in[2]=%b in[1]=%b in[0]=%b", &PV<v0x6000003a8cf0_0, 7, 1>, &PV<v0x6000003a8cf0_0, 6, 1>, &PV<v0x6000003a8cf0_0, 5, 1>, &PV<v0x6000003a8cf0_0, 4, 1>, &PV<v0x6000003a8cf0_0, 3, 1>, &PV<v0x6000003a8cf0_0, 2, 1>, &PV<v0x6000003a8cf0_0, 1, 1>, &PV<v0x6000003a8cf0_0, 0, 1> {0 0 0};
+    %vpi_call 2 181 "$display", "Output: out[7]=%b out[6]=%b out[5]=%b out[4]=%b out[3]=%b out[2]=%b out[1]=%b out[0]=%b", &PV<v0x6000003a8e10_0, 7, 1>, &PV<v0x6000003a8e10_0, 6, 1>, &PV<v0x6000003a8e10_0, 5, 1>, &PV<v0x6000003a8e10_0, 4, 1>, &PV<v0x6000003a8e10_0, 3, 1>, &PV<v0x6000003a8e10_0, 2, 1>, &PV<v0x6000003a8e10_0, 1, 1>, &PV<v0x6000003a8e10_0, 0, 1> {0 0 0};
+    %vpi_call 2 183 "$display", "Mapping: in[0]\342\206\222out[7], in[1]\342\206\222out[6], ..., in[7]\342\206\222out[0]" {0 0 0};
+    %vpi_call 2 186 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 187 "$display", "Test Summary: %0d/%0d tests passed", v0x6000003a8d80_0, v0x6000003a8ea0_0 {0 0 0};
+    %load/vec4 v0x6000003a8d80_0;
+    %load/vec4 v0x6000003a8ea0_0;
+    %cmp/e;
+    %jmp/0xz  T_1.18, 4;
+    %vpi_call 2 189 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_1.19;
+T_1.18 ;
+    %load/vec4 v0x6000003a8d80_0;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_1.20, 4;
+    %vpi_call 2 191 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+    %jmp T_1.21;
+T_1.20 ;
+    %vpi_call 2 193 "$display", "Overall Result: NO TESTS PASSED \342\234\227" {0 0 0};
+T_1.21 ;
+T_1.19 ;
+    %vpi_call 2 194 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 196 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0x144e09da0;
+T_2 ;
+    %vpi_call 2 218 "$dumpfile", "vector_reverse_tb.vcd" {0 0 0};
+    %vpi_call 2 219 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x144e09da0 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_vector-reverse.v";
+    "answer_vector-reverse.v";

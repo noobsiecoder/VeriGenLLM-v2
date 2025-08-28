@@ -1,0 +1,587 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x116e09c90 .scope module, "tb_top_module_even_parity" "tb_top_module_even_parity" 2 3;
+ .timescale -9 -12;
+v0x6000039d8510_0 .var "expected_parity", 0 0;
+v0x6000039d85a0_0 .var/i "i", 31 0;
+v0x6000039d8630_0 .var "in", 7 0;
+v0x6000039d86c0_0 .var/i "j", 31 0;
+v0x6000039d8750_0 .var/i "num_tests_passed", 31 0;
+v0x6000039d87e0_0 .var/i "ones_count", 31 0;
+v0x6000039d8870_0 .net "parity", 0 0, L_0x600003adc000;  1 drivers
+v0x6000039d8900_0 .var/i "total_tests", 31 0;
+S_0x116e0a150 .scope function.vec4.u32, "count_ones" "count_ones" 2 182, 2 182 0, S_0x116e09c90;
+ .timescale -9 -12;
+; Variable count_ones is vec4 return value of scope S_0x116e0a150
+v0x6000039d8120_0 .var "data", 7 0;
+v0x6000039d81b0_0 .var/i "i", 31 0;
+TD_tb_top_module_even_parity.count_ones ;
+    %pushi/vec4 0, 0, 32;
+    %ret/vec4 0, 0, 32;  Assign to count_ones (store_vec4_to_lval)
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000039d81b0_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v0x6000039d81b0_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v0x6000039d8120_0;
+    %load/vec4 v0x6000039d81b0_0;
+    %part/s 1;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.2, 8;
+    %retload/vec4 0; Load count_ones (draw_signal_vec4)
+    %addi 1, 0, 32;
+    %ret/vec4 0, 0, 32;  Assign to count_ones (store_vec4_to_lval)
+T_0.2 ;
+    %load/vec4 v0x6000039d81b0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d81b0_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+S_0x116e0a2c0 .scope module, "dut" "top_module_even_parity" 2 11, 3 1 0, S_0x116e09c90;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 8 "in";
+    .port_info 1 /OUTPUT 1 "parity";
+v0x6000039d8240_0 .net "in", 7 0, v0x6000039d8630_0;  1 drivers
+v0x6000039d82d0_0 .net "parity", 0 0, L_0x600003adc000;  alias, 1 drivers
+L_0x600003adc000 .reduce/xor v0x6000039d8630_0;
+S_0x116e0a430 .scope task, "test_parity" "test_parity" 2 194, 2 194 0, S_0x116e09c90;
+ .timescale -9 -12;
+v0x6000039d8360_0 .var "description", 160 1;
+v0x6000039d83f0_0 .var/i "ones", 31 0;
+v0x6000039d8480_0 .var "test_in", 7 0;
+TD_tb_top_module_even_parity.test_parity ;
+    %load/vec4 v0x6000039d8480_0;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000039d8630_0;
+    %store/vec4 v0x6000039d8120_0, 0, 8;
+    %callf/vec4 TD_tb_top_module_even_parity.count_ones, S_0x116e0a150;
+    %store/vec4 v0x6000039d83f0_0, 0, 32;
+    %load/vec4 v0x6000039d83f0_0;
+    %parti/s 1, 0, 2;
+    %store/vec4 v0x6000039d8510_0, 0, 1;
+    %load/vec4 v0x6000039d8900_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d8900_0, 0, 32;
+    %load/vec4 v0x6000039d8870_0;
+    %load/vec4 v0x6000039d8510_0;
+    %cmp/e;
+    %jmp/0xz  T_1.4, 4;
+    %load/vec4 v0x6000039d8750_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d8750_0, 0, 32;
+    %vpi_call 2 208 "$display", "%08b |   %02h   |  %d  |   %b    |    %b     | PASS (%0s)", v0x6000039d8630_0, v0x6000039d8630_0, v0x6000039d83f0_0, v0x6000039d8870_0, v0x6000039d8510_0, v0x6000039d8360_0 {0 0 0};
+    %jmp T_1.5;
+T_1.4 ;
+    %vpi_call 2 211 "$display", "%08b |   %02h   |  %d  |   %b    |    %b     | FAIL (%0s)", v0x6000039d8630_0, v0x6000039d8630_0, v0x6000039d83f0_0, v0x6000039d8870_0, v0x6000039d8510_0, v0x6000039d8360_0 {0 0 0};
+T_1.5 ;
+    %end;
+    .scope S_0x116e09c90;
+T_2 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000039d8750_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000039d8900_0, 0, 32;
+    %vpi_call 2 29 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 30 "$display", "Testing Even Parity Generator" {0 0 0};
+    %vpi_call 2 31 "$display", "Parity bit = XOR of all 8 data bits" {0 0 0};
+    %vpi_call 2 32 "$display", "Even parity: Total number of 1s (including parity) is even" {0 0 0};
+    %vpi_call 2 33 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 36 "$display", "\012Test 1: Basic Test Cases" {0 0 0};
+    %vpi_call 2 37 "$display", "---------------------------------------------------------------" {0 0 0};
+    %vpi_call 2 38 "$display", "in[7:0]  | Binary | #1s | Parity | Expected | Result" {0 0 0};
+    %vpi_call 2 39 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 65, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819025530, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701998451, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1097624608, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 1, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 21353, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852271717, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 543320436, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 128, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1297302048, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869507705, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 170, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 65, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819567474, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1851880553, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852252209, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 85, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 65, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819567474, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1851880553, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1852252210, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %vpi_call 2 56 "$display", "\012Test 2: Testing Different Numbers of 1s" {0 0 0};
+    %vpi_call 2 57 "$display", "---------------------------------------------------------------" {0 0 0};
+    %vpi_call 2 58 "$display", "Testing bytes with 0 through 8 ones:" {0 0 0};
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 12320, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 1, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 49, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 544173669, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 3, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 12832, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 7, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 13088, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 15, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 13344, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 31, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 13600, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 63, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 13856, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 127, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 14112, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 14368, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869505907, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %vpi_call 2 88 "$display", "\012Test 3: XOR Property Verification" {0 0 0};
+    %vpi_call 2 89 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 94 "$display", "Starting with all 0s: parity = %b", v0x6000039d8870_0 {0 0 0};
+    %pushi/vec4 1, 0, 8;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 98 "$display", "Toggle bit 0: in=%08b, parity = %b (should toggle)", v0x6000039d8630_0, v0x6000039d8870_0 {0 0 0};
+    %pushi/vec4 3, 0, 8;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 102 "$display", "Toggle bit 1: in=%08b, parity = %b (should toggle)", v0x6000039d8630_0, v0x6000039d8870_0 {0 0 0};
+    %pushi/vec4 2, 0, 8;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 106 "$display", "Toggle bit 0: in=%08b, parity = %b (should toggle)", v0x6000039d8630_0, v0x6000039d8870_0 {0 0 0};
+    %vpi_call 2 109 "$display", "\012Test 4: Sample Complete Coverage" {0 0 0};
+    %vpi_call 2 110 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000039d85a0_0, 0, 32;
+T_2.0 ;
+    %load/vec4 v0x6000039d85a0_0;
+    %cmpi/s 256, 0, 32;
+    %jmp/0xz T_2.1, 5;
+    %load/vec4 v0x6000039d85a0_0;
+    %parti/s 8, 0, 2;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000039d87e0_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000039d86c0_0, 0, 32;
+T_2.2 ;
+    %load/vec4 v0x6000039d86c0_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_2.3, 5;
+    %load/vec4 v0x6000039d8630_0;
+    %load/vec4 v0x6000039d86c0_0;
+    %part/s 1;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.4, 8;
+    %load/vec4 v0x6000039d87e0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d87e0_0, 0, 32;
+T_2.4 ;
+    %load/vec4 v0x6000039d86c0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d86c0_0, 0, 32;
+    %jmp T_2.2;
+T_2.3 ;
+    %load/vec4 v0x6000039d87e0_0;
+    %parti/s 1, 0, 2;
+    %store/vec4 v0x6000039d8510_0, 0, 1;
+    %delay 10000, 0;
+    %load/vec4 v0x6000039d8900_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d8900_0, 0, 32;
+    %load/vec4 v0x6000039d8870_0;
+    %load/vec4 v0x6000039d8510_0;
+    %cmp/e;
+    %jmp/0xz  T_2.6, 4;
+    %load/vec4 v0x6000039d8750_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000039d8750_0, 0, 32;
+T_2.6 ;
+    %load/vec4 v0x6000039d85a0_0;
+    %cmpi/s 40, 0, 32;
+    %jmp/1 T_2.10, 5;
+    %flag_mov 8, 5;
+    %load/vec4 v0x6000039d85a0_0;
+    %cmpi/s 240, 0, 32;
+    %flag_or 5, 4; GT is !LE
+    %flag_inv 5;
+    %flag_or 5, 8;
+T_2.10;
+    %jmp/0xz  T_2.8, 5;
+    %load/vec4 v0x6000039d8870_0;
+    %load/vec4 v0x6000039d8510_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_2.11, 8;
+    %pushi/vec4 1346458451, 0, 32; draw_string_vec4
+    %jmp/1 T_2.12, 8;
+T_2.11 ; End of true expr.
+    %pushi/vec4 1178683724, 0, 32; draw_string_vec4
+    %jmp/0 T_2.12, 8;
+ ; End of false expr.
+    %blend;
+T_2.12;
+    %vpi_call 2 132 "$display", "%08b |   %3d  |  %d  |   %b    |    %b     | %s", v0x6000039d8630_0, v0x6000039d85a0_0, v0x6000039d87e0_0, v0x6000039d8870_0, v0x6000039d8510_0, S<0,vec4,u32> {1 0 0};
+T_2.8 ;
+    %load/vec4 v0x6000039d85a0_0;
+    %addi 13, 0, 32;
+    %store/vec4 v0x6000039d85a0_0, 0, 32;
+    %jmp T_2.0;
+T_2.1 ;
+    %vpi_call 2 139 "$display", "\012Test 5: Error Detection Demonstration" {0 0 0};
+    %vpi_call 2 140 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 181, 0, 8;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000039d8630_0;
+    %store/vec4 v0x6000039d8120_0, 0, 8;
+    %callf/vec4 TD_tb_top_module_even_parity.count_ones, S_0x116e0a150;
+    %store/vec4 v0x6000039d87e0_0, 0, 32;
+    %vpi_call 2 146 "$display", "Original data: %08b, ones=%d, parity=%b", v0x6000039d8630_0, v0x6000039d87e0_0, v0x6000039d8870_0 {0 0 0};
+    %load/vec4 v0x6000039d87e0_0;
+    %load/vec4 v0x6000039d8870_0;
+    %pad/u 32;
+    %add;
+    %load/vec4 v0x6000039d87e0_0;
+    %load/vec4 v0x6000039d8870_0;
+    %pad/u 32;
+    %add;
+    %pushi/vec4 2, 0, 32;
+    %mod;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_2.13, 8;
+    %pushi/vec4 1702258030, 0, 32; draw_string_vec4
+    %jmp/1 T_2.14, 8;
+T_2.13 ; End of true expr.
+    %pushi/vec4 7300196, 0, 32; draw_string_vec4
+    %jmp/0 T_2.14, 8;
+ ; End of false expr.
+    %blend;
+T_2.14;
+    %vpi_call 2 147 "$display", "Total bits set (including parity): %d (%s)", S<1,vec4,u32>, S<0,vec4,u32> {2 0 0};
+    %pushi/vec4 183, 0, 8;
+    %store/vec4 v0x6000039d8630_0, 0, 8;
+    %delay 10000, 0;
+    %load/vec4 v0x6000039d8630_0;
+    %store/vec4 v0x6000039d8120_0, 0, 8;
+    %callf/vec4 TD_tb_top_module_even_parity.count_ones, S_0x116e0a150;
+    %store/vec4 v0x6000039d87e0_0, 0, 32;
+    %vpi_call 2 154 "$display", "\012Single bit error: %08b, ones=%d, parity=%b", v0x6000039d8630_0, v0x6000039d87e0_0, v0x6000039d8870_0 {0 0 0};
+    %load/vec4 v0x6000039d87e0_0;
+    %load/vec4 v0x6000039d8870_0;
+    %pad/u 32;
+    %add;
+    %load/vec4 v0x6000039d87e0_0;
+    %load/vec4 v0x6000039d8870_0;
+    %pad/u 32;
+    %add;
+    %pushi/vec4 2, 0, 32;
+    %mod;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_2.15, 8;
+    %pushi/vec4 1702258030, 0, 32; draw_string_vec4
+    %jmp/1 T_2.16, 8;
+T_2.15 ; End of true expr.
+    %pushi/vec4 7300196, 0, 32; draw_string_vec4
+    %jmp/0 T_2.16, 8;
+ ; End of false expr.
+    %blend;
+T_2.16;
+    %vpi_call 2 155 "$display", "Total bits set (including parity): %d (%s) - Error detected!", S<1,vec4,u32>, S<0,vec4,u32> {2 0 0};
+    %vpi_call 2 159 "$display", "\012Test 6: Specific Bit Patterns" {0 0 0};
+    %vpi_call 2 160 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 240, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1433432165, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1914728041, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1650617445, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 15, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1282373477, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1914728041, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1650617445, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 204, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 84, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2003771504, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1634300531, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 153, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 83, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2037214565, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1953655139, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 170, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 813187393, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %pushi/vec4 85, 0, 8;
+    %store/vec4 v0x6000039d8480_0, 0, 8;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 813184309, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000039d8360_0, 0, 160;
+    %fork TD_tb_top_module_even_parity.test_parity, S_0x116e0a430;
+    %join;
+    %vpi_call 2 170 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 171 "$display", "Test Summary: %0d/%0d tests passed", v0x6000039d8750_0, v0x6000039d8900_0 {0 0 0};
+    %load/vec4 v0x6000039d8750_0;
+    %load/vec4 v0x6000039d8900_0;
+    %cmp/e;
+    %jmp/0xz  T_2.17, 4;
+    %vpi_call 2 173 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_2.18;
+T_2.17 ;
+    %vpi_call 2 175 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+T_2.18 ;
+    %vpi_call 2 176 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 178 "$finish" {0 0 0};
+    %end;
+    .thread T_2;
+    .scope S_0x116e09c90;
+T_3 ;
+    %vpi_call 2 219 "$dumpfile", "even_parity_tb.vcd" {0 0 0};
+    %vpi_call 2 220 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x116e09c90 {0 0 0};
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_conditional.v";
+    "answer_conditional.v";

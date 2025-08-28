@@ -1,0 +1,775 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x12e609d30 .scope module, "tb_microcontroller_7458" "tb_microcontroller_7458" 2 3;
+ .timescale -9 -12;
+v0x600001fb13b0_0 .var "W", 0 0;
+v0x600001fb1440_0 .var "X", 0 0;
+v0x600001fb14d0_0 .var "Y", 0 0;
+v0x600001fb1560_0 .var "Z", 0 0;
+v0x600001fb15f0_0 .var "expected_p1y", 0 0;
+v0x600001fb1680_0 .var "expected_p2y", 0 0;
+v0x600001fb1710_0 .var/i "num_tests_passed", 31 0;
+v0x600001fb17a0_0 .var "p1a", 0 0;
+v0x600001fb1830_0 .var "p1b", 0 0;
+v0x600001fb18c0_0 .var "p1c", 0 0;
+v0x600001fb1950_0 .var "p1d", 0 0;
+v0x600001fb19e0_0 .var "p1e", 0 0;
+v0x600001fb1a70_0 .var "p1f", 0 0;
+v0x600001fb1b00_0 .net "p1y", 0 0, L_0x6000006b2840;  1 drivers
+v0x600001fb1b90_0 .var "p2a", 0 0;
+v0x600001fb1c20_0 .var "p2b", 0 0;
+v0x600001fb1cb0_0 .var "p2c", 0 0;
+v0x600001fb1d40_0 .var "p2d", 0 0;
+v0x600001fb1dd0_0 .net "p2y", 0 0, L_0x6000006b28b0;  1 drivers
+v0x600001fb1e60_0 .var/i "total_tests", 31 0;
+S_0x12e6049b0 .scope task, "check_outputs" "check_outputs" 2 152, 2 152 0, S_0x12e609d30;
+ .timescale -9 -12;
+v0x600001fb07e0_0 .var "expected_p1y_val", 0 0;
+v0x600001fb0870_0 .var "expected_p2y_val", 0 0;
+v0x600001fb0900_0 .var "test_name", 400 1;
+TD_tb_microcontroller_7458.check_outputs ;
+    %load/vec4 v0x600001fb1e60_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600001fb1e60_0, 0, 32;
+    %load/vec4 v0x600001fb17a0_0;
+    %load/vec4 v0x600001fb18c0_0;
+    %and;
+    %load/vec4 v0x600001fb1830_0;
+    %and;
+    %store/vec4 v0x600001fb13b0_0, 0, 1;
+    %load/vec4 v0x600001fb1b90_0;
+    %load/vec4 v0x600001fb1c20_0;
+    %and;
+    %store/vec4 v0x600001fb1440_0, 0, 1;
+    %load/vec4 v0x600001fb1a70_0;
+    %load/vec4 v0x600001fb19e0_0;
+    %and;
+    %load/vec4 v0x600001fb1950_0;
+    %and;
+    %store/vec4 v0x600001fb14d0_0, 0, 1;
+    %load/vec4 v0x600001fb1cb0_0;
+    %load/vec4 v0x600001fb1d40_0;
+    %and;
+    %store/vec4 v0x600001fb1560_0, 0, 1;
+    %vpi_call 2 165 "$display", "Inputs: p1[a,b,c,d,e,f]=%b%b%b%b%b%b, p2[a,b,c,d]=%b%b%b%b", v0x600001fb17a0_0, v0x600001fb1830_0, v0x600001fb18c0_0, v0x600001fb1950_0, v0x600001fb19e0_0, v0x600001fb1a70_0, v0x600001fb1b90_0, v0x600001fb1c20_0, v0x600001fb1cb0_0, v0x600001fb1d40_0 {0 0 0};
+    %vpi_call 2 167 "$display", "Gates:  W=%b, X=%b, Y=%b, Z=%b", v0x600001fb13b0_0, v0x600001fb1440_0, v0x600001fb14d0_0, v0x600001fb1560_0 {0 0 0};
+    %vpi_call 2 168 "$display", "Expected: p1y=%b, p2y=%b", v0x600001fb07e0_0, v0x600001fb0870_0 {0 0 0};
+    %vpi_call 2 169 "$display", "Actual:   p1y=%b, p2y=%b", v0x600001fb1b00_0, v0x600001fb1dd0_0 {0 0 0};
+    %load/vec4 v0x600001fb1b00_0;
+    %load/vec4 v0x600001fb07e0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_0.2, 4;
+    %load/vec4 v0x600001fb1dd0_0;
+    %load/vec4 v0x600001fb0870_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.2;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %vpi_call 2 172 "$display", "Result: PASS" {0 0 0};
+    %load/vec4 v0x600001fb1710_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600001fb1710_0, 0, 32;
+    %jmp T_0.1;
+T_0.0 ;
+    %vpi_call 2 175 "$display", "Result: FAIL" {0 0 0};
+T_0.1 ;
+    %end;
+S_0x12e604b20 .scope module, "dut" "microcontroller_7458" 2 12, 3 2 0, S_0x12e609d30;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "p1a";
+    .port_info 1 /INPUT 1 "p1b";
+    .port_info 2 /INPUT 1 "p1c";
+    .port_info 3 /INPUT 1 "p1d";
+    .port_info 4 /INPUT 1 "p1e";
+    .port_info 5 /INPUT 1 "p1f";
+    .port_info 6 /OUTPUT 1 "p1y";
+    .port_info 7 /INPUT 1 "p2a";
+    .port_info 8 /INPUT 1 "p2b";
+    .port_info 9 /INPUT 1 "p2c";
+    .port_info 10 /INPUT 1 "p2d";
+    .port_info 11 /OUTPUT 1 "p2y";
+L_0x6000006b25a0 .functor AND 1, v0x600001fb17a0_0, v0x600001fb1830_0, C4<1>, C4<1>;
+L_0x6000006b2610 .functor AND 1, L_0x6000006b25a0, v0x600001fb18c0_0, C4<1>, C4<1>;
+L_0x6000006b2680 .functor AND 1, v0x600001fb1b90_0, v0x600001fb1c20_0, C4<1>, C4<1>;
+L_0x6000006b26f0 .functor AND 1, v0x600001fb1950_0, v0x600001fb19e0_0, C4<1>, C4<1>;
+L_0x6000006b2760 .functor AND 1, L_0x6000006b26f0, v0x600001fb1a70_0, C4<1>, C4<1>;
+L_0x6000006b27d0 .functor AND 1, v0x600001fb1cb0_0, v0x600001fb1d40_0, C4<1>, C4<1>;
+L_0x6000006b2840 .functor OR 1, L_0x6000006b2610, L_0x6000006b2760, C4<0>, C4<0>;
+L_0x6000006b28b0 .functor OR 1, L_0x6000006b2680, L_0x6000006b27d0, C4<0>, C4<0>;
+v0x600001fb0990_0 .net "W", 0 0, L_0x6000006b2610;  1 drivers
+v0x600001fb0a20_0 .net "X", 0 0, L_0x6000006b2680;  1 drivers
+v0x600001fb0ab0_0 .net "Y", 0 0, L_0x6000006b2760;  1 drivers
+v0x600001fb0b40_0 .net "Z", 0 0, L_0x6000006b27d0;  1 drivers
+v0x600001fb0bd0_0 .net *"_ivl_0", 0 0, L_0x6000006b25a0;  1 drivers
+v0x600001fb0c60_0 .net *"_ivl_6", 0 0, L_0x6000006b26f0;  1 drivers
+v0x600001fb0cf0_0 .net "p1a", 0 0, v0x600001fb17a0_0;  1 drivers
+v0x600001fb0d80_0 .net "p1b", 0 0, v0x600001fb1830_0;  1 drivers
+v0x600001fb0e10_0 .net "p1c", 0 0, v0x600001fb18c0_0;  1 drivers
+v0x600001fb0ea0_0 .net "p1d", 0 0, v0x600001fb1950_0;  1 drivers
+v0x600001fb0f30_0 .net "p1e", 0 0, v0x600001fb19e0_0;  1 drivers
+v0x600001fb0fc0_0 .net "p1f", 0 0, v0x600001fb1a70_0;  1 drivers
+v0x600001fb1050_0 .net "p1y", 0 0, L_0x6000006b2840;  alias, 1 drivers
+v0x600001fb10e0_0 .net "p2a", 0 0, v0x600001fb1b90_0;  1 drivers
+v0x600001fb1170_0 .net "p2b", 0 0, v0x600001fb1c20_0;  1 drivers
+v0x600001fb1200_0 .net "p2c", 0 0, v0x600001fb1cb0_0;  1 drivers
+v0x600001fb1290_0 .net "p2d", 0 0, v0x600001fb1d40_0;  1 drivers
+v0x600001fb1320_0 .net "p2y", 0 0, L_0x6000006b28b0;  alias, 1 drivers
+    .scope S_0x12e609d30;
+T_1 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600001fb1710_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600001fb1e60_0, 0, 32;
+    %vpi_call 2 37 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 38 "$display", "Testing microcontroller_7458 module" {0 0 0};
+    %vpi_call 2 39 "$display", "Function: p1y = (p1a & p1c & p1b) | (p1f & p1e & p1d)" {0 0 0};
+    %vpi_call 2 40 "$display", "          p2y = (p2a & p2b) | (p2c & p2d)" {0 0 0};
+    %vpi_call 2 41 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 44 "$display", "\012Test Case 1: All inputs = 0" {0 0 0};
+    %pushi/vec4 0, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 0, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 4287596, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 544892274, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 28531, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 53 "$display", "\012Test Case 2: Testing W gate (p1a & p1c & p1b)" {0 0 0};
+    %pushi/vec4 56, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 0, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5717297, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 740323188, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1751478899, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15664, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 62 "$display", "\012Test Case 3: Testing X gate (p2a & p2b)" {0 0 0};
+    %pushi/vec4 0, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 12, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5782833, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 740323188, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1751478899, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15664, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 71 "$display", "\012Test Case 4: Testing Y gate (p1f & p1e & p1d)" {0 0 0};
+    %pushi/vec4 7, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 0, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5848369, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 740323188, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1751478899, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15664, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 80 "$display", "\012Test Case 5: Testing Z gate (p2c & p2d)" {0 0 0};
+    %pushi/vec4 0, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 3, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5913905, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 740323188, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1751478899, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15664, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 89 "$display", "\012Test Case 6: Both W and Y active" {0 0 0};
+    %pushi/vec4 63, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 0, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 22333, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 824975449, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15665, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 98 "$display", "\012Test Case 7: Both X and Z active" {0 0 0};
+    %pushi/vec4 0, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 15, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 22589, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 824975450, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15665, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 107 "$display", "\012Test Case 8: All AND gates active" {0 0 0};
+    %pushi/vec4 63, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 15, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 65, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819025473, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1313087591, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1635018099, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 15665, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 116 "$display", "\012Test Case 9: Partial inputs for W gate" {0 0 0};
+    %pushi/vec4 48, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 0, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5709936, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1634890857, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1634476072, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1882284861, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 12329, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 125 "$display", "\012Test Case 10: Random pattern" {0 0 0};
+    %pushi/vec4 43, 0, 6;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1a70_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb19e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1950_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb18c0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1830_0, 0, 1;
+    %store/vec4 v0x600001fb17a0_0, 0, 1;
+    %pushi/vec4 10, 0, 4;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1d40_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1cb0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600001fb1c20_0, 0, 1;
+    %store/vec4 v0x600001fb1b90_0, 0, 1;
+    %delay 10000, 0;
+    %load/vec4 v0x600001fb17a0_0;
+    %load/vec4 v0x600001fb18c0_0;
+    %and;
+    %load/vec4 v0x600001fb1830_0;
+    %and;
+    %store/vec4 v0x600001fb13b0_0, 0, 1;
+    %load/vec4 v0x600001fb1a70_0;
+    %load/vec4 v0x600001fb19e0_0;
+    %and;
+    %load/vec4 v0x600001fb1950_0;
+    %and;
+    %store/vec4 v0x600001fb14d0_0, 0, 1;
+    %load/vec4 v0x600001fb1b90_0;
+    %load/vec4 v0x600001fb1c20_0;
+    %and;
+    %store/vec4 v0x600001fb1440_0, 0, 1;
+    %load/vec4 v0x600001fb1cb0_0;
+    %load/vec4 v0x600001fb1d40_0;
+    %and;
+    %store/vec4 v0x600001fb1560_0, 0, 1;
+    %load/vec4 v0x600001fb13b0_0;
+    %load/vec4 v0x600001fb14d0_0;
+    %or;
+    %store/vec4 v0x600001fb15f0_0, 0, 1;
+    %load/vec4 v0x600001fb1440_0;
+    %load/vec4 v0x600001fb1560_0;
+    %or;
+    %store/vec4 v0x600001fb1680_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1382116964, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1869422704, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1635021925, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 29294, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x600001fb0900_0, 0, 400;
+    %load/vec4 v0x600001fb15f0_0;
+    %store/vec4 v0x600001fb07e0_0, 0, 1;
+    %load/vec4 v0x600001fb1680_0;
+    %store/vec4 v0x600001fb0870_0, 0, 1;
+    %fork TD_tb_microcontroller_7458.check_outputs, S_0x12e6049b0;
+    %join;
+    %vpi_call 2 138 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 139 "$display", "Test Summary: %0d/%0d tests passed", v0x600001fb1710_0, v0x600001fb1e60_0 {0 0 0};
+    %load/vec4 v0x600001fb1710_0;
+    %load/vec4 v0x600001fb1e60_0;
+    %cmp/e;
+    %jmp/0xz  T_1.0, 4;
+    %vpi_call 2 141 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v0x600001fb1710_0;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_1.2, 4;
+    %vpi_call 2 143 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+    %jmp T_1.3;
+T_1.2 ;
+    %vpi_call 2 145 "$display", "Overall Result: NO TESTS PASSED \342\234\227" {0 0 0};
+T_1.3 ;
+T_1.1 ;
+    %vpi_call 2 146 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 148 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0x12e609d30;
+T_2 ;
+    %vpi_call 2 182 "$dumpfile", "microcontroller_7458_tb.vcd" {0 0 0};
+    %vpi_call 2 183 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x12e609d30 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_7458.v";
+    "answer_7458.v";

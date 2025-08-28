@@ -1,0 +1,513 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x12df07f20 .scope module, "tb_top_module_always" "tb_top_module_always" 2 3;
+ .timescale -9 -12;
+v0x6000034f8cf0_0 .var "a", 0 0;
+v0x6000034f8d80_0 .var "b", 0 0;
+v0x6000034f8e10_0 .var "expected_out", 0 0;
+v0x6000034f8ea0_0 .var/i "i", 31 0;
+v0x6000034f8f30_0 .var/i "num_tests_passed", 31 0;
+v0x6000034f8fc0_0 .net "out_always", 0 0, v0x6000034f8ab0_0;  1 drivers
+v0x6000034f9050_0 .net "out_assign", 0 0, L_0x6000037fc0a0;  1 drivers
+v0x6000034f90e0_0 .var "sel_b1", 0 0;
+v0x6000034f9170_0 .var "sel_b2", 0 0;
+v0x6000034f9200_0 .var/i "total_tests", 31 0;
+S_0x12df060f0 .scope task, "check_result" "check_result" 2 202, 2 202 0, S_0x12df07f20;
+ .timescale -9 -12;
+v0x6000034f8510_0 .var "description", 240 1;
+v0x6000034f85a0_0 .var "expected", 0 0;
+TD_tb_top_module_always.check_result ;
+    %load/vec4 v0x6000034f9200_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f9200_0, 0, 32;
+    %load/vec4 v0x6000034f9050_0;
+    %load/vec4 v0x6000034f85a0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_0.2, 4;
+    %load/vec4 v0x6000034f8fc0_0;
+    %load/vec4 v0x6000034f85a0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_0.2;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %load/vec4 v0x6000034f8f30_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f8f30_0, 0, 32;
+    %vpi_call 2 210 "$display", "Result: PASS (%0s)", v0x6000034f8510_0 {0 0 0};
+    %jmp T_0.1;
+T_0.0 ;
+    %vpi_call 2 212 "$display", "Result: FAIL (%0s) - assign=%b, always=%b, expected=%b", v0x6000034f8510_0, v0x6000034f9050_0, v0x6000034f8fc0_0, v0x6000034f85a0_0 {0 0 0};
+T_0.1 ;
+    %end;
+S_0x12df06260 .scope module, "dut" "top_module_always" 2 15, 3 1 0, S_0x12df07f20;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /INPUT 1 "sel_b1";
+    .port_info 3 /INPUT 1 "sel_b2";
+    .port_info 4 /OUTPUT 1 "out_assign";
+    .port_info 5 /OUTPUT 1 "out_always";
+L_0x120040010 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+L_0x600002dfc310 .functor XNOR 1, v0x6000034f90e0_0, L_0x120040010, C4<0>, C4<0>;
+L_0x120040058 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+L_0x600002dfc380 .functor XNOR 1, v0x6000034f9170_0, L_0x120040058, C4<0>, C4<0>;
+L_0x600002dfc3f0 .functor AND 1, L_0x600002dfc310, L_0x600002dfc380, C4<1>, C4<1>;
+v0x6000034f86c0_0 .net/2u *"_ivl_0", 0 0, L_0x120040010;  1 drivers
+v0x6000034f8750_0 .net *"_ivl_2", 0 0, L_0x600002dfc310;  1 drivers
+v0x6000034f87e0_0 .net/2u *"_ivl_4", 0 0, L_0x120040058;  1 drivers
+v0x6000034f8870_0 .net *"_ivl_6", 0 0, L_0x600002dfc380;  1 drivers
+v0x6000034f8900_0 .net *"_ivl_9", 0 0, L_0x600002dfc3f0;  1 drivers
+v0x6000034f8990_0 .net "a", 0 0, v0x6000034f8cf0_0;  1 drivers
+v0x6000034f8a20_0 .net "b", 0 0, v0x6000034f8d80_0;  1 drivers
+v0x6000034f8ab0_0 .var "out_always", 0 0;
+v0x6000034f8b40_0 .net "out_assign", 0 0, L_0x6000037fc0a0;  alias, 1 drivers
+v0x6000034f8bd0_0 .net "sel_b1", 0 0, v0x6000034f90e0_0;  1 drivers
+v0x6000034f8c60_0 .net "sel_b2", 0 0, v0x6000034f9170_0;  1 drivers
+E_0x6000013f2480 .event anyedge, v0x6000034f8bd0_0, v0x6000034f8c60_0, v0x6000034f8a20_0, v0x6000034f8990_0;
+L_0x6000037fc0a0 .functor MUXZ 1, v0x6000034f8cf0_0, v0x6000034f8d80_0, L_0x600002dfc3f0, C4<>;
+    .scope S_0x12df06260;
+T_1 ;
+    %wait E_0x6000013f2480;
+    %load/vec4 v0x6000034f8bd0_0;
+    %cmpi/e 1, 0, 1;
+    %flag_get/vec4 4;
+    %jmp/0 T_1.2, 4;
+    %load/vec4 v0x6000034f8c60_0;
+    %pushi/vec4 1, 0, 1;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_1.2;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %load/vec4 v0x6000034f8a20_0;
+    %store/vec4 v0x6000034f8ab0_0, 0, 1;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v0x6000034f8990_0;
+    %store/vec4 v0x6000034f8ab0_0, 0, 1;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_0x12df07f20;
+T_2 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000034f8f30_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000034f9200_0, 0, 32;
+    %vpi_call 2 36 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 37 "$display", "Testing 2-to-1 Multiplexer with AND condition" {0 0 0};
+    %vpi_call 2 38 "$display", "Select b when BOTH sel_b1 AND sel_b2 are true" {0 0 0};
+    %vpi_call 2 39 "$display", "Otherwise select a" {0 0 0};
+    %vpi_call 2 40 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 43 "$display", "\012Test 1: Complete Truth Table" {0 0 0};
+    %vpi_call 2 44 "$display", "---------------------------------------------------------------" {0 0 0};
+    %vpi_call 2 45 "$display", "sel_b1 | sel_b2 | a | b | assign | always | Expected | Result" {0 0 0};
+    %vpi_call 2 46 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000034f8ea0_0, 0, 32;
+T_2.0 ;
+    %load/vec4 v0x6000034f8ea0_0;
+    %cmpi/s 16, 0, 32;
+    %jmp/0xz T_2.1, 5;
+    %load/vec4 v0x6000034f8ea0_0;
+    %parti/s 4, 0, 2;
+    %split/vec4 1;
+    %store/vec4 v0x6000034f8d80_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x6000034f8cf0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %load/vec4 v0x6000034f90e0_0;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_2.4, 9;
+    %load/vec4 v0x6000034f9170_0;
+    %and;
+T_2.4;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.2, 8;
+    %load/vec4 v0x6000034f8d80_0;
+    %store/vec4 v0x6000034f8e10_0, 0, 1;
+    %jmp T_2.3;
+T_2.2 ;
+    %load/vec4 v0x6000034f8cf0_0;
+    %store/vec4 v0x6000034f8e10_0, 0, 1;
+T_2.3 ;
+    %delay 10000, 0;
+    %load/vec4 v0x6000034f9200_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f9200_0, 0, 32;
+    %load/vec4 v0x6000034f9050_0;
+    %load/vec4 v0x6000034f8e10_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_2.8, 4;
+    %load/vec4 v0x6000034f8fc0_0;
+    %load/vec4 v0x6000034f8e10_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_2.8;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_2.7, 9;
+    %load/vec4 v0x6000034f9050_0;
+    %load/vec4 v0x6000034f8fc0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_2.7;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.5, 8;
+    %load/vec4 v0x6000034f8f30_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f8f30_0, 0, 32;
+    %vpi_call 2 65 "$display", "   %b   |   %b    | %b | %b |   %b    |   %b    |    %b     | PASS", v0x6000034f90e0_0, v0x6000034f9170_0, v0x6000034f8cf0_0, v0x6000034f8d80_0, v0x6000034f9050_0, v0x6000034f8fc0_0, v0x6000034f8e10_0 {0 0 0};
+    %jmp T_2.6;
+T_2.5 ;
+    %vpi_call 2 68 "$display", "   %b   |   %b    | %b | %b |   %b    |   %b    |    %b     | FAIL", v0x6000034f90e0_0, v0x6000034f9170_0, v0x6000034f8cf0_0, v0x6000034f8d80_0, v0x6000034f9050_0, v0x6000034f8fc0_0, v0x6000034f8e10_0 {0 0 0};
+T_2.6 ;
+    %load/vec4 v0x6000034f8ea0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f8ea0_0, 0, 32;
+    %jmp T_2.0;
+T_2.1 ;
+    %vpi_call 2 74 "$display", "\012Test 2: Select Condition Analysis" {0 0 0};
+    %vpi_call 2 75 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f8cf0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f8d80_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 81 "$display", "sel_b1=0, sel_b2=0: Output=%b (should be a=%b)", v0x6000034f9050_0, v0x6000034f8cf0_0 {0 0 0};
+    %load/vec4 v0x6000034f8cf0_0;
+    %store/vec4 v0x6000034f85a0_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1114600552, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 544433516, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701016691, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 543580524, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 29541, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000034f8510_0, 0, 240;
+    %fork TD_tb_top_module_always.check_result, S_0x12df060f0;
+    %join;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 87 "$display", "sel_b1=1, sel_b2=0: Output=%b (should be a=%b)", v0x6000034f9050_0, v0x6000034f8cf0_0 {0 0 0};
+    %load/vec4 v0x6000034f8cf0_0;
+    %store/vec4 v0x6000034f85a0_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 20334, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819877491, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701601122, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 824210546, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 30053, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000034f8510_0, 0, 240;
+    %fork TD_tb_top_module_always.check_result, S_0x12df060f0;
+    %join;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 93 "$display", "sel_b1=0, sel_b2=1: Output=%b (should be a=%b)", v0x6000034f9050_0, v0x6000034f8cf0_0 {0 0 0};
+    %load/vec4 v0x6000034f8cf0_0;
+    %store/vec4 v0x6000034f85a0_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 20334, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1819877491, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701601122, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 840987762, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 30053, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000034f8510_0, 0, 240;
+    %fork TD_tb_top_module_always.check_result, S_0x12df060f0;
+    %join;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 99 "$display", "sel_b1=1, sel_b2=1: Output=%b (should be b=%b)", v0x6000034f9050_0, v0x6000034f8d80_0 {0 0 0};
+    %load/vec4 v0x6000034f8d80_0;
+    %store/vec4 v0x6000034f85a0_0, 0, 1;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 4353908, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1746957157, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1818583924, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1931506802, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 30053, 0, 16; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0x6000034f8510_0, 0, 240;
+    %fork TD_tb_top_module_always.check_result, S_0x12df060f0;
+    %join;
+    %vpi_call 2 103 "$display", "\012Test 3: Dynamic Input Switching" {0 0 0};
+    %vpi_call 2 104 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f8cf0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f8d80_0, 0, 1;
+    %vpi_call 2 108 "$display", "Setting a=0, b=1 for clear distinction" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x6000034f8ea0_0, 0, 32;
+T_2.9 ;
+    %load/vec4 v0x6000034f8ea0_0;
+    %cmpi/s 4, 0, 32;
+    %jmp/0xz T_2.10, 5;
+    %load/vec4 v0x6000034f8ea0_0;
+    %parti/s 2, 0, 2;
+    %split/vec4 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %delay 10000, 0;
+    %load/vec4 v0x6000034f90e0_0;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_2.13, 9;
+    %load/vec4 v0x6000034f9170_0;
+    %and;
+T_2.13;
+    %flag_set/vec4 8;
+    %jmp/0 T_2.11, 8;
+    %load/vec4 v0x6000034f8d80_0;
+    %jmp/1 T_2.12, 8;
+T_2.11 ; End of true expr.
+    %load/vec4 v0x6000034f8cf0_0;
+    %jmp/0 T_2.12, 8;
+ ; End of false expr.
+    %blend;
+T_2.12;
+    %store/vec4 v0x6000034f8e10_0, 0, 1;
+    %load/vec4 v0x6000034f90e0_0;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_2.16, 9;
+    %load/vec4 v0x6000034f9170_0;
+    %and;
+T_2.16;
+    %flag_set/vec4 8;
+    %jmp/0 T_2.14, 8;
+    %pushi/vec4 98, 0, 8; draw_string_vec4
+    %jmp/1 T_2.15, 8;
+T_2.14 ; End of true expr.
+    %pushi/vec4 97, 0, 8; draw_string_vec4
+    %jmp/0 T_2.15, 8;
+ ; End of false expr.
+    %blend;
+T_2.15;
+    %vpi_call 2 117 "$display", "sel_b1=%b, sel_b2=%b: out=%b (expected %b) - Selecting %s", v0x6000034f90e0_0, v0x6000034f9170_0, v0x6000034f9050_0, v0x6000034f8e10_0, S<0,vec4,u8> {1 0 0};
+    %load/vec4 v0x6000034f8ea0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f8ea0_0, 0, 32;
+    %jmp T_2.9;
+T_2.10 ;
+    %vpi_call 2 123 "$display", "\012Test 4: Implementation Timing Comparison" {0 0 0};
+    %vpi_call 2 124 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f8cf0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f8d80_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 132 "$display", "Changing both selects 0->1 simultaneously:" {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 1000, 0;
+    %vpi_call 2 136 "$display", "After 1ns: assign=%b, always=%b", v0x6000034f9050_0, v0x6000034f8fc0_0 {0 0 0};
+    %load/vec4 v0x6000034f9050_0;
+    %load/vec4 v0x6000034f8fc0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_2.19, 4;
+    %load/vec4 v0x6000034f9050_0;
+    %load/vec4 v0x6000034f8d80_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_2.19;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.17, 8;
+    %vpi_call 2 139 "$display", "Both implementations switched simultaneously: PASS" {0 0 0};
+    %load/vec4 v0x6000034f8f30_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f8f30_0, 0, 32;
+    %jmp T_2.18;
+T_2.17 ;
+    %vpi_call 2 142 "$display", "Implementations differ or incorrect: FAIL" {0 0 0};
+T_2.18 ;
+    %load/vec4 v0x6000034f9200_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f9200_0, 0, 32;
+    %vpi_call 2 147 "$display", "\012Test 5: Glitch Sensitivity Test" {0 0 0};
+    %vpi_call 2 148 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f8cf0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f8d80_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 157 "$display", "Toggling sel_b1 while sel_b2=1:" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %delay 1000, 0;
+    %vpi_call 2 159 "$display", "  sel_b1=0: out=%b (should be a=%b)", v0x6000034f9050_0, v0x6000034f8cf0_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %delay 1000, 0;
+    %vpi_call 2 162 "$display", "  sel_b1=1: out=%b (should be b=%b)", v0x6000034f9050_0, v0x6000034f8d80_0 {0 0 0};
+    %vpi_call 2 165 "$display", "\012Test 6: Random Test Patterns" {0 0 0};
+    %vpi_call 2 166 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 10, 0, 32;
+T_2.20 %dup/vec4;
+    %pushi/vec4 0, 0, 32;
+    %cmp/s;
+    %jmp/1xz T_2.21, 5;
+    %jmp/1 T_2.21, 4;
+    %pushi/vec4 1, 0, 32;
+    %sub;
+    %vpi_func 2 169 "$random" 32 {0 0 0};
+    %pad/s 1;
+    %store/vec4 v0x6000034f8cf0_0, 0, 1;
+    %vpi_func 2 170 "$random" 32 {0 0 0};
+    %pad/s 1;
+    %store/vec4 v0x6000034f8d80_0, 0, 1;
+    %vpi_func 2 171 "$random" 32 {0 0 0};
+    %pad/s 1;
+    %store/vec4 v0x6000034f90e0_0, 0, 1;
+    %vpi_func 2 172 "$random" 32 {0 0 0};
+    %pad/s 1;
+    %store/vec4 v0x6000034f9170_0, 0, 1;
+    %delay 10000, 0;
+    %load/vec4 v0x6000034f90e0_0;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_2.24, 9;
+    %load/vec4 v0x6000034f9170_0;
+    %and;
+T_2.24;
+    %flag_set/vec4 8;
+    %jmp/0 T_2.22, 8;
+    %load/vec4 v0x6000034f8d80_0;
+    %jmp/1 T_2.23, 8;
+T_2.22 ; End of true expr.
+    %load/vec4 v0x6000034f8cf0_0;
+    %jmp/0 T_2.23, 8;
+ ; End of false expr.
+    %blend;
+T_2.23;
+    %store/vec4 v0x6000034f8e10_0, 0, 1;
+    %load/vec4 v0x6000034f9200_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f9200_0, 0, 32;
+    %load/vec4 v0x6000034f9050_0;
+    %load/vec4 v0x6000034f8e10_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %jmp/0 T_2.27, 4;
+    %load/vec4 v0x6000034f8fc0_0;
+    %load/vec4 v0x6000034f8e10_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_2.27;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.25, 8;
+    %load/vec4 v0x6000034f8f30_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x6000034f8f30_0, 0, 32;
+    %vpi_call 2 181 "$display", "Random: sel=(%b,%b), a=%b, b=%b, out=%b - PASS", v0x6000034f90e0_0, v0x6000034f9170_0, v0x6000034f8cf0_0, v0x6000034f8d80_0, v0x6000034f9050_0 {0 0 0};
+    %jmp T_2.26;
+T_2.25 ;
+    %vpi_call 2 184 "$display", "Random: sel=(%b,%b), a=%b, b=%b, out=%b, exp=%b - FAIL", v0x6000034f90e0_0, v0x6000034f9170_0, v0x6000034f8cf0_0, v0x6000034f8d80_0, v0x6000034f9050_0, v0x6000034f8e10_0 {0 0 0};
+T_2.26 ;
+    %jmp T_2.20;
+T_2.21 ;
+    %pop/vec4 1;
+    %vpi_call 2 190 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 191 "$display", "Test Summary: %0d/%0d tests passed", v0x6000034f8f30_0, v0x6000034f9200_0 {0 0 0};
+    %load/vec4 v0x6000034f8f30_0;
+    %load/vec4 v0x6000034f9200_0;
+    %cmp/e;
+    %jmp/0xz  T_2.28, 4;
+    %vpi_call 2 193 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_2.29;
+T_2.28 ;
+    %vpi_call 2 195 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+T_2.29 ;
+    %vpi_call 2 196 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 198 "$finish" {0 0 0};
+    %end;
+    .thread T_2;
+    .scope S_0x12df07f20;
+T_3 ;
+    %vpi_call 2 220 "$dumpfile", "mux_2to1_and_tb.vcd" {0 0 0};
+    %vpi_call 2 221 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x12df07f20 {0 0 0};
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_always-if.v";
+    "answer_always-if.v";

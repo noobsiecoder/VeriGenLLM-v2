@@ -1,0 +1,21 @@
+// synthesis verilog_input_version verilog_2001
+module top_module_always_nolatches (
+    input [7:0] in,
+    output reg [2:0] pos
+);
+
+    always @ (*) begin
+        casez(in)
+            8'b???????1: pos = 3'b000;
+            8'b??????1?: pos = 3'b001;
+            8'b?????1??: pos = 3'b010;
+            8'b????1???: pos = 3'b011;
+            8'b???1????: pos = 3'b100;
+            8'b??1?????: pos = 3'b101;
+            8'b?1??????: pos = 3'b110;
+            8'b1???????: pos = 3'b111;
+            default: pos = 3'b0;
+        endcase
+    end
+
+endmodule

@@ -1,0 +1,537 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x1436069d0 .scope module, "tb_xnor_matrix" "tb_xnor_matrix" 2 3;
+ .timescale -9 -12;
+v0x600002c08f30_0 .var "a", 0 0;
+v0x600002c08fc0_0 .var "b", 0 0;
+v0x600002c09050_0 .var "c", 0 0;
+v0x600002c090e0_0 .var "d", 0 0;
+v0x600002c09170_0 .var "e", 0 0;
+v0x600002c09200_0 .var "expected_out", 24 0;
+v0x600002c09290_0 .var/i "i", 31 0;
+v0x600002c09320_0 .var/i "num_tests_passed", 31 0;
+v0x600002c093b0_0 .net "out", 24 0, L_0x60000350c230;  1 drivers
+v0x600002c09440_0 .var "repeated_pattern", 24 0;
+v0x600002c094d0_0 .var "replicated_inputs", 24 0;
+v0x600002c09560_0 .var/i "total_tests", 31 0;
+S_0x143606b40 .scope module, "dut" "xnor_matrix" 2 11, 3 1 0, S_0x1436069d0;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /INPUT 1 "c";
+    .port_info 3 /INPUT 1 "d";
+    .port_info 4 /INPUT 1 "e";
+    .port_info 5 /OUTPUT 25 "out";
+L_0x60000350c1c0 .functor NOT 25, L_0x600002f0c320, C4<0000000000000000000000000>, C4<0000000000000000000000000>, C4<0000000000000000000000000>;
+L_0x60000350c230 .functor XOR 25, L_0x60000350c1c0, L_0x600002f0c460, C4<0000000000000000000000000>, C4<0000000000000000000000000>;
+v0x600002c086c0_0 .net *"_ivl_0", 4 0, L_0x600002f0c000;  1 drivers
+v0x600002c08750_0 .net *"_ivl_10", 24 0, L_0x600002f0c320;  1 drivers
+v0x600002c087e0_0 .net *"_ivl_12", 24 0, L_0x60000350c1c0;  1 drivers
+v0x600002c08870_0 .net *"_ivl_14", 24 0, L_0x600002f0c3c0;  1 drivers
+v0x600002c08900_0 .net *"_ivl_16", 24 0, L_0x600002f0c460;  1 drivers
+v0x600002c08990_0 .net *"_ivl_2", 4 0, L_0x600002f0c0a0;  1 drivers
+v0x600002c08a20_0 .net *"_ivl_4", 4 0, L_0x600002f0c140;  1 drivers
+v0x600002c08ab0_0 .net *"_ivl_6", 4 0, L_0x600002f0c1e0;  1 drivers
+v0x600002c08b40_0 .net *"_ivl_8", 4 0, L_0x600002f0c280;  1 drivers
+v0x600002c08bd0_0 .net "a", 0 0, v0x600002c08f30_0;  1 drivers
+v0x600002c08c60_0 .net "b", 0 0, v0x600002c08fc0_0;  1 drivers
+v0x600002c08cf0_0 .net "c", 0 0, v0x600002c09050_0;  1 drivers
+v0x600002c08d80_0 .net "d", 0 0, v0x600002c090e0_0;  1 drivers
+v0x600002c08e10_0 .net "e", 0 0, v0x600002c09170_0;  1 drivers
+v0x600002c08ea0_0 .net "out", 24 0, L_0x60000350c230;  alias, 1 drivers
+LS_0x600002f0c000_0_0 .concat [ 1 1 1 1], v0x600002c08f30_0, v0x600002c08f30_0, v0x600002c08f30_0, v0x600002c08f30_0;
+LS_0x600002f0c000_0_4 .concat [ 1 0 0 0], v0x600002c08f30_0;
+L_0x600002f0c000 .concat [ 4 1 0 0], LS_0x600002f0c000_0_0, LS_0x600002f0c000_0_4;
+LS_0x600002f0c0a0_0_0 .concat [ 1 1 1 1], v0x600002c08fc0_0, v0x600002c08fc0_0, v0x600002c08fc0_0, v0x600002c08fc0_0;
+LS_0x600002f0c0a0_0_4 .concat [ 1 0 0 0], v0x600002c08fc0_0;
+L_0x600002f0c0a0 .concat [ 4 1 0 0], LS_0x600002f0c0a0_0_0, LS_0x600002f0c0a0_0_4;
+LS_0x600002f0c140_0_0 .concat [ 1 1 1 1], v0x600002c09050_0, v0x600002c09050_0, v0x600002c09050_0, v0x600002c09050_0;
+LS_0x600002f0c140_0_4 .concat [ 1 0 0 0], v0x600002c09050_0;
+L_0x600002f0c140 .concat [ 4 1 0 0], LS_0x600002f0c140_0_0, LS_0x600002f0c140_0_4;
+LS_0x600002f0c1e0_0_0 .concat [ 1 1 1 1], v0x600002c090e0_0, v0x600002c090e0_0, v0x600002c090e0_0, v0x600002c090e0_0;
+LS_0x600002f0c1e0_0_4 .concat [ 1 0 0 0], v0x600002c090e0_0;
+L_0x600002f0c1e0 .concat [ 4 1 0 0], LS_0x600002f0c1e0_0_0, LS_0x600002f0c1e0_0_4;
+LS_0x600002f0c280_0_0 .concat [ 1 1 1 1], v0x600002c09170_0, v0x600002c09170_0, v0x600002c09170_0, v0x600002c09170_0;
+LS_0x600002f0c280_0_4 .concat [ 1 0 0 0], v0x600002c09170_0;
+L_0x600002f0c280 .concat [ 4 1 0 0], LS_0x600002f0c280_0_0, LS_0x600002f0c280_0_4;
+LS_0x600002f0c320_0_0 .concat [ 5 5 5 5], L_0x600002f0c280, L_0x600002f0c1e0, L_0x600002f0c140, L_0x600002f0c0a0;
+LS_0x600002f0c320_0_4 .concat [ 5 0 0 0], L_0x600002f0c000;
+L_0x600002f0c320 .concat [ 20 5 0 0], LS_0x600002f0c320_0_0, LS_0x600002f0c320_0_4;
+LS_0x600002f0c3c0_0_0 .concat [ 1 1 1 1], v0x600002c09170_0, v0x600002c090e0_0, v0x600002c09050_0, v0x600002c08fc0_0;
+LS_0x600002f0c3c0_0_4 .concat [ 1 1 1 1], v0x600002c08f30_0, v0x600002c09170_0, v0x600002c090e0_0, v0x600002c09050_0;
+LS_0x600002f0c3c0_0_8 .concat [ 1 1 1 1], v0x600002c08fc0_0, v0x600002c08f30_0, v0x600002c09170_0, v0x600002c090e0_0;
+LS_0x600002f0c3c0_0_12 .concat [ 1 1 1 1], v0x600002c09050_0, v0x600002c08fc0_0, v0x600002c08f30_0, v0x600002c09170_0;
+LS_0x600002f0c3c0_0_16 .concat [ 1 1 1 1], v0x600002c090e0_0, v0x600002c09050_0, v0x600002c08fc0_0, v0x600002c08f30_0;
+LS_0x600002f0c3c0_0_20 .concat [ 1 1 1 1], v0x600002c09170_0, v0x600002c090e0_0, v0x600002c09050_0, v0x600002c08fc0_0;
+LS_0x600002f0c3c0_0_24 .concat [ 1 0 0 0], v0x600002c08f30_0;
+LS_0x600002f0c3c0_1_0 .concat [ 4 4 4 4], LS_0x600002f0c3c0_0_0, LS_0x600002f0c3c0_0_4, LS_0x600002f0c3c0_0_8, LS_0x600002f0c3c0_0_12;
+LS_0x600002f0c3c0_1_4 .concat [ 4 4 1 0], LS_0x600002f0c3c0_0_16, LS_0x600002f0c3c0_0_20, LS_0x600002f0c3c0_0_24;
+L_0x600002f0c3c0 .concat [ 16 9 0 0], LS_0x600002f0c3c0_1_0, LS_0x600002f0c3c0_1_4;
+L_0x600002f0c460 .concat [ 25 0 0 0], L_0x600002f0c3c0;
+    .scope S_0x1436069d0;
+T_0 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002c09320_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002c09560_0, 0, 32;
+    %vpi_call 2 32 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 33 "$display", "Testing XNOR Matrix Module" {0 0 0};
+    %vpi_call 2 34 "$display", "Function: out = ~{5{a}, 5{b}, 5{c}, 5{d}, 5{e}} ^ {5{a,b,c,d,e}}" {0 0 0};
+    %vpi_call 2 35 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 38 "$display", "\012Operation breakdown:" {0 0 0};
+    %vpi_call 2 39 "$display", "1. First operand: ~{5{a}, 5{b}, 5{c}, 5{d}, 5{e}}" {0 0 0};
+    %vpi_call 2 40 "$display", "   - Replicates each input 5 times, then inverts" {0 0 0};
+    %vpi_call 2 41 "$display", "2. Second operand: {5{a,b,c,d,e}}" {0 0 0};
+    %vpi_call 2 42 "$display", "   - Replicates the 5-bit pattern 5 times" {0 0 0};
+    %vpi_call 2 43 "$display", "3. Result: XNOR of the two operands\012" {0 0 0};
+    %vpi_call 2 45 "$display", "Time | a b c d e | First Operand          | Second Operand         | Output (XNOR)          | Result" {0 0 0};
+    %vpi_call 2 46 "$display", "-----------------------------------------------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x600002c09290_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v0x600002c09290_0;
+    %cmpi/s 32, 0, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v0x600002c09290_0;
+    %parti/s 5, 0, 2;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0x600002c094d0_0, 0, 25;
+    %load/vec4 v0x600002c08f30_0;
+    %load/vec4 v0x600002c08fc0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %concat/vec4; draw_concat_vec4
+    %replicate 5;
+    %store/vec4 v0x600002c09440_0, 0, 25;
+    %load/vec4 v0x600002c094d0_0;
+    %inv;
+    %load/vec4 v0x600002c09440_0;
+    %xor;
+    %store/vec4 v0x600002c09200_0, 0, 25;
+    %delay 10000, 0;
+    %load/vec4 v0x600002c093b0_0;
+    %load/vec4 v0x600002c09200_0;
+    %cmp/e;
+    %jmp/0xz  T_0.2, 4;
+    %load/vec4 v0x600002c09320_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600002c09320_0, 0, 32;
+T_0.2 ;
+    %load/vec4 v0x600002c09560_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600002c09560_0, 0, 32;
+    %load/vec4 v0x600002c09290_0;
+    %cmpi/s 5, 0, 32;
+    %jmp/1 T_0.8, 5;
+    %flag_mov 8, 5;
+    %load/vec4 v0x600002c09290_0;
+    %cmpi/e 15, 0, 32;
+    %flag_or 4, 8;
+    %flag_mov 5, 4;
+T_0.8;
+    %jmp/1 T_0.7, 5;
+    %flag_mov 8, 5;
+    %load/vec4 v0x600002c09290_0;
+    %cmpi/e 16, 0, 32;
+    %flag_or 4, 8;
+    %flag_mov 5, 4;
+T_0.7;
+    %jmp/1 T_0.6, 5;
+    %flag_mov 8, 5;
+    %load/vec4 v0x600002c09290_0;
+    %cmpi/e 31, 0, 32;
+    %flag_or 4, 8;
+    %flag_mov 5, 4;
+T_0.6;
+    %jmp/0xz  T_0.4, 5;
+    %load/vec4 v0x600002c094d0_0;
+    %inv;
+    %load/vec4 v0x600002c093b0_0;
+    %load/vec4 v0x600002c09200_0;
+    %cmp/e;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.9, 8;
+    %pushi/vec4 1346458451, 0, 32; draw_string_vec4
+    %jmp/1 T_0.10, 8;
+T_0.9 ; End of true expr.
+    %pushi/vec4 1178683724, 0, 32; draw_string_vec4
+    %jmp/0 T_0.10, 8;
+ ; End of false expr.
+    %blend;
+T_0.10;
+    %vpi_call 2 66 "$display", "%3t  | %b %b %b %b %b | %025b | %025b | %025b | %s", $time, v0x600002c08f30_0, v0x600002c08fc0_0, v0x600002c09050_0, v0x600002c090e0_0, v0x600002c09170_0, S<1,vec4,u25>, v0x600002c09440_0, v0x600002c093b0_0, S<0,vec4,u32> {2 0 0};
+T_0.4 ;
+    %load/vec4 v0x600002c09290_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x600002c09290_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %vpi_call 2 73 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 74 "$display", "Detailed Analysis of Specific Patterns:" {0 0 0};
+    %vpi_call 2 75 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 80 "$display", "\012All zeros (00000):" {0 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %vpi_call 2 81 "$display", "  Replicated inputs: %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %inv;
+    %vpi_call 2 82 "$display", "  Inverted:          %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %load/vec4 v0x600002c08fc0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %concat/vec4; draw_concat_vec4
+    %replicate 5;
+    %vpi_call 2 83 "$display", "  Repeated pattern:  %025b", S<0,vec4,u25> {1 0 0};
+    %vpi_call 2 84 "$display", "  XNOR result:       %025b", v0x600002c093b0_0 {0 0 0};
+    %vpi_call 2 85 "$display", "  Expected all 1s since ~0 ^ 0 = 1" {0 0 0};
+    %pushi/vec4 31, 0, 5;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 90 "$display", "\012All ones (11111):" {0 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %vpi_call 2 91 "$display", "  Replicated inputs: %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %inv;
+    %vpi_call 2 92 "$display", "  Inverted:          %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %load/vec4 v0x600002c08fc0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %concat/vec4; draw_concat_vec4
+    %replicate 5;
+    %vpi_call 2 93 "$display", "  Repeated pattern:  %025b", S<0,vec4,u25> {1 0 0};
+    %vpi_call 2 94 "$display", "  XNOR result:       %025b", v0x600002c093b0_0 {0 0 0};
+    %vpi_call 2 95 "$display", "  Expected all 1s since ~1 ^ 1 = 1" {0 0 0};
+    %pushi/vec4 16, 0, 5;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 100 "$display", "\012Single bit set (10000):" {0 0 0};
+    %vpi_call 2 101 "$display", "  Input pattern: a=%b, b=%b, c=%b, d=%b, e=%b", v0x600002c08f30_0, v0x600002c08fc0_0, v0x600002c09050_0, v0x600002c090e0_0, v0x600002c09170_0 {0 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %vpi_call 2 102 "$display", "  Replicated inputs: %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %inv;
+    %vpi_call 2 103 "$display", "  Inverted:          %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %load/vec4 v0x600002c08fc0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %concat/vec4; draw_concat_vec4
+    %replicate 5;
+    %vpi_call 2 104 "$display", "  Repeated pattern:  %025b", S<0,vec4,u25> {1 0 0};
+    %vpi_call 2 105 "$display", "  XNOR result:       %025b", v0x600002c093b0_0 {0 0 0};
+    %pushi/vec4 21, 0, 5;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 110 "$display", "\012Alternating pattern (10101):" {0 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %vpi_call 2 111 "$display", "  Replicated inputs: %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %inv;
+    %vpi_call 2 112 "$display", "  Inverted:          %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %load/vec4 v0x600002c08fc0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %concat/vec4; draw_concat_vec4
+    %replicate 5;
+    %vpi_call 2 113 "$display", "  Repeated pattern:  %025b", S<0,vec4,u25> {1 0 0};
+    %vpi_call 2 114 "$display", "  XNOR result:       %025b", v0x600002c093b0_0 {0 0 0};
+    %vpi_call 2 117 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 118 "$display", "Bit Position Analysis:" {0 0 0};
+    %vpi_call 2 119 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 22, 0, 5;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 122 "$display", "Input: %b%b%b%b%b", v0x600002c08f30_0, v0x600002c08fc0_0, v0x600002c09050_0, v0x600002c090e0_0, v0x600002c09170_0 {0 0 0};
+    %vpi_call 2 123 "$display", "\012First operand construction (inverted replication):" {0 0 0};
+    %vpi_call 2 124 "$display", "  Bits [24:20]: ~{5{a}} = ~{5{%b}} = %05b", v0x600002c08f30_0, &PV<v0x600002c093b0_0, 20, 5> {0 0 0};
+    %vpi_call 2 125 "$display", "  Bits [19:15]: ~{5{b}} = ~{5{%b}} = %05b", v0x600002c08fc0_0, &PV<v0x600002c093b0_0, 15, 5> {0 0 0};
+    %vpi_call 2 126 "$display", "  Bits [14:10]: ~{5{c}} = ~{5{%b}} = %05b", v0x600002c09050_0, &PV<v0x600002c093b0_0, 10, 5> {0 0 0};
+    %vpi_call 2 127 "$display", "  Bits [9:5]:   ~{5{d}} = ~{5{%b}} = %05b", v0x600002c090e0_0, &PV<v0x600002c093b0_0, 5, 5> {0 0 0};
+    %vpi_call 2 128 "$display", "  Bits [4:0]:   ~{5{e}} = ~{5{%b}} = %05b", v0x600002c09170_0, &PV<v0x600002c093b0_0, 0, 5> {0 0 0};
+    %vpi_call 2 130 "$display", "\012Second operand (pattern repetition):" {0 0 0};
+    %vpi_call 2 131 "$display", "  Pattern %b%b%b%b%b repeated 5 times", v0x600002c08f30_0, v0x600002c08fc0_0, v0x600002c09050_0, v0x600002c090e0_0, v0x600002c09170_0 {0 0 0};
+    %vpi_call 2 134 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 135 "$display", "XNOR Truth Table Reminder:" {0 0 0};
+    %vpi_call 2 136 "$display", "---------------------------------------------------------------" {0 0 0};
+    %vpi_call 2 137 "$display", "A | B | ~A | ~A XOR B | ~A XNOR B" {0 0 0};
+    %vpi_call 2 138 "$display", "--|---|-------|---------|----------" {0 0 0};
+    %vpi_call 2 139 "$display", "0 | 0 |   1   |    1    |    1" {0 0 0};
+    %vpi_call 2 140 "$display", "0 | 1 |   1   |    0    |    0" {0 0 0};
+    %vpi_call 2 141 "$display", "1 | 0 |   0   |    0    |    0" {0 0 0};
+    %vpi_call 2 142 "$display", "1 | 1 |   0   |    1    |    1" {0 0 0};
+    %vpi_call 2 143 "$display", "\012Note: XNOR(A,B) = ~(A XOR B) = (~A XOR B)" {0 0 0};
+    %vpi_call 2 146 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 147 "$display", "Pattern Matching Test:" {0 0 0};
+    %vpi_call 2 148 "$display", "---------------------------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09170_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c090e0_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c09050_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0x600002c08fc0_0, 0, 1;
+    %store/vec4 v0x600002c08f30_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 153 "$display", "When operands match after inversion:" {0 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %replicate 5;
+    %load/vec4 v0x600002c08fc0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %replicate 5;
+    %concat/vec4; draw_concat_vec4
+    %inv;
+    %vpi_call 2 154 "$display", "  First:  %025b", S<0,vec4,u25> {1 0 0};
+    %load/vec4 v0x600002c08f30_0;
+    %load/vec4 v0x600002c08fc0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09050_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c090e0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v0x600002c09170_0;
+    %concat/vec4; draw_concat_vec4
+    %replicate 5;
+    %vpi_call 2 155 "$display", "  Second: %025b", S<0,vec4,u25> {1 0 0};
+    %vpi_call 2 156 "$display", "  Result: %025b (should have 1s where bits match)", v0x600002c093b0_0 {0 0 0};
+    %vpi_call 2 159 "$display", "\012===============================================================" {0 0 0};
+    %vpi_call 2 160 "$display", "Test Summary: %0d/%0d tests passed", v0x600002c09320_0, v0x600002c09560_0 {0 0 0};
+    %load/vec4 v0x600002c09320_0;
+    %load/vec4 v0x600002c09560_0;
+    %cmp/e;
+    %jmp/0xz  T_0.11, 4;
+    %vpi_call 2 162 "$display", "Overall Result: ALL TESTS PASSED \342\234\223" {0 0 0};
+    %jmp T_0.12;
+T_0.11 ;
+    %load/vec4 v0x600002c09320_0;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.13, 4;
+    %vpi_call 2 164 "$display", "Overall Result: SOME TESTS PASSED \342\232\240" {0 0 0};
+    %jmp T_0.14;
+T_0.13 ;
+    %vpi_call 2 166 "$display", "Overall Result: NO TESTS PASSED \342\234\227" {0 0 0};
+T_0.14 ;
+T_0.12 ;
+    %vpi_call 2 167 "$display", "===============================================================" {0 0 0};
+    %vpi_call 2 169 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x1436069d0;
+T_1 ;
+    %vpi_call 2 174 "$dumpfile", "xnor_matrix_tb.vcd" {0 0 0};
+    %vpi_call 2 175 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x1436069d0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_vector-sign-pairwise-opr.v";
+    "answer_vector-pairwise-opr.v";

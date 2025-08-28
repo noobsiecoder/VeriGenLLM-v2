@@ -1,0 +1,243 @@
+$date
+	Sun Aug 24 17:58:25 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_top_module $end
+$var wire 3 ! outv [2:0] $end
+$var wire 1 " o2 $end
+$var wire 1 # o1 $end
+$var wire 1 $ o0 $end
+$var reg 1 % expected_o0 $end
+$var reg 1 & expected_o1 $end
+$var reg 1 ' expected_o2 $end
+$var reg 3 ( expected_outv [2:0] $end
+$var reg 3 ) vec [2:0] $end
+$var integer 32 * i [31:0] $end
+$var integer 32 + num_tests_passed [31:0] $end
+$var integer 32 , total_tests [31:0] $end
+$scope module dut $end
+$var wire 3 - outv [2:0] $end
+$var wire 3 . vec [2:0] $end
+$var wire 1 " o2 $end
+$var wire 1 # o1 $end
+$var wire 1 $ o0 $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 .
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+0'
+0&
+0%
+0$
+0#
+0"
+b0 !
+$end
+#10000
+1$
+1%
+b1 (
+b1 !
+b1 -
+b1 )
+b1 .
+b1 *
+b1 ,
+b1 +
+#20000
+0$
+1#
+1&
+0%
+b10 (
+b10 !
+b10 -
+b10 )
+b10 .
+b10 *
+b10 ,
+b10 +
+#30000
+1$
+1%
+b11 (
+b11 !
+b11 -
+b11 )
+b11 .
+b11 *
+b11 ,
+b11 +
+#40000
+0$
+0#
+1"
+1'
+0&
+0%
+b100 (
+b100 !
+b100 -
+b100 )
+b100 .
+b100 *
+b100 ,
+b100 +
+#50000
+1$
+1%
+b101 (
+b101 !
+b101 -
+b101 )
+b101 .
+b101 *
+b101 ,
+b101 +
+#60000
+0$
+1#
+1&
+0%
+b110 (
+b110 !
+b110 -
+b110 )
+b110 .
+b110 *
+b110 ,
+b110 +
+#70000
+1$
+1%
+b111 (
+b111 !
+b111 -
+b111 )
+b111 .
+b111 *
+b111 ,
+b111 +
+#80000
+0$
+0#
+0"
+b0 !
+b0 -
+b0 )
+b0 .
+b1000 *
+b1000 ,
+b1000 +
+#90000
+1$
+1#
+1"
+b111 !
+b111 -
+b111 )
+b111 .
+#100000
+0#
+b101 !
+b101 -
+b101 )
+b101 .
+#110000
+0"
+b1 !
+b1 -
+b1 )
+b1 .
+#120000
+0$
+1#
+b10 !
+b10 -
+b10 )
+b10 .
+#130000
+0#
+1"
+b100 !
+b100 -
+b100 )
+b100 .
+#140000
+0"
+b0 !
+b0 -
+b0 )
+b0 .
+b0 *
+#150000
+1$
+b1 !
+b1 -
+b1 )
+b1 .
+b1 *
+#160000
+0$
+1#
+b10 !
+b10 -
+b10 )
+b10 .
+b10 *
+#170000
+1$
+b11 !
+b11 -
+b11 )
+b11 .
+b11 *
+#180000
+0$
+0#
+1"
+b100 !
+b100 -
+b100 )
+b100 .
+b100 *
+#190000
+1$
+b101 !
+b101 -
+b101 )
+b101 .
+b101 *
+#200000
+0$
+1#
+b110 !
+b110 -
+b110 )
+b110 .
+b110 *
+#210000
+1$
+b111 !
+b111 -
+b111 )
+b111 .
+b111 *
+#220000
+b1000 *

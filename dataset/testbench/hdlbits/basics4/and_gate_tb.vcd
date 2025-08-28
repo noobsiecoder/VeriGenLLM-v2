@@ -1,0 +1,50 @@
+$date
+	Fri Aug 22 19:20:49 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_and_gate $end
+$var wire 1 ! out $end
+$var reg 1 " a $end
+$var reg 1 # b $end
+$var integer 32 $ num_tests_passed [31:0] $end
+$var integer 32 % total_tests [31:0] $end
+$scope module dut $end
+$var wire 1 " a $end
+$var wire 1 # b $end
+$var wire 1 ! out $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 %
+b0 $
+0#
+0"
+0!
+$end
+#10000
+1#
+b1 %
+b1 $
+#20000
+0#
+1"
+b10 %
+b10 $
+#30000
+1!
+1#
+b11 %
+b11 $
+#40000
+b100 %
+b100 $

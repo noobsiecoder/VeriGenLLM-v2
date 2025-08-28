@@ -1,0 +1,117 @@
+$date
+	Mon Aug 25 16:13:00 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_top_module_always $end
+$var wire 1 ! shut_off_computer $end
+$var wire 1 " keep_driving $end
+$var reg 1 # arrived $end
+$var reg 1 $ cpu_overheated $end
+$var reg 1 % gas_tank_empty $end
+$var integer 32 & i [31:0] $end
+$var integer 32 ' num_tests_passed [31:0] $end
+$var integer 32 ( total_tests [31:0] $end
+$scope module dut $end
+$var wire 1 # arrived $end
+$var wire 1 $ cpu_overheated $end
+$var wire 1 % gas_tank_empty $end
+$var reg 1 " keep_driving $end
+$var reg 1 ! shut_off_computer $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 (
+b0 '
+b0 &
+0%
+0$
+0#
+1"
+0!
+$end
+#10000
+0"
+1%
+b1 &
+b1 '
+b1 (
+#20000
+1#
+0%
+b10 &
+b10 '
+b10 (
+#30000
+1%
+b11 &
+b11 '
+b11 (
+#40000
+1!
+1"
+1$
+0#
+0%
+b100 &
+b100 '
+b100 (
+#50000
+0"
+1%
+b101 &
+b101 '
+b101 (
+#60000
+1#
+0%
+b110 &
+b110 '
+b110 (
+#70000
+1%
+b111 &
+b111 '
+b111 (
+#80000
+1"
+0!
+0%
+0#
+0$
+b1000 &
+b1000 '
+b1000 (
+#90000
+1!
+1$
+#100000
+0"
+0!
+1%
+0$
+#110000
+0%
+1#
+#120000
+1!
+1%
+1$
+#130000
+1"
+0!
+0%
+0#
+0$
+#140000
+b1001 (
+b1001 '
