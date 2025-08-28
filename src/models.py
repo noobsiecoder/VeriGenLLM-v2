@@ -933,11 +933,10 @@ class OpenSourceLLMClient:
         # Get device from base model
         device = next(self.model.parameters()).device
 
-        # Move value head to same device - but keep in float32 for stability
-        actor_critic_model.value_head = actor_critic_model.value_head.to(device)
-        
-        # Keep value head in float32 even if base model is float16
-        actor_critic_model.value_head = actor_critic_model.value_head.float()
+        # Move value head to same device with float16
+        actor_critic_model.value_head = actor_critic_model.value_head.to(
+            device=device, dtype=torch.float16
+        )
 
         # Initialize value head weights with float16
         with torch.no_grad():
