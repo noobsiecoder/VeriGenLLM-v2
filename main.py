@@ -239,7 +239,7 @@ class Trainer:
             self.log.info(f"Losses: {json.dumps(losses, indent=4)}")
 
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
-                self.ref_policy.load_state_dict(self.policy.state_dict())
+                self.ref_policy.model.load_state_dict(self.policy.state_dict())
 
 
 if __name__ == "__main__":
