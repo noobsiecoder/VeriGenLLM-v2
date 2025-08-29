@@ -1,16 +1,9 @@
 """
-This file is used for evaluating closed and open source LLMs.
-
-Proprietary LLMs:
-1. [OpenAI GPT-4o](https://platform.openai.com/docs/models/gpt-4o)
-2. [Claude Sonnet-4](https://www.anthropic.com/claude/sonnet)
-3. [Gemini 2.5-Flash](https://deepmind.google/models/gemini/flash/)
+This file is used for RLFT on a Policy (LLM)
 
 Open-source LLMs:
-1. [CodeLlama-7b-Instruct](https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf)
-2. [Deepseek-Coder-7b-Instruct-v1.5](https://huggingface.co/deepseek-ai/deepseek-coder-7b-instruct-v1.5)
-3. [Fine-tuned-Codegen-6B-Verilog](https://huggingface.co/shailja/fine-tuned-codegen-6B-Verilog)
-4. [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct)
+1. [Deepseek-Coder-7b-Instruct-v1.5](https://huggingface.co/deepseek-ai/deepseek-coder-7b-instruct-v1.5)
+2. [CodeLlama-7b-Instruct](https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf)
 
 Author: Abhishek Sriram <noobsiecoder@gmail.com>
 Date:   Aug 14th, 2025
@@ -18,368 +11,267 @@ Place:  Boston, MA
 """
 
 import os
-import time
-from abc import ABC, abstractmethod
-from typing import Dict, List
-from src.logger import Logger
-from openai import OpenAI
-import anthropic
-from google import genai
 import torch
-import torch.distributed as dist
-import deepspeed
-from google.genai import types
 from huggingface_hub import login
-from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
-from src.rl_policy import ActorCriticModel
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from openai import OpenAI
+from constants import LORA_CONFIG, RLFT_TRAIN_CONFIG
+from src.logger import Logger
+from typing import Any, Dict, Optional, List
+import time
 
 
-SYSTEM_PROMPT = "You are a Verilog code generator. Output only Verilog code."
-
-
-class ProprietaryLLM(ABC):
+class Lora:
     """
-    Base class for Proprietary LLMs like:
-    1. Claude
-    2. Gemini
-    3. OpenAI
-    """
-
-    @abstractmethod
-    def __init__(self, model: str = "claude-sonnet-4-20250514"):
-        """
-        Parameters:
-        -----------
-        model:  str
-            Name of the model
-            Default: Claude Sonnet 4 - Balanced performance and cost
-
-        Returns:
-        --------
-        None
-        """
-        self.log = Logger("base_class").get_logger()
-        self.model = model
-        self.client = None
-
-    @abstractmethod
-    def connect(self) -> bool:
-        """
-        Establish connection with Claude API
-
-        Returns:
-        --------
-        Bool value to confirm connection
-        """
-        pass
-
-    @abstractmethod
-    def generate(
-        self,
-        prompt: str,
-        temperature: float = 0.2,
-        max_tokens: int = 300,
-        n_samples: int = 2,
-    ) -> Dict:
-        """
-        Generate answer via Claude API
-        prompt:         str
-            Natural language description of the Verilog module to generate
-        temperature:    float, default=0.2
-            Controls randomness in generation (0=deterministic, 1=very random)
-            Lower values produce more consistent, focused code
-        max_tokens:     int, default=300
-            Maximum number of tokens to generate per response
-            Sufficient for most Verilog modules
-        n_samples:      int, default=2
-            Number of different code samples to generate
-        """
-        pass
-
-
-class ClaudeAPIClient(ProprietaryLLM):
-    """
-    SDK client for Claude LLM
+    Applies LoRA adapters
     """
 
-    def __init__(self, model: str = "claude-sonnet-4-20250514"):
+    def __init__(self):
         """
-        Parameters:
-        -----------
-        model:  str
-            Name of the model
-            Default: Claude Sonnet 4 - Balanced performance and cost
-
-        Returns:
-        --------
-        None
+        Load/Store LoRA constants
         """
-        self.log = Logger("claude_api_client").get_logger()
-        self.model = model
-        self.client = None
-
-    def connect(self) -> bool:
-        """
-        Establish connection with Claude API
-
-        Returns:
-        --------
-        Bool value to confirm connection
-        """
-        try:
-            api_key = os.getenv("ANTHROPIC_API_KEY")
-            if not api_key:
-                raise ValueError("ANTHROPIC_API_KEY not found in environment")
-
-            self.client = anthropic.Anthropic(api_key=api_key)
-            self.log.info(f"Model chosen for Claude: {self.model}")
-            return True
-        except Exception as err:
-            self.log.error(
-                f"Error while establishing connection with model: {self.model} | Error: {err}"
-            )
-            return False
-
-    def generate(
-        self,
-        prompt: str,
-        temperature: float = 0.2,
-        max_tokens: int = 300,
-        n_samples: int = 2,
-    ) -> Dict:
-        """
-        Generate answer via Claude API
-
-        Parameters:
-        -----------
-        prompt:         str
-            Natural language description of the Verilog module to generate
-        temperature:    float, default=0.2
-            Controls randomness in generation (0=deterministic, 1=very random)
-            Lower values produce more consistent, focused code
-        max_tokens:     int, default=300
-            Maximum number of tokens to generate per response
-            Sufficient for most Verilog modules
-        n_samples:      int, default=2
-            Number of different code samples to generate
-
-        Returns:
-        --------
-        Dict of all responses
-
-        Raises:
-        -------
-        anthropic.OpenAIError
-            If API call fails (rate limits, invalid API key, etc.)
-        """
-        self.log.info("Running chat")
-
-        # Container for all generated samples
-        outputs = []
-        # Token tracking
-        total_input_tokens = 0
-        total_output_tokens = 0
-        tokens_per_sample = []
-        # Time tracking
-        start_time = time.time()
-
-        # Generate n_samples by making multiple API calls
-        # Claude API doesn't support n>1 in a single call unlike other LLM APIs
-        for idx in range(n_samples):
-            # Make API call to Claude
-            response = self.client.messages.create(
-                model=self.model,
-                # System prompt specifically instructs Claude to generate Verilog
-                system=SYSTEM_PROMPT,
-                messages=[
-                    {"role": "user", "content": [{"type": "text", "text": prompt}]},
-                ],
-                temperature=temperature,  # Control randomness
-                max_tokens=max_tokens,  # Limit response length
-            )
-
-            # Extract text from Claude's response
-            # Claude returns content as a list, we take the first text block
-            outputs.append(response.content[0].text)
-
-            # Extract token usage from the response
-            # Claude provides usage information in the response object
-            if hasattr(response, "usage"):
-                # For the first sample, count input tokens (same for all samples)
-                if idx == 0:
-                    total_input_tokens = response.usage.input_tokens
-
-                # Add output tokens for this sample
-                output_tokens_this_sample = response.usage.output_tokens
-                total_output_tokens += output_tokens_this_sample
-                tokens_per_sample.append(output_tokens_this_sample)
-
-        end_time = time.time()
-        generation_time = end_time - start_time
-        # Calculate tokens per second metrics
-        output_tokens_per_second = (
-            total_output_tokens / generation_time if generation_time > 0 else 0
-        )
-        total_tokens_per_second = (
-            (total_input_tokens + total_output_tokens) / generation_time
-            if generation_time > 0
-            else 0
-        )
-
-        # Log generation completion and timing
-        self.log.info(
-            f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
-        )
-        self.log.info("Successfully ran chat")
-
-        response_data = {
-            "question": prompt,  # Original prompt for reference
-            "outputs": outputs,  # List of generated code samples
-            "config": {  # Configuration used for generation
-                "model": self.model,
-                "system_instruction": SYSTEM_PROMPT,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-                "samples": n_samples,
-            },
-            "time": generation_time,
-            # Token usage information
-            "input_tokens": total_input_tokens,
-            "output_tokens": total_output_tokens,
-            "total_tokens": total_input_tokens + total_output_tokens,
-            "tokens_per_sample": tokens_per_sample,
-            "avg_tokens_per_sample": total_output_tokens / n_samples
-            if n_samples > 0
-            else 0,
-            "output_tokens_per_second": output_tokens_per_second,
-            "total_tokens_per_second": total_tokens_per_second,
-        }
-
-        return response_data
-
-
-class GeminiAPIClient:
-    """
-    SDK client for Gemini LLM
-    """
-
-    def __init__(self, model: str = "gemini-2.5-flash"):
-        """
-        Parameters:
-        -----------
-        model:  str
-            Name of the model
-            Default: Gemini Flash 2.5 - Optimized for speed with good performance
-
-        Returns:
-        --------
-        None
-        """
-        self.log = Logger("gemini_api_client").get_logger()
-        self.model = model
-        self.client = None
-
-    def connect(self) -> bool:
-        """
-        Establish connection with Gemini API
-
-        Returns:
-        --------
-        Bool value to confirm connection
-        """
-        try:
-            api_key = os.getenv("GEMINI_API_KEY")
-            if not api_key:
-                raise ValueError("GEMINI_API_KEY not found in environment")
-
-            self.client = genai.Client(api_key=api_key)
-            self.log.info(f"Model chosen for Gemini: {self.model}")
-            return True
-        except Exception as err:
-            self.log.error(
-                f"Error while establishing connection with model: {self.model} | Error: {err}"
-            )
-            return False
-
-    def generate(
-        self,
-        prompt: str,
-        temperature: float = 0.2,
-        max_tokens: int = 300,
-        n_samples: int = 2,
-    ) -> Dict:
-        """
-        Generate answer via Gemini API
-
-        Parameters:
-        -----------
-        prompt:         str
-            Natural language description of the Verilog module to generate
-        temperature:    float, default=0.2
-            Controls randomness in generation (0=deterministic, 1=very random)
-            Lower values produce more consistent, focused code
-        max_tokens:     int, default=300
-            Maximum number of tokens to generate per response
-            Sufficient for most Verilog modules
-        n_samples:      int, default=2
-            Number of different code samples to generate
-
-        Returns:
-        --------
-        Dict of all responses
-
-        Raises:
-        -------
-        openai.OpenAIError
-            If API call fails (rate limits, invalid API key, etc.)
-
-        Note:
-        -----
-        Unlike other LLM APIs, token info and time taken weren't added as the API was unusable at the time of benchmarking
-        """
-        self.log.info("Running chat")
-
-        start_time = time.time()
-
-        # Make single API call for generation
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                # System instruction for Verilog generation
-                system_instruction=SYSTEM_PROMPT,
-                temperature=temperature,
-                maxOutputTokens=max_tokens,  # Note: camelCase for Gemini API
-                candidateCount=n_samples,  # Generate multiple candidates at once
-            ),
-        )
-
-        end_time = time.time()
-        generation_time = end_time - start_time
-        # Log generation completion and timing
-        self.log.info(
-            f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
-        )
-        self.log.info("Successfully ran chat")
-
-        # Format response to match expected structure
-        response_data = {
-            "question": prompt,
-            # Extract text from each candidate response
-            "outputs": [
-                candidate.content.parts[0].text for candidate in response.candidates
+        self.rank = LORA_CONFIG.get("rank", 16)
+        self.alpha = LORA_CONFIG.get("alpha", 32)
+        self.dropout = LORA_CONFIG.get("dropout", 0.1)
+        self.bias = LORA_CONFIG.get("bias", "none")
+        self.target_modules = LORA_CONFIG.get(
+            "target_modules",
+            [
+                "q_proj",
+                "k_proj",
+                "v_proj",
+                "o_proj",
+                "gate_proj",
+                "up_proj",
+                "down_proj",
             ],
-            "config": {
-                "model": self.model,
-                "system_instruction": SYSTEM_PROMPT,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-                "samples": n_samples,
-            },
-        }
+        )
+        self.task_type = LORA_CONFIG.get("task_type", TaskType.CAUSAL_LM)
+        self.log = Logger("lora").get_logger()
 
-        return response_data
+    def apply(self, model):
+        """
+        Apply LoRA adapters to the LLM in memory (after loading)
+        """
+        lora_config = LoraConfig(
+            r=self.rank,
+            lora_alpha=self.alpha,
+            target_modules=self.target_modules,
+            lora_dropout=self.dropout,
+            bias=self.bias,
+            task_type=self.task_type,
+        )
+
+        peft_model = get_peft_model(model, lora_config)
+        trainable_params = sum(
+            p.numel() for p in peft_model.parameters() if p.requires_grad
+        )
+        total_params = sum(p.numel() for p in peft_model.parameters())
+
+        self.log.info(
+            f"LoRA applied: {trainable_params:,} trainable params out of {total_params:,} total"
+        )
+        self.log.info(f"Trainable ratio: {100 * trainable_params / total_params:.2f}%")
+
+        return peft_model
+
+
+class Policy:
+    """
+    Responsible to load LLM + LoRA adapters (if required)
+    """
+
+    def __init__(
+        self,
+        name: str,
+        unique_id: str,
+        apply_lora: bool = True,
+        device: Optional[Any] = None,
+    ):
+        """
+        Initialize model name, unique_id and other constants
+        """
+        self.model = None
+        self.tokenizer = None
+        self.name = name
+        self.unique_id = unique_id
+        self.apply_lora: bool = RLFT_TRAIN_CONFIG.get("apply_lora", apply_lora)
+        self.system_prompt = RLFT_TRAIN_CONFIG.get(
+            "system_prompt",
+            "You are a Verilog Expert. In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block",
+        )
+        self.log = Logger(f"policy-{name}").get_logger()
+
+        self.device = device
+        self._select_device()  # Select hardware to load policy
+
+    def _select_device(self):
+        """
+        Detects if GPU is present in hardware
+        Selects it, if found.
+        Else, chooses CPU
+        """
+        if torch.cuda.is_available() and self.device is None:
+            self.device = torch.device("cuda")
+            self.log.info(f"NVIDIA GPU detected: {torch.cuda.get_device_name()}")
+        elif (
+            torch.backends.mps.is_available()
+            and torch.backends.mps.is_built()
+            and self.device is None
+        ):
+            self.device = torch.device("mps")
+            self.log.info("Apple Silicon GPU detected")
+        else:
+            self.device = torch.device("cpu")
+            self.log.info("No GPU detected, using CPU")
+
+    def load(self):
+        """
+        Load model to CPU or GPU if found
+        """
+        try:
+            # Load HuggingFace API token from environment file
+            # Required for accessing gated models like CodeLlama
+            api_key = os.getenv("HUGGINGFACE_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "'HUGGINGFACE_API_KEY' not found in environment variables"
+                )
+
+            # Hugginface Login step
+            login(token=api_key)
+            self.log.info("Login successful for HUGGING_FACE")
+
+            # Load tokenizer - converts text to tokens the model understands
+            self.log.info(f"Model chosen for HUGGING_FACE: {self.unique_id}")
+            self.log.info(f"Loading tokenizer from {self.unique_id}...")
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                self.unique_id,
+            )
+            if self.tokenizer.pad_token is None:
+                self.tokenizer.pad_token = self.tokenizer.eos_token
+
+            # Load the actual model weights
+            # Initialize model with memory-efficient settings
+            self.log.info(f"Loading model from HF for: {self.unique_id}...")
+            self.log.info(
+                "This may take several minutes on first run as it is downloading"
+            )
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.unique_id,
+                torch_dtype=torch.float32,
+                low_cpu_mem_usage=True,  # Optimize CPU memory usage during loading
+            ).to(self.device)
+            self.log.info("Model loaded successfully!")
+
+            # Apply LoRA if configured
+            if self.apply_lora:
+                self.log.info("Applying LoRA adapters...")
+                lora = Lora()
+                self.model = lora.apply(self.model)
+                self.log.info("LoRA adapters applied successfully!")
+        except ValueError as v_err:
+            self.log.error(f"Huggingface API KEY not found in ENV")
+            raise ValueError(v_err)
+        except Exception as err:
+            self.log.error(
+                f"Error while establishing connection with model: {self.unique_id} | Error: {err}"
+            )
+            raise Exception(f"Exception caught | Reason: {err}")
+
+    def generate(self, prompts: List[str], **kwargs):
+        """
+        Generate response from LLM using prompt
+        Also, generate responses in batches
+        """
+        # Check time taken to generate
+        start_time = time.time()
+
+        # Load constants
+        padding = RLFT_TRAIN_CONFIG.get("padding", True)
+        truncation = RLFT_TRAIN_CONFIG.get("truncation", True)
+        sample_size = RLFT_TRAIN_CONFIG.get("sample_size", 4)
+        max_tokens = RLFT_TRAIN_CONFIG.get("max_tokens", 512)
+        temperature = RLFT_TRAIN_CONFIG.get("temperature", 0.4)
+        top_p = RLFT_TRAIN_CONFIG.get("top_p", 0.9)
+
+        try:
+            # Tokenize inputs
+            tokenize_start = time.time()
+            inputs = self.tokenizer(
+                prompts,
+                return_tensors="pt",
+                padding=padding,
+                truncation=truncation,
+            ).to(self.device)
+            tokenize_time = time.time() - tokenize_start
+
+            # Check time taken to generate
+            generation_start = time.time()
+            with torch.no_grad():
+                for idx, prompt in enumerate(prompts):
+                    self.log.info(f"Generating for question {idx}: {prompt}")
+                outputs = self.model.generate(
+                    **inputs,
+                    max_new_tokens=max_tokens - inputs.input_ids.shape[1],
+                    temperature=temperature,
+                    do_sample=True if temperature >= 0.4 else False,
+                    num_return_sequences=sample_size if temperature >= 0.4 else 1,
+                    top_p=top_p,
+                    return_dict_in_generate=True,
+                    output_scores=True,  # Log probs for RL algorithms (like PPO, GRPO, etc.)
+                    **kwargs,
+                )
+            # End of generation
+            generation_time = time.time() - generation_start
+
+            # Decode responses
+            decode_start = time.time()
+            generated_texts = self.tokenizer.batch_decode(
+                outputs.sequences[:, inputs.input_ids.shape[1] :],
+                skip_special_tokens=True,
+            )
+            decode_time = time.time() - decode_start
+
+            total_time = time.time() - start_time
+
+            # Log timing info
+            self.log.info(
+                f"Generation complete in {total_time:.2f}s "
+                f"(tokenize: {tokenize_time:.3f}s, generate: {generation_time:.2f}s, decode: {decode_time:.3f}s)"
+            )
+
+            # Calculate tokens per second
+            total_tokens = outputs.sequences.numel() - inputs.input_ids.numel()
+            tokens_per_second = (
+                total_tokens / generation_time if generation_time > 0 else 0
+            )
+            self.log.info(
+                f"Tokens generated: {total_tokens}, Speed: {tokens_per_second:.1f} tokens/s"
+            )
+
+            single_prompt_length = inputs.input_ids.shape[1]
+            prompt_lengths = torch.full((4,), single_prompt_length)
+
+            return {
+                "texts": generated_texts,
+                "sequences": outputs.sequences,
+                "scores": outputs.scores,
+                "prompts_token_length": prompt_lengths,
+                "timing": {
+                    "total_time": total_time,
+                    "tokenize_time": tokenize_time,
+                    "generation_time": generation_time,
+                    "decode_time": decode_time,
+                    "tokens_per_second": tokens_per_second,
+                },
+            }
+        except Exception as err:
+            self.log.error(
+                f"Error while generating response with model: {self.unique_id} | Error: {err}"
+            )
+            raise Exception(f"Exception caught | Reason: {err}")
 
 
 class OpenAIAPIClient:
@@ -428,6 +320,7 @@ class OpenAIAPIClient:
     def generate(
         self,
         prompt: str,
+        system_prompt: str = "You are an expert programming and reasoning evaluator.",
         temperature: float = 0.2,
         max_tokens: int = 300,
         n_samples: int = 2,
@@ -468,7 +361,7 @@ class OpenAIAPIClient:
                 {
                     "role": "system",
                     # System message instructs the model to behave as a Verilog generator
-                    "content": SYSTEM_PROMPT,
+                    "content": system_prompt,
                 },
                 {
                     "role": "user",
@@ -515,7 +408,7 @@ class OpenAIAPIClient:
             "outputs": [choice.message.content for choice in response.choices],
             "config": {  # Configuration used for generation
                 "model": self.model,
-                "system_instruction": SYSTEM_PROMPT,
+                "system_instruction": system_prompt,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
                 "samples": n_samples,
@@ -534,757 +427,3 @@ class OpenAIAPIClient:
         }
 
         return response_data
-
-
-class OpenSourceLLMClient:
-    """
-    SDK client for all OSS LLM
-    """
-
-    def __init__(
-        self,
-        model_id: str = "codellama",
-        model_name: str = "meta-llama/CodeLlama-7b-Instruct-hf",
-        device: str = "cuda",
-        training_mode: bool = False,
-    ):
-        """
-        Initializes the tokenizer and model once for efficiency.
-
-        Parameters:
-        -----------
-        model_id:   str
-            Short identifier for the model (used for logging)
-        model_name: str
-            Full HuggingFace model path/name
-        device:     str
-            Device for GPU acceleration (if available)
-        training_mode:    bool
-            Used in training (RLFT) the LLM
-
-        Notes:
-        ------
-        - Models are loaded in float16 precision to save memory
-        - Uses device_map="auto" for automatic GPU/CPU distribution
-        - First run will download the model (~13GB)
-        """
-        self.model_id = model_id
-        self.model_name = model_name
-        self.device = device
-        self.training_mode = training_mode
-
-        # Initialize logger with model-specific name
-        self.log = Logger(model_id).get_logger()
-
-    def connect(self) -> bool:
-        """
-        Establish connection with LLM
-
-        Returns:
-        --------
-        Bool value to confirm connection
-        """
-        # Load HuggingFace API token from environment file
-        # Required for accessing gated models like CodeLlama
-        try:
-            api_key = os.getenv("HUGGINGFACE_API_KEY")
-            if not api_key:
-                raise ValueError("HUGGINGFACE_API_KEY not found in environment")
-
-            login(token=api_key)
-            self.log.info(f"Model chosen for HUGGING_FACE: {self.model_name}")
-            # Load tokenizer - converts text to tokens the model understands
-            self.log.info(f"Loading tokenizer from {self.model_name}...")
-            self.tokenizer = AutoTokenizer.from_pretrained(
-                self.model_name,
-            )
-            if self.tokenizer.pad_token is None:
-               self.tokenizer.pad_token = self.tokenizer.eos_token
-
-            # Load the actual model weights
-            self.log.info(f"Loading model from {self.model_name}...")
-            self.log.info(
-                "This may take several minutes on first run as it is downloading"
-            )
-
-            # Initialize model with memory-efficient settings
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.model_name,
-                torch_dtype=torch.float16,  # Use half precision to save memory
-                device_map="auto",  # Automatically distribute across available devices
-                low_cpu_mem_usage=True,  # Optimize CPU memory usage during loading
-            )
-
-            self.log.info("Model loaded successfully!")
-            # Set model to evaluation mode (disables dropout, etc.)
-            if not self.training_mode:
-                self.model.eval()
-            return True
-        except Exception as err:
-            self.log.error(
-                f"Error while establishing connection with model: {self.model_name} | Error: {err}"
-            )
-            return False
-
-    def lora_adapters(
-        self,
-        r: int = 16,
-        lora_alpha: int = 32,
-        lora_dropout: float = 0.1,
-        target_modules: List[str] = None,
-        task_type: str = "CAUSAL_LM",
-    ):
-        """Apply LoRA adapters to the loaded model for efficient fine-tuning"""
-        try:
-            self.log.info("Configuring LoRA adapters...")
-
-            if target_modules is None:
-                target_modules = [
-                    "q_proj",
-                    "k_proj", 
-                    "v_proj",
-                    "o_proj",
-                    "gate_proj",
-                    "up_proj",
-                    "down_proj",
-                ]
-
-            # Create LoRA configuration with better initialization
-            lora_config = LoraConfig(
-                r=r,
-                lora_alpha=lora_alpha,
-                lora_dropout=lora_dropout,
-                target_modules=target_modules,
-                bias="none",
-                task_type=TaskType.CAUSAL_LM,
-                init_lora_weights="gaussian",  # Better initialization
-            )
-
-            # Apply LoRA to the model
-            self.model = get_peft_model(self.model, lora_config)
-            
-            # Enable gradient checkpointing for memory efficiency
-            self.model.enable_input_require_grads()
-            if hasattr(self.model, "gradient_checkpointing_enable"):
-                self.model.gradient_checkpointing_enable()
-                self.log.info("Gradient checkpointing enabled")
-
-            # Initialize LoRA weights with smaller values to prevent instability
-            for name, param in self.model.named_parameters():
-                if "lora_" in name:
-                    if "lora_A" in name:
-                        # Initialize A matrices with smaller variance
-                        torch.nn.init.normal_(param, mean=0.0, std=0.01)
-                    elif "lora_B" in name:
-                        # Initialize B matrices to zero
-                        torch.nn.init.zeros_(param)
-                        
-            # Add gradient clipping to all LoRA parameters
-            for param in self.model.parameters():
-                if param.requires_grad:
-                    param.register_hook(lambda grad: torch.clamp(grad, -1.0, 1.0))
-
-            # Print trainable parameters info
-            trainable_params = sum(
-                p.numel() for p in self.model.parameters() if p.requires_grad
-            )
-            all_params = sum(p.numel() for p in self.model.parameters())
-            trainable_percent = 100 * trainable_params / all_params
-
-            self.log.info(
-                f"LoRA applied successfully!\n"
-                f"Trainable params: {trainable_params:,} || "
-                f"All params: {all_params:,} || "
-                f"Trainable%: {trainable_percent:.2f}%"
-            )
-
-            return self.model
-
-        except Exception as e:
-            self.log.error(f"Error applying LoRA adapters: {e}")
-            raise
-
-    def apply_deepspeed(
-        self,
-        gradient_accumulation_steps: int = 4,
-        train_batch_size: int = 2,
-        gradient_clipping: float = 1.0,
-        zero_stage: int = 2,
-        offload_optimizer: bool = True,
-        offload_param: bool = False,
-        bf16: bool = False,
-        lr: float = 2e-5,
-    ):
-        """
-        Apply DeepSpeed optimization to the loaded model for distributed training
-
-        Parameters:
-        -----------
-        gradient_accumulation_steps : int
-            Number of steps to accumulate gradients
-        train_batch_size : int
-            Training batch size per GPU
-        gradient_clipping : float
-            Max gradient norm for clipping
-        zero_stage : int
-            ZeRO optimization stage (1, 2, or 3)
-        offload_optimizer : bool
-            Offload optimizer states to CPU
-        offload_param : bool
-            Offload parameters to CPU (for ZeRO-3)
-        bf16 : bool
-            Use bfloat16 precision training
-        lr : float
-            Learning rate
-
-        Returns:
-        --------
-        model_engine : DeepSpeed model engine
-        optimizer : DeepSpeed optimizer
-        lr_scheduler : Learning rate scheduler
-        """
-        try:
-            self.log.info("Configuring DeepSpeed...")
-
-            # DeepSpeed configuration
-            ds_config = {
-                "train_batch_size": train_batch_size * gradient_accumulation_steps,
-                "gradient_accumulation_steps": gradient_accumulation_steps,
-                "gradient_clipping": gradient_clipping,
-                "steps_per_print": 10,
-                "zero_optimization": {
-                    "stage": zero_stage,
-                    "offload_optimizer": {
-                        "device": "cpu" if offload_optimizer else "none",
-                        "pin_memory": True,
-                    },
-                    "offload_param": {
-                        "device": "cpu" if offload_param else "none",
-                        "pin_memory": True,
-                    },
-                    "overlap_comm": True,
-                    "contiguous_gradients": True,
-                    "sub_group_size": 1e9,
-                    "reduce_bucket_size": "auto",
-                    "stage3_prefetch_bucket_size": "auto",
-                    "stage3_param_persistence_threshold": "auto",
-                    "stage3_max_live_parameters": 1e9,
-                    "stage3_max_reuse_distance": 1e9,
-                    "gather_16bit_weights_on_model_save": True,
-                },
-                "bf16": {
-                    "enabled": bf16,
-                },
-                "fp16": {
-                    "enabled": not bf16,
-                    "auto_cast": False,
-                    "loss_scale": 0,
-                    "initial_scale_power": 16,
-                    "loss_scale_window": 1000,
-                    "hysteresis": 2,
-                    "min_loss_scale": 1,
-                },
-                "optimizer": {
-                    "type": "AdamW",
-                    "params": {
-                        "lr": lr,
-                        "betas": [0.9, 0.999],
-                        "eps": 1e-8,
-                        "weight_decay": 0.01,
-                    },
-                },
-                "scheduler": {
-                    "type": "WarmupDecayLR",
-                    "params": {
-                        "warmup_min_lr": 0,
-                        "warmup_max_lr": lr,
-                        "warmup_num_steps": 100,
-                        "total_num_steps": 1000,  # Adjust based on your training
-                    },
-                },
-                "zero_allow_untested_optimizer": True,
-                "wall_clock_breakdown": False,
-            }
-
-            # Initialize DeepSpeed
-            self.model_engine, self.optimizer, self.lr_scheduler, _ = (
-                deepspeed.initialize(
-                    model=self.model,
-                    config=ds_config,
-                )
-            )
-
-            self.log.info(
-                f"DeepSpeed initialized successfully!\n"
-                f"ZeRO Stage: {zero_stage}\n"
-                f"Offload Optimizer: {offload_optimizer}\n"
-                f"Offload Parameters: {offload_param}\n"
-                f"Precision: {'bf16' if bf16 else 'fp16'}"
-            )
-
-            # Set up for distributed training if available
-            if dist.is_initialized():
-                world_size = dist.get_world_size()
-                rank = dist.get_rank()
-                self.log.info(f"Distributed training: Rank {rank}/{world_size}")
-
-            return self.model_engine, self.optimizer, self.lr_scheduler
-
-        except Exception as e:
-            self.log.error(f"Error applying DeepSpeed: {e}")
-            raise
-
-    def prepare_for_rlft(
-        self,
-        # LoRA parameters
-        lora_r: int = 16,
-        lora_alpha: int = 32,
-        lora_dropout: float = 0.1,
-        # DeepSpeed parameters
-        gradient_accumulation_steps: int = 4,
-        train_batch_size: int = 4,
-        zero_stage: int = 2,
-        lr: float = 2e-5,
-        # For PPO policy
-        use_actor_critic: bool = True,
-        use_deepspeed: bool = False,
-    ):
-        """
-        Convenience method to prepare model for RLFT by applying both LoRA and DeepSpeed
-
-        Usage:
-        ------
-        client = OpenSourceLLMClient(
-            model_id="deepseek-coder",
-            model_name="deepseek-ai/deepseek-coder-7b-instruct-v1.5"
-        )
-        client.connect()
-        model_engine, optimizer, scheduler = client.prepare_for_rlft()
-        """
-        # First apply LoRA adapters
-        self.lora_adapters(
-            r=lora_r,
-            lora_alpha=lora_alpha,
-            lora_dropout=lora_dropout,
-        )
-
-        # Wrap with actor-critic if using PPO
-        if use_actor_critic:
-            self.model = self.prepare_actor_critic_model()
-            self.log.info("Using actor-critic model for PPO")
-
-        # Apply DeepSpeed or use simple optimizer
-        if use_deepspeed:
-            return self.apply_deepspeed(
-                gradient_accumulation_steps=gradient_accumulation_steps,
-                train_batch_size=train_batch_size,
-                zero_stage=zero_stage,
-                lr=lr,
-            )
-        else:
-            # Simple optimizer setup without DeepSpeed
-            self.log.info("Using standard optimizer without DeepSpeed")
-
-            # Create optimizer
-            optimizer = torch.optim.AdamW(
-                self.model.parameters(),
-                lr=lr,
-                betas=(0.9, 0.999),
-                eps=1e-8,
-                weight_decay=0.01,
-            )
-
-            # Create scheduler
-            lr_scheduler = torch.optim.lr_scheduler.StepLR(
-                optimizer, step_size=100, gamma=0.95
-            )
-
-            # Create a mock model engine for compatibility
-            class SimpleModelEngine:
-                def __init__(self, model, optimizer, device):
-                    self.module = model
-                    self.optimizer = optimizer
-                    self.device = device
-                    self.tokenizer = None  # Will be set by caller
-
-                def backward(self, loss):
-                    loss.backward()
-
-                def step(self):
-                    self.optimizer.step()
-                    self.optimizer.zero_grad()
-
-            model_engine = SimpleModelEngine(self.model, optimizer, self.device)
-
-            return model_engine, optimizer, lr_scheduler
-
-    def prepare_actor_critic_model(self):
-        """
-        Wrap the base model with actor-critic architecture for PPO
-        """
-        # Create actor-critic model
-        actor_critic_model = ActorCriticModel(self.model, self.tokenizer)
-
-        # Get device from base model
-        device = next(self.model.parameters()).device
-
-        # Move value head to same device with float16
-        actor_critic_model.value_head = actor_critic_model.value_head.to(
-            device=device, dtype=torch.float16
-        )
-
-        # Initialize value head weights with much smaller values for float16 stability
-        with torch.no_grad():
-            # Use very small initialization values to prevent overflow in float16
-            init_std = 0.0001  # Much smaller than 0.002
-            
-            actor_critic_model.value_head.summary.weight.data.normal_(
-                mean=0.0, std=init_std
-            )
-            actor_critic_model.value_head.summary.bias.data.zero_()
-            actor_critic_model.value_head.value.weight.data.normal_(
-                mean=0.0, std=init_std
-            )
-            actor_critic_model.value_head.value.bias.data.zero_()
-            
-            # Verify no NaN/inf after initialization
-            for name, param in actor_critic_model.value_head.named_parameters():
-                if torch.isnan(param).any() or torch.isinf(param).any():
-                    self.log.warning(f"NaN/inf detected in {name} after init, using zeros")
-                    param.data.zero_()
-
-        self.log.info(
-            f"Actor-critic model prepared with value head on {device} with dtype float16"
-        )
-        return actor_critic_model
-
-    def batch_generate(
-        self,
-        prompts: List[str],
-        temperature: float = 0.2,
-        max_tokens: int = 300,
-        n_samples: int = 2,
-        training_mode: bool = False,
-    ) -> List[Dict]:
-        """
-        Batch generate responses from loaded LLM
-
-        Parameters:
-        -----------
-        prompts : List[str]
-            Input prompt(s) describing the Verilog module to generate
-        temperature : float
-            Sampling temperature (lower = more deterministic, higher = more creative)
-        max_tokens : int
-            Maximum number of new tokens to generate
-        n_samples : int
-            Number of different outputs to generate for the same prompt
-        training_mode : bool
-            Placeholder for training mode; if True -> activate eval mode for response generation
-
-        Returns:
-        --------
-        List[Dict]
-            List of Dictionaries containing:
-            - question: The input prompt
-            - outputs: List of generated Verilog code samples
-            - config: Generation configuration used
-        """
-        # Format messages in the chat template expected by the model
-        all_messages = []
-        for prompt in prompts:
-            all_messages.append(
-                [
-                    {
-                        "role": "system",
-                        "content": SYSTEM_PROMPT
-                        if not self.training_mode
-                        else "You are a Verilog code generator. In your response, output your reasoning for the workflow of the code in your response within <reason>...</reason> and continue to write the Verilog code enclosed in ```verilog...```.",
-                    },
-                    {"role": "user", "content": prompt},
-                ]
-            )
-
-        # Convert messages to model input format
-        inputs = self.tokenizer.apply_chat_template(
-            all_messages,
-            add_generation_prompt=True,  # Add the prompt that signals the model to generate
-            tokenize=True,  # Convert to tokens
-            padding=True,
-            truncation=True,
-            return_dict=True,  # Return as dictionary
-            return_tensors="pt",  # Return PyTorch tensors
-        ).to(self.device)  # Move to same device as model
-
-        batch_size = len(prompts)
-        input_token_counts = []
-        # Count input tokens
-        for i in range(batch_size):
-            # Count non-padded tokens for each prompt
-            input_token_counts.append((inputs["attention_mask"][i] == 1).sum().item())
-
-        # Log generation start
-        self.log.info(f"Running chat: {self.model_id} ...")
-        start_time = time.time()
-
-        # Generate responses
-        # Before that ensure model.evals() is ran -> if in training mode
-        if training_mode:
-            self.model.eval()
-
-        # Check for NaN/inf in model weights
-        for name, param in self.model.named_parameters():
-            if torch.isnan(param).any() or torch.isinf(param).any():
-                # Special handling for value head parameters
-                if "value_head" in name and param.requires_grad:
-                    self.log.warning(f"NaN/inf detected in {name}, reinitializing...")
-                    with torch.no_grad():
-                        if "weight" in name:
-                            param.data.normal_(mean=0.0, std=0.0001)
-                        else:  # bias
-                            param.data.zero_()
-                else:
-                    self.log.error(f"NaN/inf detected in parameter: {name}")
-                    raise ValueError(f"Model contains NaN/inf values in {name}")
-        # Uses sampling with temperature to create diverse outputs
-        # Generate for the batch
-        # Generation with error handling
-        try:
-            with torch.no_grad():
-                # Generate for all prompts at once
-                outputs = self.model.generate(
-                    **inputs,  # This already contains all prompts
-                    do_sample=True if temperature > 0 else False,
-                    temperature=max(temperature, 1e-7),
-                    max_new_tokens=max_tokens,
-                    num_return_sequences=n_samples,
-                    pad_token_id=self.tokenizer.pad_token_id,
-                    eos_token_id=self.tokenizer.eos_token_id,
-                    top_p=0.95,
-                    top_k=50,
-                )
-                
-        except RuntimeError as e:
-            self.log.error(f"Generation failed: {e}")
-            # Fallback: generate with more conservative parameters
-            outputs = self.model.generate(
-                **inputs,
-                do_sample=False,  # Use greedy decoding
-                max_new_tokens=max_tokens,
-                num_return_sequences=1,  # Generate only one sample
-                pad_token_id=self.tokenizer.pad_token_id,
-                eos_token_id=self.tokenizer.eos_token_id,
-            )
-            # Adjust n_samples since we're only generating 1 per prompt in fallback
-            n_samples = 1
-
-        end_time = time.time()
-        generation_time = end_time - start_time
-
-        # Store for all responses
-        responses = []
-
-        # outputs shape: [batch_size * n_samples, sequence_length]
-        # Need to reshape to group by prompt
-        for prompt_idx, prompt in enumerate(prompts):
-            # Calculate output tokens for each sample
-            prompt_responses = []
-            tokens_per_sample = []
-            total_output_tokens = 0
-
-            # Get the input length for THIS specific prompt
-            input_length = inputs["input_ids"][prompt_idx].shape[0]
-
-            # Extract outputs for this prompt
-            for sample_idx in range(n_samples):
-                # Calculate the correct index in the flattened outputs
-                output_idx = prompt_idx * n_samples + sample_idx
-                
-                # Get the generated output for this sample
-                output = outputs[output_idx]
-
-                # Extract only the generated portion (after input)
-                generated_ids = output[input_length:]
-
-                # Count actual generated tokens (excluding padding)
-                output_token_count = (
-                    (generated_ids != self.tokenizer.pad_token_id).sum().item()
-                )
-                tokens_per_sample.append(output_token_count)
-                total_output_tokens += output_token_count
-
-                # Decode to text
-                generated_text = self.tokenizer.decode(
-                    generated_ids,
-                    skip_special_tokens=True,
-                )
-                prompt_responses.append(generated_text)
-
-            # Calculate metrics for this specific prompt
-            prompt_time = generation_time / batch_size  # Average time per prompt
-            output_tokens_per_second = (
-                total_output_tokens / prompt_time if prompt_time > 0 else 0
-            )
-            total_tokens_per_second = (
-                (input_token_counts[prompt_idx] + total_output_tokens) / prompt_time
-                if prompt_time > 0 else 0
-            )
-
-            # Create response dict for this prompt
-            response = {
-                "question": prompt,
-                "outputs": prompt_responses,
-                "config": {
-                    "model": self.model_name,
-                    "system_instruction": SYSTEM_PROMPT if not self.training_mode else "You are a Verilog code generator...",
-                    "temperature": temperature,
-                    "max_tokens": max_tokens,
-                    "samples": n_samples,
-                },
-                "time": prompt_time,
-                "input_tokens": input_token_counts[prompt_idx],
-                "output_tokens": total_output_tokens,
-                "total_tokens": input_token_counts[prompt_idx] + total_output_tokens,
-                "tokens_per_sample": tokens_per_sample,
-                "avg_tokens_per_sample": total_output_tokens / n_samples if n_samples > 0 else 0,
-                "output_tokens_per_second": output_tokens_per_second,
-                "total_tokens_per_second": total_tokens_per_second,
-            }
-            responses.append(response)
-
-        return responses
-
-    def generate(
-        self,
-        prompt: str,
-        temperature: float = 0.2,
-        max_tokens: int = 300,
-        n_samples: int = 2,
-    ) -> Dict:
-        """
-        Generates responses for a given prompt using the loaded LLM.
-
-        Parameters:
-        -----------
-        prompt : str
-            Input prompt describing the Verilog module to generate
-        temperature : float
-            Sampling temperature (lower = more deterministic, higher = more creative)
-        max_tokens : int
-            Maximum number of new tokens to generate
-        n_samples : int
-            Number of different outputs to generate for the same prompt
-
-        Returns:
-        --------
-        Dict
-            Dictionary containing:
-            - question: The input prompt
-            - outputs: List of generated Verilog code samples
-            - config: Generation configuration used
-        """
-
-        # Format messages in the chat template expected by the model
-        messages = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ]
-
-        # Convert messages to model input format
-        # apply_chat_template formats the conversation according to model's expectations
-        if self.model_id == "verigen-finetuned":
-            inputs = self.tokenizer(
-                prompt,
-                return_tensors="pt",
-            ).to(self.device)
-        else:
-            inputs = self.tokenizer.apply_chat_template(
-                messages,
-                add_generation_prompt=True,  # Add the prompt that signals the model to generate
-                tokenize=True,  # Convert to tokens
-                return_dict=True,  # Return as dictionary
-                return_tensors="pt",  # Return PyTorch tensors
-            ).to(self.device)  # Move to same device as model
-
-        # Count input tokens
-        input_token_count = inputs["input_ids"].shape[-1]
-
-        # Log generation start
-        self.log.info(f"Running chat: {self.model_id} ...")
-        start_time = time.time()
-
-        # Generate responses
-        # Uses sampling with temperature to create diverse outputs
-        outputs = self.model.generate(
-            **inputs,  # Unpack input tensors
-            do_sample=True,  # Enable sampling (vs greedy decoding)
-            temperature=temperature,  # Control randomness
-            max_new_tokens=max_tokens,  # Limit response length
-            num_return_sequences=n_samples,  # Generate multiple samples
-        )
-
-        end_time = time.time()
-        generation_time = end_time - start_time
-
-        # Log generation completion and timing
-        self.log.info(
-            f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
-        )
-        self.log.info(f"Generating response: {self.model_id} ...")
-
-        # Calculate output tokens for each sample
-        tokens_per_sample = []
-        total_output_tokens = 0
-
-        for output in outputs:
-            # Count tokens in this sample (excluding input tokens)
-            output_tokens_in_sample = len(output) - input_token_count
-            tokens_per_sample.append(output_tokens_in_sample)
-            total_output_tokens += output_tokens_in_sample
-
-        # Calculate tokens per second metrics
-        output_tokens_per_second = (
-            total_output_tokens / generation_time if generation_time > 0 else 0
-        )
-        total_tokens_per_second = (
-            (input_token_count + total_output_tokens) / generation_time
-            if generation_time > 0
-            else 0
-        )
-
-        # Log generation completion and timing
-        self.log.info(
-            f"Time taken to generate for '{prompt}': {generation_time:.2f} sec"
-        )
-        self.log.info(f"Generating response: {self.model_id} ...")
-
-        # Decode generated tokens back to text
-        responses = {
-            "question": prompt,
-            "outputs": [
-                self.tokenizer.decode(
-                    output[inputs["input_ids"].shape[-1] :],
-                    skip_special_tokens=True,
-                )
-                for output in outputs
-            ],
-            "config": {
-                "model": self.model_name,
-                "system_instruction": SYSTEM_PROMPT,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-                "samples": n_samples,
-            },
-            "time": generation_time,
-            "input_tokens": input_token_count,
-            "output_tokens": total_output_tokens,
-            "total_tokens": input_token_count + total_output_tokens,
-            "tokens_per_sample": tokens_per_sample,
-            "avg_tokens_per_sample": total_output_tokens / n_samples
-            if n_samples > 0
-            else 0,
-            "output_tokens_per_second": output_tokens_per_second,
-            "total_tokens_per_second": total_tokens_per_second,
-        }
-
-        return responses
