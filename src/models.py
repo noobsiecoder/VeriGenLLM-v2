@@ -251,8 +251,20 @@ class Policy:
                 f"Tokens generated: {total_tokens}, Speed: {tokens_per_second:.1f} tokens/s"
             )
 
-            single_prompt_length = inputs.input_ids.shape[1]
-            prompt_lengths = torch.full((4,), single_prompt_length)
+            # If you have multiple prompts with different lengths
+            if padding:
+                # Each prompt might have different length
+                prompt_lengths_per_prompt = (
+                    inputs.input_ids != self.tokenizer.pad_token_id
+                ).sum(dim=1)
+                # Repeat for each sample
+                prompt_lengths = prompt_lengths_per_prompt.repeat_interleave(
+                    sample_size
+                )
+            else:
+                # All same length
+                num_sequences = outputs.sequences.shape[0]
+                prompt_lengths = torch.full((num_sequences,), inputs.input_ids.shape[1])
 
             return {
                 "texts": generated_texts,
