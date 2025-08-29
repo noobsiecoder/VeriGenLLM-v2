@@ -138,10 +138,10 @@ class Trainer:
         """
         Private function that runs the RL batch(es)
         """
-        batch_responses = None
-        rewards = []  # store all rewards in a batch
-        input_ids = []  # store all input ids in a batch
         for batch_idx in range(0, len(self.dataset_files_order), self.batch_size):
+            batch_responses = None
+            rewards = []  # store all rewards in a batch
+            input_ids = []  # store all input ids in a batch
             dataset_paths = self.dataset_files_order[
                 batch_idx : self.batch_size + batch_idx
             ]
