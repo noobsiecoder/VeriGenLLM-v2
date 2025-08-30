@@ -94,7 +94,9 @@ class PPO(BaseRL):
         # Create action mask
         # In compute_loss, before the action_mask loop:
         self.log.info(f"batch['sequences'] shape: {batch['sequences'].shape}")
-        self.log.info(f"batch['prompts_token_length'] shape: {batch['prompts_token_length'].shape}")
+        self.log.info(
+            f"batch['prompts_token_length'] shape: {batch['prompts_token_length'].shape}"
+        )
         self.log.info(f"batch['prompts_token_length']: {batch['prompts_token_length']}")
         action_mask = torch.zeros_like(batch["sequences"], dtype=self.precision)
         for i, prompt_len in enumerate(batch["prompts_token_length"]):

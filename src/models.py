@@ -41,6 +41,7 @@ CONSTANT_PROMPT = textwrap.dedent("""You are a Verilog assistant.
     4. Close the module with endmodule.
     """)
 
+
 class Lora:
     """
     Applies LoRA adapters
@@ -167,8 +168,7 @@ class Policy:
             self.log.info(f"Model chosen for HUGGING_FACE: {self.unique_id}")
             self.log.info(f"Loading tokenizer from {self.unique_id}...")
             self.tokenizer = AutoTokenizer.from_pretrained(
-                self.unique_id,
-                trust_remote_code=True
+                self.unique_id, trust_remote_code=True
             )
             if self.tokenizer.pad_token is None:
                 self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -183,7 +183,7 @@ class Policy:
                 self.unique_id,
                 torch_dtype=self.precision,
                 low_cpu_mem_usage=True,  # Optimize CPU memory usage during loading
-                trust_remote_code=True
+                trust_remote_code=True,
             ).to(self.device)
             self.log.info("Model loaded successfully!")
 
@@ -244,7 +244,7 @@ class Policy:
                     num_return_sequences=sample_size,
                     return_dict_in_generate=True,
                     output_scores=True,
-                    eos_token_id=self.tokenizer.eos_token_id
+                    eos_token_id=self.tokenizer.eos_token_id,
                 )
                 outputs = self.model.generate(
                     **inputs,
@@ -296,7 +296,9 @@ class Policy:
 
             self.log.info(f"Requested samples: {sample_size}")
             self.log.info(f"Actual sequences generated: {outputs.sequences.shape[0]}")
-            self.log.info(f"Expected: {len(prompts)} prompts x {sample_size} samples = {len(prompts) * sample_size}")
+            self.log.info(
+                f"Expected: {len(prompts)} prompts x {sample_size} samples = {len(prompts) * sample_size}"
+            )
 
             return {
                 "texts": generated_texts,
