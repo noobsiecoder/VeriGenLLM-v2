@@ -358,12 +358,11 @@ class WeightsAndBiases:
         except Exception as e:
             self.log.error(f"Failed to upload JSON to W&B: {e}")
 
-    def log_model_checkpoint(self, epoch: int, metrics: Dict[str, float]):
+    def log_model_checkpoint(self, epoch: int):
         """Log when model checkpoint is saved"""
         checkpoint_info = {
             "checkpoint/epoch": epoch,
             "checkpoint/step": self.step,
-            **{f"checkpoint/{k}": v for k, v in metrics.items()},
         }
 
         if self.use_wandb:
