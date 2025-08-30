@@ -92,7 +92,7 @@ RLFT_TRAIN_CONFIG = {
     # "apply_lora": True,
     "apply_lora": False,
     "precision": torch.float32,
-    "epochs": 5,
+    "epochs": 50,
     "batch_size": 2,
     "sample_size": 4,
     "padding": True,
