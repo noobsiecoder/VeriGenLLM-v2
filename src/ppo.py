@@ -11,7 +11,7 @@ Place:  Boston, MA
 from typing import List
 import torch
 from torch import nn
-from constants import BaseRL, PPO_CONFIG
+from constants import BaseRL, PPO_CONFIG, RLFT_TRAIN_CONFIG
 from src.models import Policy
 
 
@@ -55,6 +55,7 @@ class PPO(BaseRL):
         self.value_coefficient = PPO_CONFIG.get("value_coefficient", 0.5)
         self.entropy_coefficient = PPO_CONFIG.get("entropy_coefficient", 0.01)
         self.max_grad_norm = PPO_CONFIG.get("max_grad_norm", 0.5)
+        self.precision = RLFT_TRAIN_CONFIG.get("precision", torch.float16)
         self.total_loss = None
         self.value_head = None
         self._value_head_init(hidden_dim)
@@ -69,7 +70,7 @@ class PPO(BaseRL):
         # Get hidden states per batch
         hidden_states = torch.stack(batch["hidden_states"]).to(self.device)
         # # Get rewards per batch
-        rewards = torch.tensor(rewards, dtype=torch.float32, device=self.device)
+        rewards = torch.tensor(rewards, dtype=self.precision, device=self.device)
         # # Calculate Advantage function
         advantage = self._advantage_function(rewards, hidden_states)
         # Normalize advantages
@@ -89,7 +90,7 @@ class PPO(BaseRL):
             new_log_probs, dim=2, index=batch["sequences"].unsqueeze(-1)
         ).squeeze(-1)  # Result: [4, 512]
         # Create action mask
-        action_mask = torch.zeros_like(batch["sequences"], dtype=torch.float32)
+        action_mask = torch.zeros_like(batch["sequences"], dtype=self.precision)
         for i, prompt_len in enumerate(batch["prompts_token_length"]):
             action_mask[i, prompt_len:] = 1.0
         # Get attention mask (you calculated earlier)

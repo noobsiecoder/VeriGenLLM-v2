@@ -96,6 +96,7 @@ class Policy:
         self.tokenizer = None
         self.name = name
         self.unique_id = unique_id
+        self.precision = RLFT_TRAIN_CONFIG.get("precision", torch.float16)
         self.apply_lora: bool = RLFT_TRAIN_CONFIG.get("apply_lora", apply_lora)
         self.system_prompt = RLFT_TRAIN_CONFIG.get(
             "system_prompt",
@@ -160,7 +161,7 @@ class Policy:
             )
             self.model = AutoModelForCausalLM.from_pretrained(
                 self.unique_id,
-                torch_dtype=torch.float32,
+                torch_dtype=self.precision,
                 low_cpu_mem_usage=True,  # Optimize CPU memory usage during loading
             ).to(self.device)
             self.log.info("Model loaded successfully!")
