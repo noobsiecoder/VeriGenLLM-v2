@@ -277,7 +277,7 @@ class Trainer:
             self.algorithm.update()
             # Print key metrics
             self.log.info(
-                f"Step {self.step} | Epoch {epoch} | Batch {batch_idx} | "
+                f"Epoch {epoch} | Batch {batch_idx} | "
                 f"Policy Loss: {losses.get('policy_loss', 0):.4f} | "
                 f"Mean Reward: {losses.get('mean_reward', 0):.4f} | "
                 f"KL: {losses.get('approx_kl', 0):.4f}"
