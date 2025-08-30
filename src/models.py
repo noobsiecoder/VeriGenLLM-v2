@@ -12,6 +12,7 @@ Place:  Boston, MA
 
 import os
 import torch
+import textwrap
 from huggingface_hub import login
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -211,8 +212,20 @@ class Policy:
             # Check time taken to generate
             generation_start = time.time()
             with torch.no_grad():
-                CONSTANT_PROMPT = "In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block. The code is given below, solve it:"
-                prompts = [CONSTANT_PROMPT + prompt for prompt in prompts]
+                CONSTANT_PROMPT = textwrap.dedent("""You are a Verilog assistant.  
+                Return exactly two blocks in this order:
+
+                <reason>Briefly describe the coding steps (≤60 words, no extra commentary).</reason>
+
+                ```verilog
+                [final Verilog solution only]
+                ```
+
+                TASK:
+                {problem}
+
+                Rules: no text outside these two blocks, use "verilog" in the code fence, output once only""")
+                prompts = [CONSTANT_PROMPT.format(prompt) for prompt in prompts]
                 for idx, prompt in enumerate(prompts):
                     self.log.info(f"Generating for question {idx}: {prompt}")
                 outputs = self.model.generate(
