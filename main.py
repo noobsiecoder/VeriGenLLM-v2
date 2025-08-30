@@ -307,15 +307,10 @@ class Trainer:
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
                 # Note: update happens on CPU (more memory efficient)
                 with torch.no_grad():
-                    # Get only the base model weights (without LoRA)
-                    if RLFT_TRAIN_CONFIG.get("apply_lora", False):
-                        self.policy.model.merge_adapter()  # Merges LoRA into base temporarily
-                    base_state = self.policy.model.state_dict()
-                    if RLFT_TRAIN_CONFIG.get("apply_lora", False):
-                        self.policy.model.unmerge_adapter()  # Restore LoRA separation
-
-                    # Move to CPU and load into ref_policy
-                    cpu_state = {k: v.cpu() for k, v in base_state.items()}
+                    # Copy the entire state dict including LoRA weights
+                    policy_state = self.policy.model.state_dict()
+                    # Move to CPU and load into ref_policy (which also has LoRA)
+                    cpu_state = {k: v.cpu() for k, v in policy_state.items()}
                     self.ref_policy.model.load_state_dict(cpu_state)
 
                 # Record updated policy
@@ -326,6 +321,7 @@ class Trainer:
                     self.ref_policy.model.to(
                         "cuda"
                     )  # Move ref_policy to CUDA for generation
+                    self.ref_policy.model.eval() # EVAL Mode
                     responses = self.ref_policy.generate(
                         prompts=[prompt]
                     )  # Only one prompt sent
