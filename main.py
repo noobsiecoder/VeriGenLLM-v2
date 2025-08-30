@@ -318,9 +318,10 @@ class Trainer:
                     self.log.info("Testing New Policy....")
                     prompt = RLFT_TRAIN_CONFIG["test_data"]["prompt"]
                     tb_code_in_str = RLFT_TRAIN_CONFIG["test_data"]["tb_code"]
-                    self.ref_policy.model.to(
-                        "cuda"
-                    )  # Move ref_policy to CUDA for generation
+                    # Clear any cached tensors
+                    torch.cuda.empty_cache()
+                    self.ref_policy.model = self.ref_policy.model.to("cuda")
+                    self.ref_policy.device = torch.device("cuda")  # Update device attribute
                     self.ref_policy.model.eval() # EVAL Mode
                     responses = self.ref_policy.generate(
                         prompts=[prompt]
