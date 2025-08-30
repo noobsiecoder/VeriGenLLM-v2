@@ -62,7 +62,11 @@ class Trainer:
             self.policy.load()
             # Load policy for reference
             self.ref_policy = Policy(
-                name=self.name, unique_id=self.unique_id, apply_lora=False
+                name=self.name,
+                unique_id=self.unique_id,
+                apply_lora=False,
+                is_ref=False,
+                device="cpu",
             )
             self.ref_policy.load()
             # Freeze params - only for reference
@@ -217,19 +221,20 @@ class Trainer:
                 batch_responses["sequences"] != self.policy.tokenizer.pad_token_id
             ).long()
             with torch.no_grad():
+                # Move to GPU for computation
+                self.ref_policy.model.to("cuda")
                 ref_outputs = self.ref_policy.model(
                     input_ids=batch_responses["sequences"],
                     attention_mask=attention_mask,
                     output_hidden_states=True,
                 )
-                ref_logits = ref_outputs.logits
-                ref_hidden_states = ref_outputs.hidden_states
-                # Empty cache to not hit CUDA MEM errors
+                ref_logits = ref_outputs.logits.clone()
+                ref_hidden_states = [hs.clone() for hs in ref_outputs.hidden_states]
+                # Move back to CPU
+                self.ref_policy.model.to("cpu")
                 del ref_outputs
                 torch.cuda.empty_cache()
-            self.ref_policy.model.to(
-                "cpu"
-            )  # offload to CPU as it it inference only model
+            # Run policy model
             outputs = self.policy.model(
                 input_ids=batch_responses["sequences"],
                 attention_mask=attention_mask,
@@ -263,7 +268,12 @@ class Trainer:
             self.log.info(f"Losses: {json.dumps(losses, indent=4)}")
 
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
-                self.ref_policy.model.load_state_dict(self.policy.model.state_dict())
+                # Note: update happens on CPU (more memory efficient)
+                with torch.no_grad():
+                    policy_state = self.policy.model.state_dict()
+                    # Move state dict to CPU before loading
+                    cpu_state = {k: v.cpu() for k, v in policy_state.items()}
+                    self.ref_policy.model.load_state_dict(cpu_state)
 
 
 if __name__ == "__main__":
