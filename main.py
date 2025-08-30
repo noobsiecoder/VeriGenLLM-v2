@@ -222,7 +222,14 @@ class Trainer:
                     attention_mask=attention_mask,
                     output_hidden_states=True,
                 )
-            ref_logits = ref_outputs.logits
+                ref_logits = ref_outputs.logits
+                ref_hidden_states = ref_outputs.hidden_states
+                # Empty cache to not hit CUDA MEM errors
+                del ref_outputs
+                torch.cuda.empty_cache()
+            self.ref_policy.model.to(
+                "cpu"
+            )  # offload to CPU as it it inference only model
             outputs = self.policy.model(
                 input_ids=batch_responses["sequences"],
                 attention_mask=attention_mask,
@@ -246,8 +253,7 @@ class Trainer:
                 / float(len(compilation_scores)),
                 "train/mean_fcor_reward": sum(func_corr_scores)
                 / float(len(func_corr_scores)),
-                "train/mean_synt_reward": sum(synth_scores)
-                / float(len(synth_scores)),
+                "train/mean_synt_reward": sum(synth_scores) / float(len(synth_scores)),
                 "train/mean_coqu_reward": sum(code_quality_scores)
                 / float(len(code_quality_scores)),
                 "train/mean_reas_reward": sum(reasoning_scores)
