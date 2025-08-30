@@ -58,7 +58,7 @@ class Trainer:
         # Load LLM Model
         try:
             # Load policy to be updated
-            self.policy = Policy(name=self.name, unique_id=self.unique_id, grad_check=True)
+            self.policy = Policy(name=self.name, unique_id=self.unique_id, grad_check=False)
             self.policy.load()
             # Load policy for reference
             self.ref_policy = Policy(
@@ -307,32 +307,11 @@ class Trainer:
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
                 # Note: update happens on CPU (more memory efficient)
                 with torch.no_grad():
-                    # Unwrap gradient accumulation
-                    policy_model = self.policy.model
-                    if hasattr(policy_model, 'module'):
-                        policy_model = policy_model.module
-                    
-                    if RLFT_TRAIN_CONFIG.get("apply_lora", False):
-                        # Get merged weights (base + LoRA)
-                        policy_model.merge_adapter()
-                        
-                        # Get the base model state dict
-                        base_model = policy_model.base_model.model
-                        base_state = base_model.state_dict()
-                        
-                        # Unmerge to restore LoRA
-                        policy_model.unmerge_adapter()
-                        
-                        # Fix keys if needed (remove 'model.' prefix if present)
-                        cpu_state = {}
-                        for k, v in base_state.items():
-                            new_key = k.replace('model.', '') if k.startswith('model.') else k
-                            cpu_state[new_key] = v.cpu()
-                    else:
-                        # No LoRA case
-                        cpu_state = {k: v.cpu() for k, v in policy_model.state_dict().items()}
-                    
-                    self.ref_policy.model.load_state_dict(cpu_state)
+                    # Copy the entire state dict including LoRA weights
+                    policy_state = self.policy.model.state_dict()
+                    # Move to CPU and load into ref_policy (which also has LoRA)
+                    cpu_state = {k: v.cpu() for k, v in policy_state.items()}
+                self.ref_policy.model.load_state_dict(cpu_state)
 
                 # Record updated policy
                 if RLFT_TRAIN_CONFIG.get("test_data", None) is not None:
