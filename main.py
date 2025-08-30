@@ -141,6 +141,11 @@ class Trainer:
         for batch_idx in range(0, len(self.dataset_files_order), self.batch_size):
             batch_responses = None
             rewards = []  # store all rewards in a batch
+            compilation_scores = []  # store all comp scores in a batch
+            func_corr_scores = []  # store all functional correctness scores in a batch
+            synth_scores = []  # store all synthesise scores in a batch
+            code_quality_scores = []  # store all code quality scores in a batch
+            reasoning_scores = []  # store all reasoning scores in a batch
             input_ids = []  # store all input ids in a batch
             dataset_paths = self.dataset_files_order[
                 batch_idx : self.batch_size + batch_idx
@@ -184,7 +189,7 @@ class Trainer:
                             cd_code_in_str, tb_code_in_str
                         )[0]
                     )
-                    sythesise_score = self.reward_func.sythesise_score(cd_code_in_str)
+                    synthesise_score = self.reward_func.synthesise_score(cd_code_in_str)
                     code_quality_score = self.reward_func.code_quality_score(
                         cd_code_in_str
                     )[0]
@@ -198,10 +203,15 @@ class Trainer:
                     reward = reward_scorer.total_score(
                         compilation_score,
                         functional_correctness_score,
-                        sythesise_score,
+                        synthesise_score,
                         code_quality_score,
                         reasoning_score,
                     )
+                    compilation_scores.append(compilation_score)
+                    func_corr_scores.append(functional_correctness_score)
+                    synth_scores.append(synthesise_score)
+                    code_quality_scores.append(code_quality_score)
+                    reasoning_scores.append(reasoning_score)
                     rewards.append(reward)
             attention_mask = (
                 batch_responses["sequences"] != self.policy.tokenizer.pad_token_id
@@ -231,7 +241,19 @@ class Trainer:
             # Compute loss and update per batch
             losses = self.algorithm.compute_loss(batches, rewards)
             self.algorithm.update()
-            self.wandb_logger.log_batch(losses, batch_idx, epoch)
+            additional_metrics = {
+                "train/mean_comp_reward": sum(compilation_scores)
+                / float(len(compilation_scores)),
+                "train/mean_fcor_reward": sum(func_corr_scores)
+                / float(len(func_corr_scores)),
+                "train/mean_synt_reward": sum(synthesise_score)
+                / float(len(synthesise_score)),
+                "train/mean_coqu_reward": sum(code_quality_scores)
+                / float(len(code_quality_scores)),
+                "train/mean_reas_reward": sum(reasoning_scores)
+                / float(len(reasoning_scores)),
+            }
+            self.wandb_logger.log_batch(losses, batch_idx, epoch, additional_metrics)
             self.log.info(f"Losses: {json.dumps(losses, indent=4)}")
 
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
