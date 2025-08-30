@@ -188,7 +188,11 @@ class Trainer:
                     code_quality_score = self.reward_func.code_quality_score(
                         cd_code_in_str
                     )[0]
-                    reasoning_score = self.reward_func.reasoning_score(sample)["score"]
+                    reasoning_res = self.reward_func.reasoning_score(sample)
+                    if isinstance(reasoning_res, float):
+                        reasoning_score = reasoning_res
+                    else:
+                        reasoning_score = reasoning_res["score"]
 
                     reward_scorer = RewardScores()
                     reward = reward_scorer.total_score(
