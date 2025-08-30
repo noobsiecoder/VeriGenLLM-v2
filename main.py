@@ -175,9 +175,7 @@ class Trainer:
                 ]
                 for sample in samples:
                     # Compute reward
-                    cd_code_in_str = self.reward_func.extract_code(
-                        sample, Creator.LLM
-                    )
+                    cd_code_in_str = self.reward_func.extract_code(sample, Creator.LLM)
                     compilation_score = self.reward_func.compilation_score(
                         cd_code_in_str
                     )[0]
