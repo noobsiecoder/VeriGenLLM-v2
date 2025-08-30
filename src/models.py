@@ -244,6 +244,7 @@ class Policy:
                     num_return_sequences=sample_size,
                     return_dict_in_generate=True,
                     output_scores=True,
+                    eos_token_id=self.tokenizer.eos_token_id
                 )
                 outputs = self.model.generate(
                     **inputs,
