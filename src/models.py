@@ -188,7 +188,6 @@ class Policy:
             ).to(self.device)
             self.log.info("Model loaded successfully!")
 
-
             # Apply LoRA if configured
             if self.apply_lora:
                 if self.grad_check:
@@ -197,7 +196,9 @@ class Policy:
                     self.model.gradient_checkpointing_enable()
                     # IMPORTANT: Enable input gradients for PEFT + gradient checkpointing
                     self.model.enable_input_require_grads()
-                    self.log.info("Gradient checkpointing enabled for memory efficiency")
+                    self.log.info(
+                        "Gradient checkpointing enabled for memory efficiency"
+                    )
                 self.log.info("Applying LoRA adapters...")
                 lora = Lora()
                 self.model = lora.apply(self.model)
