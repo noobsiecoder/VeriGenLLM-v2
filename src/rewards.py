@@ -285,8 +285,8 @@ class RewardFunction:
 
         try:
             return json.loads(match.group(1))
-        except:
-            self.log.warning("Error in decoding data.")
+        except Exception as err:
+            self.log.warning(f"Error in decoding data | Err: {err}")
             return 0.0
 
     # ================================================================================= #
