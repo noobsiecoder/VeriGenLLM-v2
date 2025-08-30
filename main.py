@@ -64,10 +64,10 @@ class Trainer:
             self.ref_policy = Policy(
                 name=self.name,
                 unique_id=self.unique_id,
-                apply_lora=False,
                 device="cpu",
             )
             self.ref_policy.load()
+            self.ref_policy.model.eval() # EVAL Mode
             # Freeze params - only for reference
             for param in self.ref_policy.model.parameters():
                 param.requires_grad = False
