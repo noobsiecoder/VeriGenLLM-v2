@@ -86,7 +86,7 @@ RLFT_TRAIN_CONFIG = {
     # "name": "deepseek-coder",
     # "unique_id": "Salesforce/codegen-350M-mono",
     # "name": "salesforce-codegen",
-    "unique_id": "TheBloke/deepseek-coder-1.3b-instruct-AWQ",
+    "unique_id": "deepseek-ai/deepseek-coder-1.3b-instruct",
     "name": "deepseek-coder1.3b",
     # "apply_lora": True,
     "apply_lora": False,

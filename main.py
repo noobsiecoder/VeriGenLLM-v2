@@ -41,7 +41,7 @@ class Trainer:
         self.name = RLFT_TRAIN_CONFIG.get("model_name", None)
         self.reward_func = RewardFunction()
         self.wandb_logger = WeightsAndBiases(
-            project_name=project_name, model_name=self.unique_id, config=wandb_config
+            project_name=project_name, model_name=self.name, config=wandb_config
         )
         self.algorithm = None
         self.policy = None
