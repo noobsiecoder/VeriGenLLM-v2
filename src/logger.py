@@ -276,7 +276,7 @@ class WeightsAndBiases:
         self.log.info(f"Model checkpoint saved to: {model_path}")
 
         # Log to W&B (using existing method)
-        self.log_model_checkpoint(epoch, metrics)
+        self.log_model_checkpoint(epoch)
 
         # Save to W&B artifacts
         if self.use_wandb:
