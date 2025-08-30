@@ -211,7 +211,7 @@ class Policy:
             # Check time taken to generate
             generation_start = time.time()
             with torch.no_grad():
-                CONSTANT_PROMPT = "In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block"
+                CONSTANT_PROMPT = "In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block. The code is given below, solve it:"
                 prompts = [CONSTANT_PROMPT + prompt for prompt in prompts]
                 for idx, prompt in enumerate(prompts):
                     self.log.info(f"Generating for question {idx}: {prompt}")
