@@ -8,6 +8,7 @@ Place:  Boston, MA
 """
 
 import sys
+import os
 from enum import Enum
 from abc import ABC, abstractmethod
 from peft import TaskType
@@ -80,6 +81,15 @@ class BaseRL(ABC):
         """
 
 
+TEST_DIR = "dataset/testbench/hdlbits/vectors5/"
+test_prompt = ""
+test_tb_code = ""
+with open(os.path.join(TEST_DIR, "prompt2_vector-gates.v"), "r") as fs:
+    test_prompt = fs.read()
+with open(os.path.join(TEST_DIR, "tb_vector-gates.v"), "r") as fs:
+    test_tb_code = fs.read()
+
+
 # Store all constants to run Fine-tuning guided by Reinforcement Learning
 RLFT_TRAIN_CONFIG = {
     "rl_algorithm": RLPolicy.PPO,
@@ -92,16 +102,20 @@ RLFT_TRAIN_CONFIG = {
     "apply_lora": True,
     # "apply_lora": False,
     "precision": torch.bfloat16,
-    "epochs": 50,
+    "epochs": 30,
     "batch_size": 2,
-    "sample_size": 4,
+    "sample_size": 5,
     "padding": True,
     "temperature": 0.3,
     "top_p": 0.9,
     "max_tokens": 512,
     "learning_rate": 2e-5,
-    "system_prompt": "You are a Verilog Expert. In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block",
+    "system_prompt": "You are a Verilog Expert.",
     "update_ref_policy": 5,  # updates per X batches
+    "test_data": {
+        "prompt": test_prompt,
+        "tb_code": test_tb_code,
+    },  # TODO: for-now, only one allowed!
 }
 
 # Store all constants for weights to calculate the reward function
