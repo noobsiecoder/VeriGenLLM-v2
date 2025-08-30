@@ -181,11 +181,6 @@ class WeightsAndBiases:
                 self.log.info("Falling back to local logging only...")
                 self.use_wandb = False
 
-        # Store config locally
-        if self.config:
-            with open(os.path.join(log_dir, f"{self.run_name}_config.json"), "w") as f:
-                json.dump(self.config, f, indent=2)
-
     def log_batch(
         self,
         losses: Dict[str, float],
