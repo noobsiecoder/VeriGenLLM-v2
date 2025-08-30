@@ -371,7 +371,7 @@ class Trainer:
                         metadata={"model_name": self.name, "hf_id": self.unique_id},
                     )
                     # Properly move the model to CPU
-                    self.ref_policy.model = self.ref_policy.model.to("cpu")  # ✅ Model moved to CPU
+                    self.ref_policy.model = self.ref_policy.model.to("cpu")  # Model moved to CPU
                     self.ref_policy.device = torch.device("cpu")  # Also update the device attribute
                     torch.cuda.empty_cache()
 
