@@ -64,6 +64,7 @@ class RewardFunction:
     def __init__(self, timeout_ms: int = 5000):
         self.log = Logger("reward-function").get_logger()
         self.verilog_pattern = re.compile(r"```verilog(.*?)```", re.DOTALL)
+        self.verilog_mod_pattern = re.compile(r"(module\s.*?endmodule)`", re.DOTALL)
         self.json_pattern = re.compile(r"```json\s*(.*?)\s*```", re.DOTALL)
         self.timeout_ms = timeout_ms
         self.iverilog_cmd = ["iverilog", "-Wall", "-Wno-timescale", "-o", "test"]
@@ -108,16 +109,23 @@ class RewardFunction:
         """Extract Verilog code from content based on creator type"""
         if generated_by == Creator.HUMAN:
             return content.strip()
-
-        if generated_by == Creator.LLM:
+        elif generated_by == Creator.LLM:
             match = self.verilog_pattern.search(content)
             if match:
                 return match.group(1).strip()
-            self.log.error("Code not found (missing ```verilog...``` block)")
+            else:
+                # extract only by module if found
+                self.log.warning("Code not found (missing ```verilog...``` block)")
+                match = self.verilog_pattern.search(content)
+                if match:
+                    return match.group(1).strip()
+                else:
+                    self.log.erro("Code not found (missing ```module...``` block)")
+                    return ""
+                
+        else:
+            self.log.error(f"Invalid Creator type: {generated_by}")
             return None
-
-        self.log.error(f"Invalid Creator type: {generated_by}")
-        return None
 
     # ================================================================================= #
     # =============================== COMPILATION SCORE =============================== #
