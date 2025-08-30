@@ -65,7 +65,7 @@ class Trainer:
                 name=self.name,
                 unique_id=self.unique_id,
                 apply_lora=False,
-                is_ref=False,
+                grad_check=False,
                 device="cpu",
             )
             self.ref_policy.load()
