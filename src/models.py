@@ -215,7 +215,7 @@ class Policy:
                 CONSTANT_PROMPT = textwrap.dedent("""You are a Verilog assistant.  
                 Return exactly two blocks in this order:
 
-                <reason>Briefly describe the coding steps (≤60 words, no extra commentary).</reason>
+                <reason>Describe the coding steps in less than 100 words, no commentary outside this tag.</reason>
 
                 ```verilog
                 [final Verilog solution only]
@@ -224,7 +224,12 @@ class Policy:
                 TASK:
                 {prompt}
 
-                Rules: no text outside these two blocks, use "verilog" in the code fence, output once only""")
+                Rules:
+                1. Output exactly ONE <reason> block and ONE ```verilog block.
+                2. Do not repeat modules or add extra text.
+                3. The code fence must be ```verilog.
+                4. Close the module with endmodule.
+                """)
                 prompts = [CONSTANT_PROMPT.format(prompt=prompt) for prompt in prompts]
                 for idx, prompt in enumerate(prompts):
                     self.log.info(f"Generating for question {idx}: {prompt}")
