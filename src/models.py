@@ -100,7 +100,7 @@ class Policy:
         self.apply_lora: bool = RLFT_TRAIN_CONFIG.get("apply_lora", apply_lora)
         self.system_prompt = RLFT_TRAIN_CONFIG.get(
             "system_prompt",
-            "You are a Verilog Expert. In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block",
+            "You are a Verilog Expert.",
         )
         self.log = Logger(f"policy-{name}").get_logger()
 
@@ -211,6 +211,8 @@ class Policy:
             # Check time taken to generate
             generation_start = time.time()
             with torch.no_grad():
+                CONSTANT_PROMPT = "In your response, include two data: reasoning and answer. Your reasoning must be include the steps to take to code the problem encapsulated in <reason>...</reason> and then, add the solution of the code in ```verilog...``` after the reasoning block"
+                prompts = [CONSTANT_PROMPT + prompt for prompt in prompts]
                 for idx, prompt in enumerate(prompts):
                     self.log.info(f"Generating for question {idx}: {prompt}")
                 outputs = self.model.generate(
