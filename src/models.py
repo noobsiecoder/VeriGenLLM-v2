@@ -15,7 +15,7 @@ import torch
 import textwrap
 from huggingface_hub import login
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 from openai import OpenAI
 from constants import LORA_CONFIG, RLFT_TRAIN_CONFIG
 from src.logger import Logger
@@ -233,15 +233,19 @@ class Policy:
                 prompts = [CONSTANT_PROMPT.format(prompt=prompt) for prompt in prompts]
                 for idx, prompt in enumerate(prompts):
                     self.log.info(f"Generating for question {idx}: {prompt}")
-                outputs = self.model.generate(
-                    **inputs,
+                # Generate configuration data
+                gen_config = GenerationConfig(
                     max_new_tokens=max_tokens - inputs.input_ids.shape[1],
                     temperature=temperature,
                     do_sample=True if temperature >= 0.4 else False,
-                    num_return_sequences=sample_size if temperature >= 0.4 else 1,
                     top_p=top_p,
+                    num_return_sequences=sample_size if temperature >= 0.4 else 1,
                     return_dict_in_generate=True,
-                    output_scores=True,  # Log probs for RL algorithms (like PPO, GRPO, etc.)
+                    output_scores=True,
+                )
+                outputs = self.model.generate(
+                    **inputs,
+                    generation_config=gen_config,
                     **kwargs,
                 )
             # End of generation
@@ -286,6 +290,10 @@ class Policy:
                 # All same length
                 num_sequences = outputs.sequences.shape[0]
                 prompt_lengths = torch.full((num_sequences,), inputs.input_ids.shape[1])
+
+            self.log.info(f"Requested samples: {sample_size}")
+            self.log.info(f"Actual sequences generated: {outputs.sequences.shape[0]}")
+            self.log.info(f"Expected: {len(prompts)} prompts × {sample_size} samples = {len(prompts) * sample_size}")
 
             return {
                 "texts": generated_texts,
