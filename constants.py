@@ -91,7 +91,7 @@ RLFT_TRAIN_CONFIG = {
     "model_name": "deepseek-coder1.3b",
     # "apply_lora": True,
     "apply_lora": False,
-    "precision": torch.float32,
+    "precision": torch.bfloat16,
     "epochs": 5,
     "batch_size": 2,
     "sample_size": 4,
