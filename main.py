@@ -234,7 +234,7 @@ class Trainer:
                     self.epoch_rewards += reward
                     self.epoch_compilation_rates += compilation_score
                     self.epoch_functional_rates += functional_correctness_score
-                    self.epoch_reasoning_rates += reasoning_res
+                    self.epoch_reasoning_rates += reasoning_score
                     # Save if policy is better
                     if reward > self.best_reward:
                         self.wandb_logger.save_checkpoint(self.policy.model)
