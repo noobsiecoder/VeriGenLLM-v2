@@ -115,9 +115,9 @@ class PPO(BaseRL):
         log_ratio = new_log_probs_sum - ref_log_probs_sum
         ratio = torch.exp(torch.clamp(log_ratio, -10, 10))
         # KL divergence approximation
-        # approx_kl = (log_ratio).mean()
+        approx_kl = (log_ratio).mean()
         # Clip fraction (how often clipping is active)
-        # clip_fraction = ((ratio - 1).abs() > self.clip_epsilon).float().mean()
+        clip_fraction = ((ratio - 1).abs() > self.clip_epsilon).float().mean()
         surr1 = ratio * norm_advantage
         surr2 = (
             torch.clamp(ratio, 1.0 - self.clip_epsilon, 1.0 + self.clip_epsilon)
@@ -140,8 +140,10 @@ class PPO(BaseRL):
             "policy_loss": policy_loss.item(),
             "value_loss": value_loss.item(),
             "total_loss": total_loss.item(),
-            # "approx_kl": approx_kl,
-            # "clip_fraction": clip_fraction,
+            "approx_kl": approx_kl,
+            "clip_fraction": clip_fraction,
+            "advantage_mean": advantage.mean().item(),
+            "advantage_std": norm_advantage.std().item(),
             "mean_reward": rewards.mean().item(),
         }
 
