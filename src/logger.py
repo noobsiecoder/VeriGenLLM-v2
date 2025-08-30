@@ -183,41 +183,12 @@ class WeightsAndBiases:
 
     def log_batch(
         self,
-        losses: Dict[str, float],
-        batch_idx: int,
-        epoch: int,
-        additional_metrics: Optional[Dict] = None,
+        metrics: Dict[str, float],
     ):
-        """Log metrics for a single batch"""
-        metrics = {
-            "train/policy_loss": losses.get("policy_loss", 0),
-            "train/value_loss": losses.get("value_loss", 0),
-            "train/total_loss": losses.get("total_loss", 0),
-            "train/mean_reward": losses.get("mean_reward", 0),
-            "train/approx_kl": losses.get("approx_kl", 0),
-            "train/clip_fraction": losses.get("clip_fraction", 0),
-            "train/advantage_mean": losses.get("advantage_mean", 0),
-            "train/advantage_std": losses.get("advantage_std", 0),
-            "train/epoch": epoch,
-            "train/batch": batch_idx,
-            "train/step": self.step,
-        }
-
-        # Add any additional metrics
-        if additional_metrics:
-            metrics.update(additional_metrics)
-
+        metrics["train/step"] = self.step  # add step
         # Log to W&B
         if self.use_wandb:
             wandb.log(metrics, step=self.step)
-
-        # Print key metrics
-        self.log.info(
-            f"Step {self.step} | Epoch {epoch} | Batch {batch_idx} | "
-            f"Policy Loss: {losses.get('policy_loss', 0):.4f} | "
-            f"Mean Reward: {losses.get('mean_reward', 0):.4f} | "
-            f"KL: {losses.get('approx_kl', 0):.4f}"
-        )
 
         self.step += 1
 
