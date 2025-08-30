@@ -283,7 +283,11 @@ class RewardFunction:
             self.log.warning("Unable to get score from GPT-LLM on reasoning")
             return 0.0
 
-        return json.loads(match.group(1))
+        try:
+            return json.loads(match.group(1))
+        except:
+            self.log.warning("Error in decoding data.")
+            return 0.0
 
     # ================================================================================= #
     # ============================== PUBLIC METHOD ENDS =============================== #
