@@ -237,6 +237,7 @@ class Trainer:
                     self.epoch_reasoning_rates += reasoning_score
                     # Save if policy is better
                     if reward > self.best_reward:
+                        self.best_reward = reward 
                         self.wandb_logger.save_checkpoint(self.policy.model, epoch)
             attention_mask = (
                 batch_responses["sequences"] != self.policy.tokenizer.pad_token_id
