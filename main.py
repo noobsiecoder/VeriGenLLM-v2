@@ -175,14 +175,9 @@ class Trainer:
                 ]
                 for sample in samples:
                     # Compute reward
-                    # cd_code_in_str = self.reward_func.extract_code(
-                    #     sample, Creator.LLM
-                    # )
-                    response_wrapped = "```verilog" + sample + "```"
                     cd_code_in_str = self.reward_func.extract_code(
-                        response_wrapped, Creator.LLM
-                    )  # TODO: Testing
-
+                        sample, Creator.LLM
+                    )
                     compilation_score = self.reward_func.compilation_score(
                         cd_code_in_str
                     )[0]
@@ -195,8 +190,7 @@ class Trainer:
                     code_quality_score = self.reward_func.code_quality_score(
                         cd_code_in_str
                     )[0]
-                    reasoning_score = 0.0  # TODO: Testing
-                    # reasoning_score = self.reward_func.reasoning_score(response_wrapped)["score"]
+                    reasoning_score = self.reward_func.reasoning_score(sample)["score"]
 
                     reward_scorer = RewardScores()
                     reward = reward_scorer.total_score(
