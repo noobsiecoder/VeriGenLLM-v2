@@ -168,6 +168,7 @@ class Policy:
             self.log.info(f"Loading tokenizer from {self.unique_id}...")
             self.tokenizer = AutoTokenizer.from_pretrained(
                 self.unique_id,
+                trust_remote_code=True
             )
             if self.tokenizer.pad_token is None:
                 self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -182,6 +183,7 @@ class Policy:
                 self.unique_id,
                 torch_dtype=self.precision,
                 low_cpu_mem_usage=True,  # Optimize CPU memory usage during loading
+                trust_remote_code=True
             ).to(self.device)
             self.log.info("Model loaded successfully!")
 
