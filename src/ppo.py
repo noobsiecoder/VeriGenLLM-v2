@@ -90,8 +90,13 @@ class PPO(BaseRL):
             new_log_probs, dim=2, index=batch["sequences"].unsqueeze(-1)
         ).squeeze(-1)  # Result: [4, 512]
         # Create action mask
+        # In compute_loss, before the action_mask loop:
+        print(f"batch['sequences'] shape: {batch['sequences'].shape}")
+        print(f"batch['prompts_token_length'] shape: {batch['prompts_token_length'].shape}")
+        print(f"batch['prompts_token_length']: {batch['prompts_token_length']}")
         action_mask = torch.zeros_like(batch["sequences"], dtype=self.precision)
         for i, prompt_len in enumerate(batch["prompts_token_length"]):
+            print(f"i: {i}, prompt_len: {prompt_len}")
             action_mask[i, prompt_len:] = 1.0
         # Get attention mask (you calculated earlier)
         attention_mask = (
