@@ -252,7 +252,6 @@ class WeightsAndBiases:
         self,
         model: torch.nn.Module,
         epoch: int,
-        metrics: Dict[str, float],
         checkpoint_dir: str = "./checkpoints",
     ):
         """
@@ -262,8 +261,6 @@ class WeightsAndBiases:
             model: PyTorch model to save
             optimizer: Optimizer state to save
             epoch: Current epoch number
-            metrics: Dictionary of metrics to save
-            additional_info: Additional info to save as JSON
             checkpoint_dir: Directory to save checkpoints
         """
 
@@ -291,7 +288,6 @@ class WeightsAndBiases:
                     metadata={
                         "epoch": epoch,
                         "step": self.step,
-                        "metrics": metrics,
                         "checkpoint_name": checkpoint_name,
                     },
                 )
