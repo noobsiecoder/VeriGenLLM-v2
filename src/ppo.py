@@ -155,7 +155,9 @@ class PPO(BaseRL):
         """
         Initialize ValueHead to estimate advantage
         """
-        self.value_head = ValueHead(hidden_size=hidden_dim).to(self.device)
+        self.value_head = ValueHead(hidden_size=hidden_dim).to(
+            self.device, self.precision
+        )
 
     def _advantage_function(self, rewards, hidden_states):
         """
