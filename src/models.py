@@ -106,7 +106,7 @@ class Policy:
         self,
         name: str,
         unique_id: str,
-        is_ref: bool = False,
+        grad_check: bool = False,
         apply_lora: bool = True,
         device: Optional[Any] = None,
     ):
@@ -124,7 +124,7 @@ class Policy:
             "You are a Verilog Expert.",
         )
         self.log = Logger(f"policy-{name}").get_logger()
-        self.is_ref = is_ref
+        self.grad_check = grad_check
         self.device = device
         self._select_device()  # Select hardware to load policy
 
@@ -188,14 +188,16 @@ class Policy:
             ).to(self.device)
             self.log.info("Model loaded successfully!")
 
-            # Enable gradient checkpointing BEFORE applying LoRA
-            # Note: Only for training model, not reference
-            if not self.is_ref:
-                self.model.gradient_checkpointing_enable()
-                self.log.info("Gradient checkpointing enabled for memory efficiency")
 
             # Apply LoRA if configured
             if self.apply_lora:
+                if self.grad_check:
+                    # Enable gradient checkpointing BEFORE applying LoRA
+                    # Note: Only for training model, not reference
+                    self.model.gradient_checkpointing_enable()
+                    # IMPORTANT: Enable input gradients for PEFT + gradient checkpointing
+                    self.model.enable_input_require_grads()
+                    self.log.info("Gradient checkpointing enabled for memory efficiency")
                 self.log.info("Applying LoRA adapters...")
                 lora = Lora()
                 self.model = lora.apply(self.model)
