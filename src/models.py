@@ -22,6 +22,24 @@ from src.logger import Logger
 from typing import Any, Dict, Optional, List
 import time
 
+CONSTANT_PROMPT = textwrap.dedent("""You are a Verilog assistant.  
+    Return exactly two blocks in this order:
+
+    <reason>Describe the coding steps in less than 100 words, no commentary outside this tag.</reason>
+
+    ```verilog
+    [final Verilog solution only]
+    ```
+
+    TASK:
+    {prompt}
+
+    Rules:
+    1. Output exactly ONE <reason> block and ONE ```verilog block.
+    2. Do not repeat modules or add extra text.
+    3. The code fence must be ```verilog.
+    4. Close the module with endmodule.
+    """)
 
 class Lora:
     """
@@ -199,27 +217,7 @@ class Policy:
         top_p = RLFT_TRAIN_CONFIG.get("top_p", 0.9)
 
         try:
-            CONSTANT_PROMPT = textwrap.dedent("""You are a Verilog assistant.  
-            Return exactly two blocks in this order:
-
-            <reason>Describe the coding steps in less than 100 words, no commentary outside this tag.</reason>
-
-            ```verilog
-            [final Verilog solution only]
-            ```
-
-            TASK:
-            {prompt}
-
-            Rules:
-            1. Output exactly ONE <reason> block and ONE ```verilog block.
-            2. Do not repeat modules or add extra text.
-            3. The code fence must be ```verilog.
-            4. Close the module with endmodule.
-            """)
             prompts = [CONSTANT_PROMPT.format(prompt=prompt) for prompt in prompts]
-            for idx, prompt in enumerate(prompts):
-                self.log.info(f"Generating for question {idx}: {prompt}")
             # Tokenize inputs
             tokenize_start = time.time()
             inputs = self.tokenizer(
@@ -233,13 +231,15 @@ class Policy:
             # Check time taken to generate
             generation_start = time.time()
             with torch.no_grad():
+                for idx, prompt in enumerate(prompts):
+                    self.log.info(f"Generating for question {idx}: {prompt}")
                 # Generate configuration data
                 gen_config = GenerationConfig(
                     max_new_tokens=max_tokens - inputs.input_ids.shape[1],
                     temperature=temperature,
-                    do_sample=True if temperature >= 0.4 else False,
+                    do_sample=True if sample_size > 0 else False,
                     top_p=top_p,
-                    num_return_sequences=sample_size if temperature >= 0.4 else 1,
+                    num_return_sequences=sample_size,
                     return_dict_in_generate=True,
                     output_scores=True,
                 )
