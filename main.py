@@ -107,10 +107,20 @@ class Trainer:
         # Run RLFT batch-wise per epoch
         try:
             for epoch in range(self.epochs):
-                # self.epoch_rewards = []
-                # self.epoch_compilation_rates = []
-                # self.epoch_functional_rates = []
+                self.epoch_rewards = 0.0
+                self.epoch_compilation_rates = 0.0
+                self.epoch_functional_rates = 0.0
+                self.epoch_reasoning_rates = 0.0
                 self._batch_executor(epoch)
+                metrics = {
+                    "train/reward_per_epoch": self.epoch_rewards,
+                    "train/compilation_rates_per_epoch": self.epoch_compilation_rates,
+                    "train/functional_rates_per_epoch": self.epoch_functional_rates,
+                    "train/reasoning_rates_per_epoch": self.epoch_reasoning_rates,
+                }
+                self.wandb_logger.log_batch(metrics)
+                self.log.info(f"Epoch Level Stat: {json.dumps(metrics, indent=4)}")
+
         except Exception as err:
             self.log.error(f"Error while running RLFT: {err}")
             raise Exception(f"Exception caught while running RLFT | Reason: {err}")
@@ -211,12 +221,18 @@ class Trainer:
                         code_quality_score,
                         reasoning_score,
                     )
+                    # Store data for analysis per batch
                     compilation_scores.append(compilation_score)
                     func_corr_scores.append(functional_correctness_score)
                     synth_scores.append(synthesise_score)
                     code_quality_scores.append(code_quality_score)
                     reasoning_scores.append(reasoning_score)
                     rewards.append(reward)
+                    # Add data for analysis per epoch
+                    self.epoch_rewards += reward
+                    self.epoch_compilation_rates += compilation_score
+                    self.epoch_functional_rates += functional_correctness_score
+                    self.epoch_reasoning_rates += reasoning_res
             attention_mask = (
                 batch_responses["sequences"] != self.policy.tokenizer.pad_token_id
             ).long()
@@ -253,7 +269,25 @@ class Trainer:
             # Compute loss and update per batch
             losses = self.algorithm.compute_loss(batches, rewards)
             self.algorithm.update()
-            additional_metrics = {
+            # Print key metrics
+            self.log.info(
+                f"Step {self.step} | Epoch {epoch} | Batch {batch_idx} | "
+                f"Policy Loss: {losses.get('policy_loss', 0):.4f} | "
+                f"Mean Reward: {losses.get('mean_reward', 0):.4f} | "
+                f"KL: {losses.get('approx_kl', 0):.4f}"
+            )
+            # Combine all metrics for WANDB analysis
+            metrics = {
+                "train/policy_loss": losses.get("policy_loss", 0),
+                "train/value_loss": losses.get("value_loss", 0),
+                "train/total_loss": losses.get("total_loss", 0),
+                "train/mean_reward": losses.get("mean_reward", 0),
+                "train/approx_kl": losses.get("approx_kl", 0),
+                "train/clip_fraction": losses.get("clip_fraction", 0),
+                "train/advantage_mean": losses.get("advantage_mean", 0),
+                "train/advantage_std": losses.get("advantage_std", 0),
+                "train/epoch": epoch,
+                "train/batch": batch_idx,
                 "train/mean_comp_reward": sum(compilation_scores)
                 / float(len(compilation_scores)),
                 "train/mean_fcor_reward": sum(func_corr_scores)
@@ -264,16 +298,66 @@ class Trainer:
                 "train/mean_reas_reward": sum(reasoning_scores)
                 / float(len(reasoning_scores)),
             }
-            self.wandb_logger.log_batch(losses, batch_idx, epoch, additional_metrics)
+            self.wandb_logger.log_batch(metrics)
             self.log.info(f"Losses: {json.dumps(losses, indent=4)}")
 
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
                 # Note: update happens on CPU (more memory efficient)
                 with torch.no_grad():
-                    policy_state = self.policy.model.state_dict()
-                    # Move state dict to CPU before loading
-                    cpu_state = {k: v.cpu() for k, v in policy_state.items()}
+                    # Get only the base model weights (without LoRA)
+                    if RLFT_TRAIN_CONFIG.get("apply_lora", False):
+                        self.policy.model.merge_adapter()  # Merges LoRA into base temporarily
+                    base_state = self.policy.model.state_dict()
+                    if RLFT_TRAIN_CONFIG.get("apply_lora", False):
+                        self.policy.model.unmerge_adapter()  # Restore LoRA separation
+
+                    # Move to CPU and load into ref_policy
+                    cpu_state = {k: v.cpu() for k, v in base_state.items()}
                     self.ref_policy.model.load_state_dict(cpu_state)
+
+                # Record updated policy
+                if RLFT_TRAIN_CONFIG.get("test_data", None) is not None:
+                    self.log.info("Testing New Policy....")
+                    prompt = RLFT_TRAIN_CONFIG["test_data"]["prompt"]
+                    tb_code_in_str = RLFT_TRAIN_CONFIG["test_data"]["tb_code"]
+                    self.ref_policy.model.to(
+                        "cuda"
+                    )  # Move ref_policy to CUDA for generation
+                    responses = self.ref_policy.generate(
+                        prompts=[prompt]
+                    )  # Only one prompt sent
+                    # Compute reward
+                    sample = responses["texts"][
+                        0
+                    ]  # Only one allowed! else -> IndexError
+                    cd_code_in_str = self.reward_func.extract_code(sample, Creator.LLM)
+                    compilation_score = self.reward_func.compilation_score(
+                        cd_code_in_str
+                    )[0]
+                    functional_correctness_score = (
+                        self.reward_func.functional_correctness_score(
+                            cd_code_in_str, tb_code_in_str
+                        )[0]
+                    )
+                    synthesise_score = self.reward_func.synthesise_score(cd_code_in_str)
+                    code_quality_score = self.reward_func.code_quality_score(
+                        cd_code_in_str
+                    )[0]
+                    reasoning_res = self.reward_func.reasoning_score(sample)
+                    if isinstance(reasoning_res, float):
+                        reasoning_score = reasoning_res
+                    else:
+                        reasoning_score = reasoning_res["score"]
+
+                    reward_scorer = RewardScores()
+                    reward = reward_scorer.total_score(
+                        compilation_score,
+                        functional_correctness_score,
+                        synthesise_score,
+                        code_quality_score,
+                        reasoning_score,
+                    )
+                    self.wandb_logger.log_examples([prompt], [sample], [reward])
 
 
 if __name__ == "__main__":
