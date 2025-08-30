@@ -246,8 +246,8 @@ class Trainer:
                 / float(len(compilation_scores)),
                 "train/mean_fcor_reward": sum(func_corr_scores)
                 / float(len(func_corr_scores)),
-                "train/mean_synt_reward": sum(synthesise_score)
-                / float(len(synthesise_score)),
+                "train/mean_synt_reward": sum(synth_scores)
+                / float(len(synth_scores)),
                 "train/mean_coqu_reward": sum(code_quality_scores)
                 / float(len(code_quality_scores)),
                 "train/mean_reas_reward": sum(reasoning_scores)
