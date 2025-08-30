@@ -121,8 +121,8 @@ class RewardFunction:
                     return match.group(1).strip()
                 else:
                     self.log.error("Code not found (missing ```module...``` block)")
-                    return ""
-                
+                    return "" # empty string
+
         else:
             self.log.error(f"Invalid Creator type: {generated_by}")
             return None
