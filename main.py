@@ -106,6 +106,8 @@ class Trainer:
 
         # Run RLFT batch-wise per epoch
         try:
+            # Track best reward and save checkpoints
+            self.best_reward = float("-inf")
             for epoch in range(self.epochs):
                 self.epoch_rewards = 0.0
                 self.epoch_compilation_rates = 0.0
@@ -233,6 +235,9 @@ class Trainer:
                     self.epoch_compilation_rates += compilation_score
                     self.epoch_functional_rates += functional_correctness_score
                     self.epoch_reasoning_rates += reasoning_res
+                    # Save if policy is better
+                    if reward > self.best_reward:
+                        self.wandb_logger.save_checkpoint(self.policy.model)
             attention_mask = (
                 batch_responses["sequences"] != self.policy.tokenizer.pad_token_id
             ).long()
@@ -358,6 +363,18 @@ class Trainer:
                         reasoning_score,
                     )
                     self.wandb_logger.log_examples([prompt], [sample], [reward])
+                    data = {
+                        "prompt": prompt,
+                        "sample": sample,
+                        "reward": reward,
+                    }
+                    self.wandb_logger.save_json_to_wandb(
+                        data,
+                        filename=f"policy_check_iter_{epoch}-{batch_idx}",
+                        artifact_name="rlft-test-data",
+                        artifact_type="results",
+                        metadata={"model_name": self.name, "hf_id": self.unique_id},
+                    )
 
 
 if __name__ == "__main__":

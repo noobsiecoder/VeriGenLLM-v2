@@ -16,6 +16,7 @@ import json
 import os
 import logging
 import wandb
+import torch
 import numpy as np
 from datetime import datetime
 from pathlib import Path
@@ -145,7 +146,6 @@ class WeightsAndBiases:
         config: Dict,
         run_name: Optional[str] = None,
         use_wandb: bool = True,
-        log_dir: str = "./logs",
     ):
         """
         Initialize logger
@@ -247,6 +247,120 @@ class WeightsAndBiases:
             self.log.info(f"Prompt: {examples[0][0][:50]}...")
             self.log.info(f"Generation: {examples[0][1][:100]}...")
             self.log.info(f"Reward: {examples[0][2]:.3f}\n")
+
+    def save_checkpoint(
+        self,
+        model: torch.nn.Module,
+        epoch: int,
+        metrics: Dict[str, float],
+        checkpoint_dir: str = "./checkpoints",
+    ):
+        """
+        Save model checkpoint and associated metadata
+
+        Args:
+            model: PyTorch model to save
+            optimizer: Optimizer state to save
+            epoch: Current epoch number
+            metrics: Dictionary of metrics to save
+            additional_info: Additional info to save as JSON
+            checkpoint_dir: Directory to save checkpoints
+        """
+
+        # Create checkpoint directory
+        os.makedirs(checkpoint_dir, exist_ok=True)
+
+        # Create checkpoint filename
+        checkpoint_name = f"{self.run_name}_epoch_{epoch}_step_{self.step}"
+        model_path = os.path.join(checkpoint_dir, f"{checkpoint_name}.pt")
+
+        # Save only model state dict
+        torch.save(model.state_dict(), model_path)
+        self.log.info(f"Model checkpoint saved to: {model_path}")
+
+        # Log to W&B (using existing method)
+        self.log_model_checkpoint(epoch, metrics)
+
+        # Save to W&B artifacts
+        if self.use_wandb:
+            try:
+                # Create artifact with version based on epoch
+                artifact = wandb.Artifact(
+                    name=f"{self.run_name}-model",
+                    type="model",
+                    metadata={
+                        "epoch": epoch,
+                        "step": self.step,
+                        "metrics": metrics,
+                        "checkpoint_name": checkpoint_name,
+                    },
+                )
+
+                # Add model file to artifact
+                artifact.add_file(model_path)
+
+                # Log artifact to W&B
+                self.run.log_artifact(artifact)
+                self.log.info(
+                    f"Model uploaded to W&B artifacts as {self.run_name}-model:v{epoch}"
+                )
+
+            except Exception as e:
+                self.log.error(f"Failed to upload to W&B: {e}")
+
+        return model_path
+
+    def save_json_to_wandb(
+        self,
+        data: Dict,
+        filename: str,
+        artifact_name: str,
+        artifact_type: str = "dataset",
+        metadata: Optional[Dict] = None,
+    ):
+        """
+        Save JSON data to W&B as an artifact
+
+        Args:
+            data: Dictionary to save as JSON
+            filename: Name for the JSON file
+            artifact_name: Name for the W&B artifact
+            artifact_type: Type of artifact (dataset, config, results, etc.)
+            metadata: Optional metadata to attach to artifact
+        """
+        import json
+        import os
+        import tempfile
+
+        if not self.use_wandb:
+            self.log.warning("W&B not enabled, skipping JSON upload")
+            return
+
+        try:
+            # Create temporary file
+            with tempfile.NamedTemporaryFile(
+                mode="w", suffix=".json", delete=False
+            ) as f:
+                json.dump(data, f, indent=2)
+                temp_path = f.name
+
+            # Create artifact
+            artifact = wandb.Artifact(
+                name=artifact_name, type=artifact_type, metadata=metadata or {}
+            )
+
+            # Add JSON file with custom name
+            artifact.add_file(temp_path, name=filename)
+
+            # Log artifact
+            self.run.log_artifact(artifact)
+            self.log.info(f"JSON uploaded to W&B as {artifact_name}")
+
+            # Clean up temp file
+            os.unlink(temp_path)
+
+        except Exception as e:
+            self.log.error(f"Failed to upload JSON to W&B: {e}")
 
     def log_model_checkpoint(self, epoch: int, metrics: Dict[str, float]):
         """Log when model checkpoint is saved"""
