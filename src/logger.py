@@ -141,6 +141,7 @@ class WeightsAndBiases:
     def __init__(
         self,
         project_name: str,
+        model_name: str,
         config: Dict,
         run_name: Optional[str] = None,
         use_wandb: bool = True,
@@ -163,7 +164,7 @@ class WeightsAndBiases:
 
         # Create run name if not provided
         if run_name is None:
-            run_name = f"ppo-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+            run_name = f"{model_name}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         self.run_name = run_name
 
         # Initialize W&B if requested
