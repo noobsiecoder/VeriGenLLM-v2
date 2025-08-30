@@ -163,7 +163,7 @@ class WeightsAndBiases:
         self.config = config
 
         # Create run name if not provided
-        if run_name is None:
+        if model_name is not None:
             run_name = f"{model_name}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         self.run_name = run_name
 
@@ -183,7 +183,7 @@ class WeightsAndBiases:
 
         # Store config locally
         if self.config:
-            with open(os.path.join(log_dir, f"{run_name}_config.json"), "w") as f:
+            with open(os.path.join(log_dir, f"{self.run_name}_config.json"), "w") as f:
                 json.dump(self.config, f, indent=2)
 
     def log_batch(
