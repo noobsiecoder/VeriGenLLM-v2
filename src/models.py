@@ -222,10 +222,10 @@ class Policy:
                 ```
 
                 TASK:
-                {problem}
+                {prompt}
 
                 Rules: no text outside these two blocks, use "verilog" in the code fence, output once only""")
-                prompts = [CONSTANT_PROMPT.format(prompt) for prompt in prompts]
+                prompts = [CONSTANT_PROMPT.format(prompt=prompt) for prompt in prompts]
                 for idx, prompt in enumerate(prompts):
                     self.log.info(f"Generating for question {idx}: {prompt}")
                 outputs = self.model.generate(
