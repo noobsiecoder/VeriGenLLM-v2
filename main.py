@@ -31,9 +31,6 @@ class Trainer:
         project_name = f"llm-rlft-{RLFT_TRAIN_CONFIG['rl_algorithm'].value}"
         wandb_config = WANDB_CONFIG
         self.log = Logger("rlft-trainer").get_logger()
-        self.wandb_logger = WeightsAndBiases(
-            project_name=project_name, config=wandb_config
-        )
         self.dataset_path = "dataset/testbench/hdlbits"
         self.filename = "orders.txt"
         self.epochs = RLFT_TRAIN_CONFIG.get("epochs", 0.5)
@@ -43,6 +40,9 @@ class Trainer:
         self.unique_id = RLFT_TRAIN_CONFIG.get("unique_id", None)
         self.name = RLFT_TRAIN_CONFIG.get("model_name", None)
         self.reward_func = RewardFunction()
+        self.wandb_logger = WeightsAndBiases(
+            project_name=project_name, model_name=self.unique_id, config=wandb_config
+        )
         self.algorithm = None
         self.policy = None
         self.ref_policy = None
@@ -103,9 +103,9 @@ class Trainer:
         # Run RLFT batch-wise per epoch
         try:
             for epoch in range(self.epochs):
-                self.epoch_rewards = []
-                self.epoch_compilation_rates = []
-                self.epoch_functional_rates = []
+                # self.epoch_rewards = []
+                # self.epoch_compilation_rates = []
+                # self.epoch_functional_rates = []
                 self._batch_executor(epoch)
         except Exception as err:
             self.log.error(f"Error while running RLFT: {err}")
