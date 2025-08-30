@@ -120,7 +120,7 @@ class RewardFunction:
                 if match:
                     return match.group(1).strip()
                 else:
-                    self.log.erro("Code not found (missing ```module...``` block)")
+                    self.log.error("Code not found (missing ```module...``` block)")
                     return ""
                 
         else:
