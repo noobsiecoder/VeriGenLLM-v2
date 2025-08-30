@@ -154,7 +154,7 @@ class RewardFunction:
     # ================================================================================= #
     # =============================== SYNTHESISE SCORE ================================ #
     # ================================================================================= #
-    def sythesise_score(self, cd_code_in_str: str) -> float:
+    def synthesise_score(self, cd_code_in_str: str) -> float:
         """Check if code can be synthesized"""
         try:
             with self._create_temp_files_for_synthesise(cd_code_in_str) as (
