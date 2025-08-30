@@ -107,7 +107,7 @@ class Policy:
         name: str,
         unique_id: str,
         grad_check: bool = False,
-        apply_lora: bool = True,
+        apply_lora: Optional[bool] = None,
         device: Optional[Any] = None,
     ):
         """
@@ -118,7 +118,9 @@ class Policy:
         self.name = name
         self.unique_id = unique_id
         self.precision = RLFT_TRAIN_CONFIG.get("precision", torch.float16)
-        self.apply_lora: bool = RLFT_TRAIN_CONFIG.get("apply_lora", apply_lora)
+        self.apply_lora: bool = RLFT_TRAIN_CONFIG.get("apply_lora", False)
+        if apply_lora is not None:
+            self.apply_lora = apply_lora
         self.system_prompt = RLFT_TRAIN_CONFIG.get(
             "system_prompt",
             "You are a Verilog Expert.",

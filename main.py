@@ -58,14 +58,13 @@ class Trainer:
         # Load LLM Model
         try:
             # Load policy to be updated
-            self.policy = Policy(name=self.name, unique_id=self.unique_id)
+            self.policy = Policy(name=self.name, unique_id=self.unique_id, grad_check=True)
             self.policy.load()
             # Load policy for reference
             self.ref_policy = Policy(
                 name=self.name,
                 unique_id=self.unique_id,
                 apply_lora=False,
-                grad_check=False,
                 device="cpu",
             )
             self.ref_policy.load()
@@ -305,8 +304,6 @@ class Trainer:
                 / float(len(reasoning_scores)),
             }
             self.wandb_logger.log_batch(metrics)
-            self.log.info(f"Losses: {json.dumps(losses, indent=4)}")
-
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
                 # Note: update happens on CPU (more memory efficient)
                 with torch.no_grad():
@@ -376,6 +373,9 @@ class Trainer:
                         artifact_type="results",
                         metadata={"model_name": self.name, "hf_id": self.unique_id},
                     )
+                    # Move back to CPU
+                    self.ref_policy.model.to("cpu")
+                    torch.cuda.empty_cache()
 
 
 if __name__ == "__main__":
