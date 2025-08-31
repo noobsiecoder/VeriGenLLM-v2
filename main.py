@@ -58,7 +58,9 @@ class Trainer:
         # Load LLM Model
         try:
             # Load policy to be updated
-            self.policy = Policy(name=self.name, unique_id=self.unique_id, grad_check=False)
+            self.policy = Policy(
+                name=self.name, unique_id=self.unique_id, grad_check=False
+            )
             self.policy.load()
             # Load policy for reference
             self.ref_policy = Policy(
@@ -67,7 +69,7 @@ class Trainer:
                 device="cpu",
             )
             self.ref_policy.load()
-            self.ref_policy.model.eval() # EVAL Mode
+            self.ref_policy.model.eval()  # EVAL Mode
             # Freeze params - only for reference
             for param in self.ref_policy.model.parameters():
                 param.requires_grad = False
@@ -236,7 +238,7 @@ class Trainer:
                     self.epoch_reasoning_rates += reasoning_score
                     # Save if policy is better
                     if reward > self.best_reward:
-                        self.best_reward = reward 
+                        self.best_reward = reward
                         self.wandb_logger.save_checkpoint(self.policy.model, epoch)
             attention_mask = (
                 batch_responses["sequences"] != self.policy.tokenizer.pad_token_id
@@ -321,8 +323,10 @@ class Trainer:
                     # Clear any cached tensors
                     torch.cuda.empty_cache()
                     self.ref_policy.model = self.ref_policy.model.to("cuda")
-                    self.ref_policy.device = torch.device("cuda")  # Update device attribute
-                    self.ref_policy.model.eval() # EVAL Mode
+                    self.ref_policy.device = torch.device(
+                        "cuda"
+                    )  # Update device attribute
+                    self.ref_policy.model.eval()  # EVAL Mode
                     responses = self.ref_policy.generate(
                         prompts=[prompt]
                     )  # Only one prompt sent
@@ -371,8 +375,12 @@ class Trainer:
                         metadata={"model_name": self.name, "hf_id": self.unique_id},
                     )
                     # Properly move the model to CPU
-                    self.ref_policy.model = self.ref_policy.model.to("cpu")  # Model moved to CPU
-                    self.ref_policy.device = torch.device("cpu")  # Also update the device attribute
+                    self.ref_policy.model = self.ref_policy.model.to(
+                        "cpu"
+                    )  # Model moved to CPU
+                    self.ref_policy.device = torch.device(
+                        "cpu"
+                    )  # Also update the device attribute
                     torch.cuda.empty_cache()
 
 
