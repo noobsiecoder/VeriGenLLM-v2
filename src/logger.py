@@ -239,7 +239,6 @@ class WeightsAndBiases:
                 for p, g, r in examples
             ],
         }
-        self._log_local(examples_data)
 
         # Print one example
         if examples:
