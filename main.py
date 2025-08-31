@@ -361,7 +361,7 @@ class Trainer:
                         code_quality_score,
                         reasoning_score,
                     )
-                    self.wandb_logger.log_examples([prompt], [sample], [reward])
+                    self.wandb_logger.log_examples([prompt], [sample], [reward], epoch)
                     data = {
                         "prompt": prompt,
                         "sample": sample,
