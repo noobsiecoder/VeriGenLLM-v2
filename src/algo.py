@@ -193,7 +193,7 @@ class GRPO(BaseRL):
         self.optimizer = optimizer  # Optimizer for the RL
         self.epsilon = GRPO_CONFIG.get("epsilon", 0.2)
         self.precision = RLFT_TRAIN_CONFIG.get("precision", torch.float16)
-        self.max_grad_norm = PPO_CONFIG.get("max_grad_norm", 0.5)
+        self.max_grad_norm = GRPO_CONFIG.get("max_grad_norm", 0.5)
         self.log = Logger("GRPO").get_logger()
         self.total_loss = None
         # self.value_head = None
