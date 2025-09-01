@@ -11,7 +11,7 @@ Place:  Boston, MA
 from typing import List
 import torch
 from torch import nn
-from constants import BaseRL, PPO_CONFIG, RLFT_TRAIN_CONFIG
+from constants import BaseRL, GRPO_CONFIG, PPO_CONFIG, RLFT_TRAIN_CONFIG
 from src.models import Policy
 from src.logger import Logger
 
@@ -38,7 +38,7 @@ class ValueHead(nn.Module):
 
 class PPO(BaseRL):
     """
-    Base class/abstract class for all RL algorithms
+    Perform Proximal Policy Optimization
     """
 
     def __init__(
@@ -155,7 +155,7 @@ class PPO(BaseRL):
         self.optimizer.zero_grad()
         # Backpropagate
         self.total_loss.backward()
-        # Optional but recommended: Gradient clipping
+        # Gradient clipping
         torch.nn.utils.clip_grad_norm_(
             self.policy.model.parameters(), self.max_grad_norm
         )
@@ -176,3 +176,75 @@ class PPO(BaseRL):
         """
         values = self.value_head(hidden_states).squeeze(-1)
         return rewards - values
+
+
+class GRPO(BaseRL):
+    """
+    Perform Group Relative Policy Optimization
+    """
+
+    def __init__(self, policy: Policy, optimizer, hidden_dim: int = 1024):
+        """
+        Store constants to run GRPO
+        """
+        self.policy = policy  # policy for update
+        self.device = self.policy.device
+        self.tokenizer = policy.tokenizer
+        self.optimizer = optimizer  # Optimizer for the RL
+        self.epsilon = GRPO_CONFIG.get("epsilon", 0.2)
+        self.precision = RLFT_TRAIN_CONFIG.get("precision", torch.float16)
+        self.max_grad_norm = PPO_CONFIG.get("max_grad_norm", 0.5)
+        self.log = Logger("GRPO").get_logger()
+        self.total_loss = None
+        # self.value_head = None
+        # self._value_head_init(hidden_dim)
+
+    def compute_loss(self, batch: List, rewards: List):
+        """
+        GRPO Loss function:
+            1. Compute Advantage function (Relative ranking of reward)
+            2. Log probabilities of new tokens (Sampled)
+            3. Calculate total loss
+        """
+        # Compute stats
+        batch_rewards = torch.tensor(rewards, dtype=self.precision, device=self.device)
+        mean_R = batch_rewards.mean()
+        std_dev_R = batch_rewards.std()
+
+        # Calculate normalized advantage
+        norm_adv = (batch_rewards - mean_R) / (std_dev_R + self.epsilon)
+
+        # Compute log probability of actions under current policy
+        new_log_probs = torch.nn.functional.log_softmax(
+            batch["new_prob_seq_logits"], dim=-1
+        )
+        # Compute Log Probability of new tokens of a smpale in a batch
+        actions = batch["sequences"]
+        logp_new = new_log_probs.gather(-1, actions.unsqueeze(-1)).squeeze(-1)
+
+        norm_adv = norm_adv.unsqueeze(1).expand_as(logp_new)  # [batch_size, seq_len]
+        # GRPO loss (no old policy, no ratio)
+        self.total_loss = -(norm_adv * logp_new).mean()
+
+        # Return metrics for logging
+        return {
+            "total_loss": self.total_loss.item(),
+            "advantage_mean": norm_adv.mean().item(),
+            "advantage_std": norm_adv.std().item(),
+            "mean_reward": batch_rewards.mean().item(),
+        }
+
+    def update(self):
+        """
+        Backpropagate in a model, re-compute weights and update the model
+        """
+        # Clear gradients from previous step
+        self.optimizer.zero_grad()
+        # Backpropagate
+        self.total_loss.backward()
+        # Gradient clipping
+        torch.nn.utils.clip_grad_norm_(
+            self.policy.model.parameters(), self.max_grad_norm
+        )
+        # Update model parameters
+        self.optimizer.step()
