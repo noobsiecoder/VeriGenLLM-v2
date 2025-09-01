@@ -426,7 +426,7 @@ class Trainer:
                         # torch.cuda.empty_cache()
                     elif self.rl_algorithm == RLPolicy.GRPO:
                         self.policy.model.eval()  # EVAL Mode
-                        responses = self.ref_policy.generate(
+                        responses = self.policy.generate(
                             prompts=[prompt]
                         )  # Only one prompt sent
                         # Compute reward
