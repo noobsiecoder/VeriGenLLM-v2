@@ -38,6 +38,7 @@ This folder houses all sensitive (or enviroment) variables for:
    GEMINI_API_KEY=<your-gemini-api-key-here>
    HUGGINGFACE_API_KEY=<your-huggingface-token-here>
    OPENAI_API_KEY=<your-openai-api-key-here>
+   WANDB_API_KEY=<your-weight&biases-api-key-here>
    ```
 
 ---
