@@ -138,6 +138,7 @@ PPO_CONFIG = {
 # Store all constants for running GRPO RLFT
 GRPO_CONFIG = {
     "epsilon": 0.2,
+    "max_grad_norm": 0.5,
 }
 
 # Store all constants pertaining to LoRA adapters
