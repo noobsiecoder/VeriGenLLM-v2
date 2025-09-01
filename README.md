@@ -1,60 +1,107 @@
-# Extreme Few-Shot Verilog Generation via Self-Improving RLFT
+# RL Fine-Tuning for Code Models
 
-This repository contains the codebase, setup scripts, and documentation for the project **"Extreme Few-Shot Verilog Generation via Self-Improving RLFT"**, which aims to push the boundaries of hardware code generation using reinforcement learning and only **20–100 curated Verilog examples**.
+This repository contains experiments on **reinforcement learning fine-tuning (RLFT)** for code generation models. We compare **Proximal Policy Optimization (PPO)** and **Group Relative Preference Optimization (GRPO)** on the `deepseek-coder-7b-instruct` model to evaluate improvements in compilation, functional correctness, synthesis, reasoning, and code quality.
 
-### 🔬 Project Summary
+## 📌 Project Overview
 
-This research proposes a self-improving fine-tuning strategy for the `CodeLlama-7B-Instruct` model that learns to generate Verilog HDL with strong correctness and efficiency guarantees — starting from minimal human supervision.
+* **Goal:** Enhance code generation models with RL-based techniques to improve correctness and reasoning.
+* **Models:**
 
-Inspired by and **extending** the [VeriGen project](https://dl.acm.org/doi/full/10.1145/3643681), this work aims to **match or outperform models trained on 50,000+ examples**, using only a few hundred high-quality training signals derived from compilation and simulation feedback.
+  * [Deepseekcoder-7b-instruct-v1.5](https://huggingface.co/deepseek-ai/deepseek-coder-7b-instruct-v1.5)
+* **RL Algorithms:**
 
----
+  * Proximal Policy Optimization (**PPO**)
+  * Group Relative Preference Optimization (**GRPO**)
 
-### 🚀 Key Contributions
+We integrate **LoRA adapters** for parameter-efficient fine-tuning and log training metrics to **Weights & Biases (W\&B)**.
 
-- **Extreme Few-Shot Learning**: Fine-tuning on just 20–100 Verilog files (e.g., FSMs, counters, gates).
-- **RLFT Loop**: Using reinforcement learning fine-tuning (RLFT) with automated rewards:
-  - Verilog compilation success (via Icarus Verilog)
-  - Testbench correctness
-  - Code length and structural metrics
-- **Self-Improving Dataset**: Online generation + filtering to grow dataset from 100 to 500+ examples.
-- **Two Branches**:
-  - [`replication`](https://github.com/noobsiecoder/VeriGenLLM-v2/tree/replicate-v0): Faithful reproduction of the VeriGen paper.
-  - [`enhancement`](https://github.com/noobsiecoder/VeriGenLLM-v2/tree/enhance-v0): Implements RLFT and dataset self-expansion using CodeLlama-7B.
+## ⚙️ Setup Configuration
 
----
+| **Type**            | **Configuration** |
+| ------------------- | ----------------- |
+| LoRA Rank           | 16                |
+| Trainable Ratio     | 0.54%             |
+| Clip Epsilon        | 0.2               |
+| Value Coefficient   | 0.5               |
+| Max Grad Norm       | 0.5               |
+| Entropy Coefficient | 0.01              |
 
-### 🧠 Model & Infrastructure
+## 📊 Results
 
-- Model: `CodeLlama-7B-Instruct`
-- Frameworks: Hugging Face Transformers, PEFT, RLHF tooling
-- Infrastructure: Google Cloud Platform (V100 / A100 GPU)
+Training results are tracked in **Weights & Biases**.
 
----
+* **Mean Rewards:** PPO shows higher variance but maintains stronger positive signals compared to GRPO, which stabilizes near zero.
+* **Compilation Rates:** PPO maintains stability, while GRPO degrades after \~100 epochs.
+* **Functional Correctness:** PPO sustains higher scores, while GRPO trends downward.
+* **Reasoning Ability:** PPO improves modestly, GRPO decreases consistently.
 
-### 📄 Branches Overview
+👉 **Summary:** PPO outperforms GRPO across compilation, functional correctness, and reasoning, though with higher variance. GRPO’s strict reward shaping limits exploration and long-term stability.
 
-- [`replication`](./tree/replicate-v0): Replicates baseline VeriGen results using supervised fine-tuning on ~50,000 Verilog examples.
-- [`enhancement`](./tree/enhance-v0): Trains using just 100 examples, applies RLFT + online generation loop, and grows dataset dynamically.
+## 🚀 Getting Started
 
----
+### 1. Clone the repo
 
-### 📌 Citation
-
-If you use or build upon this project, please cite:
-
-```bibtex
-@misc{extreme-fewshot-verilog,
-  author       = {Your Name},
-  title        = {Extreme Few-Shot Verilog Generation via Self-Improving RLFT},
-  year         = {2025},
-  howpublished = {\url{https://github.com/noobsiecoder/VeriGenLLM-v2}},
-  note         = {Enhancement of VeriGen: \url{...}}
-}
+```bash
+# Clone project
+git clone https://github.com/noobsiecoder/VeriGenLLM-v2.git
+cd VeriGenLLM-v2
+# To use PPO and GRPO RLFT
+git switch ppo-v0
+# To edit code
+# Create a new branch and submit pull request
+git checkout -b <new-branch-name>
 ```
 
----
+### 2. Install dependencies
 
-### 📬 Contact
+```bash
+# This project uses uv package manager
+# Installation: https://docs.astral.sh/uv/getting-started/installation/
+# After installing, sync project with all modules
+uv sync
+```
 
-For questions, please open an issue or email: `noobsiecoder@gmail.com`
+### 3. Run training
+
+```bash
+# To run PPO:
+# Go to constants.py and change the algorithm in RLFT_TRAIN_CONFIG.rl_algorithm dict
+# Note: Currently set to GRPO
+# Later, to start script
+uv run main.py
+```
+
+### 4. Monitor with W\&B
+
+All metrics and plots are logged automatically to your Weights & Biases workspace.
+
+## 🧪 Reward Function
+
+The reward function combines multiple criteria:
+
+$$
+R = w_c \cdot \text{Compilation} + 
+    w_f \cdot \text{Functional} + 
+    w_s \cdot \text{Synthesise} + 
+    w_r \cdot \text{Reasoning} + 
+    w_q \cdot \text{Code Quality}
+$$
+
+Where $w_c, w_f, w_s, w_r, w_q$ are tunable weights.
+
+## 📈 Example Logs
+
+All training runs are available in [Weights & Biases](https://wandb.ai/). Example comparison plots:
+
+* Mean Reward
+* Compilation Rates
+* Functional Correctness Rates
+* Reasoning Rates
+
+## 🤝 Contributing
+
+Pull requests are welcome! Please open an issue first to discuss proposed changes.
+
+## 📜 License
+
+This project is licensed under the MIT License.
