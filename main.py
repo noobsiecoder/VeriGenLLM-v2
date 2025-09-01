@@ -217,8 +217,7 @@ class Trainer:
                     code_quality_score = self.reward_func.code_quality_score(
                         cd_code_in_str
                     )[0]
-                    reasoning_res = 0.0
-                    # reasoning_res = self.reward_func.reasoning_score(sample)
+                    reasoning_res = self.reward_func.reasoning_score(sample)
                     if isinstance(reasoning_res, float):
                         reasoning_score = reasoning_res
                     else:
@@ -446,8 +445,7 @@ class Trainer:
                         code_quality_score = self.reward_func.code_quality_score(
                             cd_code_in_str
                         )[0]
-                        reasoning_res = 0.0
-                        # reasoning_res = self.reward_func.reasoning_score(sample)
+                        reasoning_res = self.reward_func.reasoning_score(sample)
                         if isinstance(reasoning_res, float):
                             reasoning_score = reasoning_res
                         else:
