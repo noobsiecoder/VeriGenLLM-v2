@@ -425,7 +425,7 @@ class Trainer:
                         )  # Also update the device attribute
                         # torch.cuda.empty_cache()
                     elif self.rl_algorithm == RLPolicy.GRPO:
-                        self.policy.eval()  # EVAL Mode
+                        self.policy.model.eval()  # EVAL Mode
                         responses = self.ref_policy.generate(
                             prompts=[prompt]
                         )  # Only one prompt sent
