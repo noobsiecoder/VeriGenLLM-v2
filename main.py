@@ -474,7 +474,7 @@ class Trainer:
                             artifact_type="results",
                             metadata={"model_name": self.name, "hf_id": self.unique_id},
                         )
-                        self.policy.train()
+                        self.policy.model.train()
 
 
 if __name__ == "__main__":
