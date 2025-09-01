@@ -286,14 +286,14 @@ class Trainer:
             losses = self.algorithm.compute_loss(batches, rewards)
             self.algorithm.update()
             # Print key metrics
-            if self.rl_algorithm == PPO:
+            if self.rl_algorithm == RLPolicy.PPO:
                 self.log.info(
                     f"Epoch {epoch} | Batch {batch_idx} | "
                     f"Policy Loss: {losses.get('policy_loss', 0):.4f} | "
                     f"Mean Reward: {losses.get('mean_reward', 0):.4f} | "
                     f"KL: {losses.get('approx_kl', 0):.4f}"
                 )
-            elif self.rl_algorithm == GRPO:
+            elif self.rl_algorithm == RLPolicy.GRPO:
                 self.log.info(
                     f"Epoch {epoch} | Batch {batch_idx} | "
                     f"Mean Reward: {losses.get('mean_reward', 0):.4f} | "
@@ -302,7 +302,7 @@ class Trainer:
             else:
                 return
             # Combine all metrics for WANDB analysis
-            if self.rl_algorithm == PPO:
+            if self.rl_algorithm == RLPolicy.PPO:
                 metrics = {
                     "train/policy_loss": losses.get("policy_loss", 0),
                     "train/value_loss": losses.get("value_loss", 0),
@@ -325,7 +325,7 @@ class Trainer:
                     / float(len(reasoning_scores)),
                 }
                 self.wandb_logger.log_batch(metrics)
-            elif self.rl_algorithm == GRPO:
+            elif self.rl_algorithm == RLPolicy.GRPO:
                 metrics = {
                     "train/total_loss": losses.get("total_loss", 0),
                     "train/mean_reward": losses.get("mean_reward", 0),
@@ -344,6 +344,8 @@ class Trainer:
                     / float(len(reasoning_scores)),
                 }
                 self.wandb_logger.log_batch(metrics)
+            else:
+                return
             if batch_idx > 0 and batch_idx % self.update_ref_policy == 0:
                 # Note: update happens on CPU (more memory efficient)
                 if self.rl_algorithm == RLPolicy.PPO:
