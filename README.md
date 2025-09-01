@@ -1,145 +1,107 @@
-# Enhancement: Self-Improving RLFT for Verilog Generation
+# RL Fine-Tuning for Code Models
 
-This branch presents the **enhanced version** of the VeriGen project — reducing dependency on massive training data via reinforcement learning and self-improving data loops.
+This repository contains experiments on **reinforcement learning fine-tuning (RLFT)** for code generation models. We compare **Proximal Policy Optimization (PPO)** and **Group Relative Preference Optimization (GRPO)** on the `deepseek-coder-7b-instruct` model to evaluate improvements in compilation, functional correctness, synthesis, reasoning, and code quality.
 
----
+## 📌 Project Overview
 
-### 🎯 Goal
+* **Goal:** Enhance code generation models with RL-based techniques to improve correctness and reasoning.
+* **Models:**
 
-Train `CodeLlama-7B-Instruct` on just **20–100 handpicked Verilog examples** using **Reinforcement Learning Fine-Tuning (RLFT)** and grow the dataset online with automatically generated and verified examples.
+  * [Deepseekcoder-7b-instruct-v1.5](https://huggingface.co/deepseek-ai/deepseek-coder-7b-instruct-v1.5)
+* **RL Algorithms:**
 
----
+  * Proximal Policy Optimization (**PPO**)
+  * Group Relative Preference Optimization (**GRPO**)
 
-### 🧪 Reinforcement Learning Setup
+We integrate **LoRA adapters** for parameter-efficient fine-tuning and log training metrics to **Weights & Biases (W\&B)**.
 
-- **Initial Dataset**: 20–100 Verilog modules (e.g., gates, counters, FSMs)
-- **Reward Function**:
-  - ✅ Compiles with Icarus Verilog
-  - ✅ Passes testbench
-  - 📉 Shorter code / higher abstraction
-- **Loop**:
-  1. Fine-tune model via RL
-  2. Generate new prompts
-  3. Validate outputs (compile + simulate)
-  4. Add verified samples to dataset
-  5. Repeat
+## ⚙️ Setup Configuration
 
----
+| **Type**            | **Configuration** |
+| ------------------- | ----------------- |
+| LoRA Rank           | 16                |
+| Trainable Ratio     | 0.54%             |
+| Clip Epsilon        | 0.2               |
+| Value Coefficient   | 0.5               |
+| Max Grad Norm       | 0.5               |
+| Entropy Coefficient | 0.01              |
 
-### Project Setup
+## 📊 Results
 
-To clone the repository:
+Training results are tracked in **Weights & Biases**.
+
+* **Mean Rewards:** PPO shows higher variance but maintains stronger positive signals compared to GRPO, which stabilizes near zero.
+* **Compilation Rates:** PPO maintains stability, while GRPO degrades after \~100 epochs.
+* **Functional Correctness:** PPO sustains higher scores, while GRPO trends downward.
+* **Reasoning Ability:** PPO improves modestly, GRPO decreases consistently.
+
+👉 **Summary:** PPO outperforms GRPO across compilation, functional correctness, and reasoning, though with higher variance. GRPO’s strict reward shaping limits exploration and long-term stability.
+
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
 ```bash
-# clone repository
+# Clone project
 git clone https://github.com/noobsiecoder/VeriGenLLM-v2.git
-# checkout to corresponding branch
-git checkout enhance-v1 
+cd VeriGenLLM-v2
+# To use PPO and GRPO RLFT
+git switch ppo-v0
+# To edit code
+# Create a new branch and submit pull request
+git checkout -b <new-branch-name>
 ```
 
-These tools are required to run evals for baseline LLMs (locally and in cloud):
-  1. [Icarus Verilog](steveicarus.github.io/iverilog/)
-  1. [Yosys](https://yosyshq.net/yosys/)
-
-To install them:
-```bash
-# On MacOS, you can directly install by using homebrew:
-brew install icarus-verilog
-brew install yosys
-```
-
-> Note: For Linux distros and Windows OS, please check the official documentation.
-
-
-This project uses [uv](https://docs.astral.sh/uv) as its Python package and project managing tool. To install it:
+### 2. Install dependencies
 
 ```bash
-# On MacOS and Linux distros
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# WindowsOS (Powershell)
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+# This project uses uv package manager
+# Installation: https://docs.astral.sh/uv/getting-started/installation/
+# After installing, sync project with all modules
+uv sync
 ```
 
----
+### 3. Run training
 
-### Installation
-
-Installing all the dependencies/packages:
 ```bash
-# With uv (recommended)
-uv pip install -e .
-# (Optional) For exact version sync:
-uv pip sync
-
-# With pip
-# Creat virtual enviroment
-python -m venv <venv-folder-name>
-# Activate virtual enviroment
-source <venv-folder-name>/bin/activate # Linux distros and MacOS
-source <venv>\Scripts\activate.bat # Windows OS via cmd.exe
-# Install all dependencies
-pip install -e '.[dev]'
+# To run PPO:
+# Go to constants.py and change the algorithm in RLFT_TRAIN_CONFIG.rl_algorithm dict
+# Note: Currently set to GRPO
+# Later, to start script
+uv run main.py
 ```
 
-To run test, you need [pytest](https://docs.pytest.org/en/stable/) module installed. To install it:
-```bash
-# With uv (recommended)
-uv add --dev pytest
+### 4. Monitor with W\&B
 
-# With pip
-pip install -U pytest # install globally
-# Check if installed
-pytest --version
-```
+All metrics and plots are logged automatically to your Weights & Biases workspace.
 
----
+## 🧪 Reward Function
 
-### Run
+The reward function combines multiple criteria:
 
-To run scripts locally:
-```bash
-# Run Prompt generation for EVALS
-uv run main.py prompts --bucket <bucket_name>
-```
+$$
+R = w_c \cdot \text{Compilation} + 
+    w_f \cdot \text{Functional} + 
+    w_s \cdot \text{Synthesise} + 
+    w_r \cdot \text{Reasoning} + 
+    w_q \cdot \text{Code Quality}
+$$
 
-To run **TESTS** locally:
-```bash
-# With uv (recommended)
-uv run pytest
-# Particular module
-uv run pytest -v tests/test_gcp.py::test_connection
+Where $w_c, w_f, w_s, w_r, w_q$ are tunable weights.
 
-# With pip
-pytest
-```
+## 📈 Example Logs
 
----
+All training runs are available in [Weights & Biases](https://wandb.ai/). Example comparison plots:
 
-### Baseline LLMs (Proprietary)
+* Mean Reward
+* Compilation Rates
+* Functional Correctness Rates
+* Reasoning Rates
 
-1. [OpenAI GPT 4o](https://platform.openai.com/docs/models/gpt-4o)
-1. [Claude Sonnet 4](https://www.anthropic.com/claude/sonnet)
-1. [Gemini 2.5 Flash (Unavailable)](https://deepmind.google/models/gemini/flash/)
+## 🤝 Contributing
 
-<!-- ### Token Cost Summary
+Pull requests are welcome! Please open an issue first to discuss proposed changes.
 
-|   Model Name    | Input Token | Output Token | Input Token Cost | Output Token Cost | Total Credit |
-| :-------------: | :---------: | :----------: | :--------------: | :---------------: | :----------: |
-| Claude Sonnet 4\* |    8,728    |    60,536    |      $0.13       |       $4.54       |    $4.67     |
-| OpenAI GPT 4o  |     862     |    29,760    |      $0.002      |      $0.231       |    $0.233    |
+## 📜 License
 
-### Note*
-
-Totally 18 problem sets were used. From the `<project>/dataset/test/example-<nn>`, the each prompt from the `prompts` field in the `metadata.json` file, was chosen randomly.
-
-Unlike OpenAI's `chat.completions.create` object, Claude API doesn't support the `n_sample` parameter in its API call (yet - noted on Jul 30th, 2025). Thus, the input-output token size of the Claude's model looks significantly higher than the OpenAI's input-output token size.
-
-In this research, it ran in loop for *n* (here `n = 10`) times to evaluate the [Pass@k metrics](https://www.datacamp.com/tutorial/humaneval-benchmark-for-evaluating-llm-code-generation-capabilities). -->
-
----
-
-### Contact
-
-1. [noobsiecoder@gmail.com](mailto:noobsiecoder@gmail.com)
-
----
+This project is licensed under the MIT License.
