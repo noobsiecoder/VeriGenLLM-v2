@@ -58,6 +58,7 @@ class RLPolicy(Enum):
     Use to choose a policy and fine-tune model
     """
 
+    GRPO = "GRPO"
     PPO = "PPO"
 
 
@@ -92,24 +93,23 @@ with open(os.path.join(TEST_DIR, "tb_vector-gates.v"), "r") as fs:
 
 # Store all constants to run Fine-tuning guided by Reinforcement Learning
 RLFT_TRAIN_CONFIG = {
-    "rl_algorithm": RLPolicy.PPO,
-    "unique_id": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
-    "model_name": "deepseek-coder7b",
+    "rl_algorithm": RLPolicy.GRPO,
+    # "unique_id": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
+    # "model_name": "deepseek-coder7b",
     # "unique_id": "Salesforce/codegen-350M-mono",
     # "model_name": "salesforce-codegen",
-    # "unique_id": "deepseek-ai/deepseek-coder-1.3b-instruct",
-    # "model_name": "deepseek-coder1.3b",
+    "unique_id": "deepseek-ai/deepseek-coder-1.3b-instruct",
+    "model_name": "deepseek-coder1.3b",
     "apply_lora": True,
     # "apply_lora": False,
     "precision": torch.bfloat16,
-    "epochs": 30,
+    "epochs": 10,
     "batch_size": 2,
-    "sample_size": 5,
+    "sample_size": 2,
     "padding": True,
     "temperature": 0.3,
     "top_p": 0.9,
     "max_tokens": 512,
-    "learning_rate": 2e-5,
     "system_prompt": "You are a Verilog Expert.",
     "update_ref_policy": 5,  # updates per X batches
     "test_data": {
@@ -135,6 +135,11 @@ PPO_CONFIG = {
     "max_grad_norm": 0.5,
 }
 
+# Store all constants for running GRPO RLFT
+GRPO_CONFIG = {
+    "epsilon": 0.2,
+}
+
 # Store all constants pertaining to LoRA adapters
 LORA_CONFIG = {
     "rank": 16,
@@ -156,6 +161,6 @@ LORA_CONFIG = {
 WANDB_CONFIG = {
     "model": RLFT_TRAIN_CONFIG["unique_id"],
     "batch_size": RLFT_TRAIN_CONFIG["batch_size"],
-    "learning_rate": RLFT_TRAIN_CONFIG["learning_rate"],
-    "clip_epsilon": PPO_CONFIG["clip_epsilon"],
+    # "clip_epsilon": PPO_CONFIG["clip_epsilon"],
+    "epsilon": GRPO_CONFIG["epsilon"],
 }
