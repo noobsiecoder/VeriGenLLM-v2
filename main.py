@@ -94,7 +94,9 @@ class Trainer:
                     # hidden_dim=hidden_dim,
                 )
             else:
-                self.log.critical(f"Value of RL algorithm not found: {self.rl_algorithm}")
+                self.log.critical(
+                    f"Value of RL algorithm not found: {self.rl_algorithm}"
+                )
                 raise ValueError("Value of RL Algorithm not found!")
         except Exception as err:
             self.log.error(
@@ -276,7 +278,9 @@ class Trainer:
                 "total_response": self.sample_size * self.batch_size,
                 "prompts_token_length": batch_responses["prompts_token_length"],
                 "sequences": batch_responses["sequences"],
-                "old_prob_seq_logits": ref_logits if self.rl_algorithm == RLPolicy.PPO else None,
+                "old_prob_seq_logits": ref_logits
+                if self.rl_algorithm == RLPolicy.PPO
+                else None,
                 "new_prob_seq_logits": logits,
                 "hidden_states": outputs.hidden_states,
                 "input_ids": input_ids,
@@ -317,7 +321,8 @@ class Trainer:
                     / float(len(compilation_scores)),
                     "train/mean_fcor_reward": sum(func_corr_scores)
                     / float(len(func_corr_scores)),
-                    "train/mean_synt_reward": sum(synth_scores) / float(len(synth_scores)),
+                    "train/mean_synt_reward": sum(synth_scores)
+                    / float(len(synth_scores)),
                     "train/mean_coqu_reward": sum(code_quality_scores)
                     / float(len(code_quality_scores)),
                     "train/mean_reas_reward": sum(reasoning_scores)
@@ -336,7 +341,8 @@ class Trainer:
                     / float(len(compilation_scores)),
                     "train/mean_fcor_reward": sum(func_corr_scores)
                     / float(len(func_corr_scores)),
-                    "train/mean_synt_reward": sum(synth_scores) / float(len(synth_scores)),
+                    "train/mean_synt_reward": sum(synth_scores)
+                    / float(len(synth_scores)),
                     "train/mean_coqu_reward": sum(code_quality_scores)
                     / float(len(code_quality_scores)),
                     "train/mean_reas_reward": sum(reasoning_scores)
@@ -375,7 +381,9 @@ class Trainer:
                         sample = responses["texts"][
                             0
                         ]  # Only one allowed! else -> IndexError
-                        cd_code_in_str = self.reward_func.extract_code(sample, Creator.LLM)
+                        cd_code_in_str = self.reward_func.extract_code(
+                            sample, Creator.LLM
+                        )
                         compilation_score = self.reward_func.compilation_score(
                             cd_code_in_str
                         )[0]
@@ -384,7 +392,9 @@ class Trainer:
                                 cd_code_in_str, tb_code_in_str
                             )[0]
                         )
-                        synthesise_score = self.reward_func.synthesise_score(cd_code_in_str)
+                        synthesise_score = self.reward_func.synthesise_score(
+                            cd_code_in_str
+                        )
                         code_quality_score = self.reward_func.code_quality_score(
                             cd_code_in_str
                         )[0]
@@ -402,7 +412,9 @@ class Trainer:
                             code_quality_score,
                             reasoning_score,
                         )
-                        self.wandb_logger.log_examples([prompt], [sample], [reward], epoch)
+                        self.wandb_logger.log_examples(
+                            [prompt], [sample], [reward], epoch
+                        )
                         data = {
                             "prompt": prompt,
                             "sample": sample,
@@ -432,7 +444,9 @@ class Trainer:
                         sample = responses["texts"][
                             0
                         ]  # Only one allowed! else -> IndexError
-                        cd_code_in_str = self.reward_func.extract_code(sample, Creator.LLM)
+                        cd_code_in_str = self.reward_func.extract_code(
+                            sample, Creator.LLM
+                        )
                         compilation_score = self.reward_func.compilation_score(
                             cd_code_in_str
                         )[0]
@@ -441,7 +455,9 @@ class Trainer:
                                 cd_code_in_str, tb_code_in_str
                             )[0]
                         )
-                        synthesise_score = self.reward_func.synthesise_score(cd_code_in_str)
+                        synthesise_score = self.reward_func.synthesise_score(
+                            cd_code_in_str
+                        )
                         code_quality_score = self.reward_func.code_quality_score(
                             cd_code_in_str
                         )[0]
@@ -459,7 +475,9 @@ class Trainer:
                             code_quality_score,
                             reasoning_score,
                         )
-                        self.wandb_logger.log_examples([prompt], [sample], [reward], epoch)
+                        self.wandb_logger.log_examples(
+                            [prompt], [sample], [reward], epoch
+                        )
                         data = {
                             "prompt": prompt,
                             "sample": sample,
